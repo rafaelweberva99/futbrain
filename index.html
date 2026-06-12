@@ -33,6 +33,12 @@ pointer-events:none;z-index:0}
 /* ====== HOME ====== */
 #home{align-items:center;justify-content:center;padding:3.25rem 1.25rem 4rem;gap:2.25rem}
 .logo{text-align:center;max-width:760px}
+.home-stream-toggle{display:inline-flex;align-items:center;gap:.7rem;padding:.55rem .95rem;border-radius:999px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);margin-top:1.1rem}
+.home-stream-toggle .label{font-size:.82rem;font-weight:800;color:#dfe9ff;letter-spacing:.04em;text-transform:uppercase}
+.home-stream-toggle .state{padding:.28rem .7rem;border-radius:999px;font-size:.78rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.10);cursor:pointer;background:rgba(151,167,195,.10);color:var(--muted)}
+.home-stream-toggle .state.on{background:linear-gradient(135deg,rgba(16,185,129,.22),rgba(92,200,255,.18));color:#ecfff8;border-color:rgba(110,231,183,.34)}
 .logo-kicker{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .9rem;border-radius:999px;
   background:linear-gradient(135deg,rgba(92,200,255,.15),rgba(192,132,252,.14));border:1px solid rgba(92,200,255,.28);color:#dff4ff;
   box-shadow:0 10px 30px rgba(92,200,255,.12);font-size:.76rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
@@ -83,7 +89,7 @@ pointer-events:none;z-index:0}
 .timer-display{font-weight:800;font-size:1.05rem;padding:.3rem .7rem;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);min-width:52px;text-align:center}
 .timer-display.warning{color:var(--red);animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.game-body{flex:1;padding:1.35rem 1.2rem 2rem;max-width:920px;margin:0 auto;width:100%}
+.game-body{flex:1;padding:1.1rem 1.2rem 1.4rem;max-width:920px;margin:0 auto;width:100%}
 
 /* ====== SHARED PUENTE / CADENA ====== */
 .players-row{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin-bottom:1.2rem}
@@ -228,9 +234,9 @@ pointer-events:none;z-index:0}
 .scat-pill{padding:.25rem .6rem;border-radius:20px;font-size:.75rem;font-weight:600;border:1px solid var(--border);color:var(--muted);background:var(--card2)}
 .scat-pill.done{background:var(--green);border-color:var(--green);color:#fff}
 .scat-pill.active{border-color:var(--gold);color:var(--gold);background:rgba(240,180,41,.1)}
-.stream-ex{padding:.8rem 1rem;background:rgba(88,166,255,.08);border:1px solid rgba(88,166,255,.2);border-radius:10px;font-size:.95rem;color:var(--blue);display:none;margin:.5rem 0;line-height:1.5}
+.stream-ex{padding:.8rem 1rem;background:rgba(88,166,255,.08);border:1px solid rgba(88,166,255,.2);border-radius:10px;font-size:.95rem;color:var(--blue);display:none;margin:.35rem 0;line-height:1.5}
 .stream-ex.show{display:block}
-.stream-next{width:100%;padding:1rem;background:var(--green);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:1.05rem;cursor:pointer;margin-top:.6rem;display:none}
+.stream-next{width:100%;padding:1rem;background:var(--green);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:1.05rem;cursor:pointer;margin-top:.35rem;display:none}
 .stream-next.show{display:block}
 .stream-next:hover{background:var(--green2)}
 .stream-cat-btn{padding:1.1rem .8rem;border:2px solid var(--border);background:var(--card);border-radius:12px;color:var(--text);cursor:pointer;font-size:.95rem;font-weight:700;transition:all .2s;text-align:center}
@@ -238,6 +244,124 @@ pointer-events:none;z-index:0}
 .stream-cat-btn.done{background:rgba(57,211,83,.1);border-color:var(--green);color:var(--glow);cursor:not-allowed}
 .stream-p-tag{display:inline-block;padding:.25rem .8rem;border-radius:20px;font-weight:700;font-size:.85rem}
 .stream-score-bar{display:flex;gap:1rem;justify-content:center;padding:.5rem 1rem;background:var(--card2);border-radius:10px;margin-bottom:.8rem;font-size:.92rem;font-weight:700}
+.stream-broadcast{max-width:1380px;margin:0 auto;min-height:calc(100vh - 96px)}
+.stream-center{max-width:760px;margin:0 auto}
+.stream-center.wide{max-width:820px}
+.stream-center.compact{max-width:620px}
+.stream-cams{display:grid;grid-template-columns:minmax(260px,320px) minmax(0,1fr) minmax(260px,320px);align-items:start;gap:1.5rem;margin-bottom:1.25rem}
+.stream-cam-slot{width:100%}
+.stream-cam-slot.left{grid-column:1}
+.stream-cam-slot.right{grid-column:3}
+.stream-cam-box{height:168px;border-radius:20px;border:2px dashed color-mix(in srgb, var(--cam-accent) 60%, white 10%);background:
+  linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03)),
+  rgba(6,12,24,.78);box-shadow:0 24px 46px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.72);font-size:.92rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;position:relative;overflow:hidden}
+.stream-cam-box::after{content:'';position:absolute;inset:auto -10% -35% auto;width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle, color-mix(in srgb, var(--cam-accent) 34%, white 4%), transparent 68%);opacity:.34}
+.stream-cam-slot.active .stream-cam-box{border-style:solid;box-shadow:0 26px 58px color-mix(in srgb, var(--cam-accent) 28%, transparent);transform:translateY(-2px)}
+.stream-cam-meta{margin-top:.55rem;background:rgba(8,18,34,.92);border:1px solid color-mix(in srgb, var(--cam-accent) 45%, var(--border));
+  border-radius:16px;padding:.85rem 1rem;text-align:center;box-shadow:0 14px 28px rgba(0,0,0,.18)}
+.stream-cam-name{font-weight:900;font-size:1.18rem;color:var(--cam-accent);line-height:1.1}
+.stream-cam-score{font-size:1rem;color:#dfe9ff;margin-top:.28rem;font-weight:800}
+.stream-cam-status{display:inline-flex;align-items:center;gap:.35rem;margin-top:.55rem;padding:.28rem .7rem;border-radius:999px;
+  font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--muted)}
+.stream-cam-slot.active .stream-cam-status{background:color-mix(in srgb, var(--cam-accent) 18%, transparent);border-color:color-mix(in srgb, var(--cam-accent) 45%, transparent);color:#fff}
+.stream-score-chip{display:inline-flex;align-items:center;gap:.45rem;padding:.38rem .8rem;border-radius:999px;background:rgba(8,18,34,.86);
+  border:1px solid rgba(255,255,255,.08);font-size:.82rem;color:#dfe9ff}
+.stream-score-chip strong{font-size:.94rem}
+.stream-title-kicker{display:inline-block;padding:.3rem .75rem;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  color:var(--muted);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem}
+.stream-turn-note{display:inline-flex;align-items:center;gap:.45rem;padding:.4rem .85rem;border-radius:999px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);font-size:.78rem;font-weight:800;color:#eff5ff;margin:0 auto .7rem;width:fit-content}
+.stream-game-shell{display:flex;flex-direction:column;gap:.55rem}
+#game-puente:not(.stream-layout-on) #puente-stream-overlay,
+#game-trivia:not(.stream-layout-on) #trivia-stream-overlay{display:none}
+#game-puente:not(.stream-layout-on) .stream-broadcast,
+#game-trivia:not(.stream-layout-on) .stream-broadcast{display:block;max-width:920px;min-height:auto;height:auto;overflow:visible}
+#game-puente:not(.stream-layout-on) .stream-center,
+#game-trivia:not(.stream-layout-on) .stream-center{display:block;max-width:none;width:100%;height:auto;padding-top:0}
+#game-puente.stream-layout-on #puente-stream-overlay,
+#game-trivia.stream-layout-on #trivia-stream-overlay{display:contents}
+#game-puente.stream-layout-on #puente-stream-overlay .stream-cams,
+#game-trivia.stream-layout-on #trivia-stream-overlay .stream-cams{width:100%}
+#game-puente.stream-layout-on .stream-center,
+#game-puente.stream-layout-on #bridges-content,
+#game-puente.stream-layout-on #chain-content,
+#game-puente.stream-layout-on .players-row,
+#game-puente.stream-layout-on .chain-scroll{min-width:0}
+#game-puente.stream-layout-on #chain-content{display:flex;flex-direction:column;gap:.55rem}
+#game-puente.stream-layout-on #chain-content .slots-bar,
+#game-puente.stream-layout-on #chain-content .chain-meta{margin-bottom:0}
+#game-puente.stream-layout-on #chain-content .chain-scroll{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:.55rem .7rem .7rem;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+}
+#game-puente.stream-layout-on #chain-content .chain-display{min-width:max-content;padding:.2rem 0}
+#game-puente.stream-layout-on #chain-content .instructions{margin-bottom:0}
+#game-puente.stream-layout-on #chain-content .feedback-msg{margin-bottom:0}
+@media(max-width:1080px){
+  .stream-broadcast{min-height:auto}
+  .stream-cams{grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+  .stream-cam-slot.left,.stream-cam-slot.right{grid-column:auto}
+}
+@media(max-width:640px){
+  .stream-cams{grid-template-columns:1fr}
+}
+@media(min-width:1100px){
+  html,body{height:100vh;overflow:hidden}
+  body{min-height:100vh}
+  .screen{height:100vh;min-height:100vh;overflow:hidden}
+  .screen.active{overflow:hidden}
+  .game-body{overflow:hidden}
+  #home{min-height:100vh;padding:2.1rem 1.25rem 2rem;gap:1.5rem;justify-content:center}
+  .logo{max-width:700px}
+  .logo h1{font-size:clamp(2.7rem,6vw,5rem)}
+  .logo p{font-size:1rem;line-height:1.55}
+  .games-grid{max-width:980px;gap:1rem}
+  .game-card{min-height:220px;padding:1.6rem}
+  .game-card .icon{font-size:2.35rem;margin-bottom:.85rem}
+  .stream-broadcast{height:calc(100vh - 96px);min-height:calc(100vh - 96px);overflow:hidden;display:grid;
+    grid-template-columns:minmax(260px,320px) minmax(560px,780px) minmax(260px,320px);
+    grid-template-rows:auto 1fr;column-gap:2rem;align-items:start;justify-content:center}
+  .stream-cams{grid-column:1 / 4;grid-row:1;margin-bottom:0}
+  #game-puente.stream-layout-on #puente-stream-overlay .stream-cams,
+  #game-trivia.stream-layout-on #trivia-stream-overlay .stream-cams{grid-column:1 / 4;grid-row:1}
+  .stream-center{grid-column:2;grid-row:2;height:100%;display:flex;flex-direction:column;justify-content:flex-start;padding-top:.5rem}
+  .stream-center.wide{max-width:780px;width:100%}
+  .stream-center.compact{max-width:620px;width:100%}
+  .stream-cam-box{height:176px}
+  .stream-game-shell{gap:.28rem;height:100%;grid-template-rows:auto auto auto auto auto auto minmax(0,1fr) auto;display:grid;align-content:start}
+  .stream-turn-note{margin-bottom:.35rem;padding:.3rem .72rem;font-size:.72rem}
+  .stream-cat-banner{padding:.42rem .8rem;margin-bottom:.38rem;font-size:1rem}
+  .timer-bar{margin-bottom:.65rem}
+  .stream-photo-wrap{width:88px;height:88px;margin:.05rem auto .2rem;border-width:2px}
+  .stream-photo-flag{font-size:2.4rem}
+  .stream-q-text{font-size:.94rem;line-height:1.25;margin-bottom:.32rem}
+  .stream-options{gap:.42rem;margin-bottom:.2rem}
+  .stream-opt{padding:.6rem .7rem;font-size:.86rem;line-height:1.2}
+  .stream-ex{padding:.5rem .7rem;margin:.15rem 0;font-size:.8rem;line-height:1.25;max-height:72px;overflow:hidden}
+  .stream-next{padding:.72rem;font-size:.92rem;margin-top:.15rem;position:sticky;bottom:0;z-index:2;box-shadow:0 12px 24px rgba(0,0,0,.25)}
+  #game-puente.stream-layout-on #chain-content{gap:.42rem}
+  #game-puente.stream-layout-on #chain-content .slots-bar{font-size:.76rem}
+  #game-puente.stream-layout-on #chain-content .chain-tag{padding:.3rem .62rem;font-size:.74rem}
+  #game-puente.stream-layout-on #chain-content .chain-scroll{padding:.45rem .55rem .55rem}
+  #game-puente.stream-layout-on #chain-content .chain-node{min-width:68px;max-width:82px}
+  #game-puente.stream-layout-on #chain-content .cnode-photo{width:38px;height:38px}
+  #game-puente.stream-layout-on #chain-content .chain-node .c-name{font-size:.64rem}
+  #game-puente.stream-layout-on #chain-content .chain-node .c-badge{font-size:.54rem}
+  #game-puente.stream-layout-on #chain-content .chain-arrow{padding-top:10px}
+  #game-puente.stream-layout-on #chain-content .chain-arrow .arrow-line{font-size:.94rem}
+  #game-puente.stream-layout-on #chain-content .chain-arrow .arrow-club{font-size:.52rem;max-width:58px;line-height:1.15}
+  #game-puente.stream-layout-on #chain-content .instructions{padding:.65rem .8rem;font-size:.76rem;line-height:1.35}
+  #game-puente.stream-layout-on #chain-content #chain-input-row{margin-top:auto}
+  #game-puente.stream-layout-on #chain-content #chain-end .result-box{padding:1rem}
+}
 </style>
 </head>
 <body>
@@ -248,6 +372,10 @@ pointer-events:none;z-index:0}
     <div class="logo-kicker">MVP público · 4 juegos</div>
     <h1>⚽ FutBrain</h1>
     <p>Conecta carreras, resuelve cadenas, responde trivia y juega el modo stream en una versión rápida, clara y lista para compartir.</p>
+    <div class="home-stream-toggle">
+      <span class="label">Modo Stream Global</span>
+      <button id="home-stream-toggle" class="state" onclick="toggleGlobalStreamMode()">OFF</button>
+    </div>
   </div>
   <div class="games-grid">
     <div class="game-card bridge-card" onclick="showBridgesGame()">
@@ -287,7 +415,9 @@ pointer-events:none;z-index:0}
     <button class="timer-toggle" id="puente-timer-toggle" onclick="toggleTimer()">⏱ Con Tiempo</button>
     <span class="timer-display" id="puente-timer">2:00</span>
   </div>
-  <div class="game-body">
+  <div class="game-body stream-broadcast">
+    <div id="puente-stream-overlay"></div>
+    <div class="stream-center wide">
 
     <!-- DIFFICULTY + PLAYERS (shared) -->
     <div class="difficulty-row" id="diff-row">
@@ -360,6 +490,7 @@ pointer-events:none;z-index:0}
       <div id="chain-end"></div>
     </div>
 
+    </div>
   </div>
 </div>
 
@@ -374,18 +505,21 @@ pointer-events:none;z-index:0}
     <span class="header-spacer"></span>
     <span class="score-display" id="trivia-score">0 pts</span>
   </div>
-  <div class="game-body">
-    <div class="trivia-meta">
-      <span class="q-counter" id="q-counter">Pregunta 1 de 10</span>
-      <span id="streak-display" style="color:var(--gold);font-weight:700"></span>
+  <div class="game-body stream-broadcast">
+    <div id="trivia-stream-overlay"></div>
+    <div class="stream-center wide">
+      <div class="trivia-meta">
+        <span class="q-counter" id="q-counter">Pregunta 1 de 10</span>
+        <span id="streak-display" style="color:var(--gold);font-weight:700"></span>
+      </div>
+      <div class="q-card">
+        <div class="q-category" id="q-category">CATEGORÍA</div>
+        <div class="q-text" id="q-text">Cargando…</div>
+      </div>
+      <div class="options-grid" id="options-grid"></div>
+      <div class="explanation" id="explanation"></div>
+      <button class="next-btn" id="next-btn" onclick="nextQuestion()">Siguiente →</button>
     </div>
-    <div class="q-card">
-      <div class="q-category" id="q-category">CATEGORÍA</div>
-      <div class="q-text" id="q-text">Cargando…</div>
-    </div>
-    <div class="options-grid" id="options-grid"></div>
-    <div class="explanation" id="explanation"></div>
-    <button class="next-btn" id="next-btn" onclick="nextQuestion()">Siguiente →</button>
   </div>
 </div>
 
@@ -513,6 +647,13 @@ let sharedDiff='any';
 let playerA=null, playerB=null;
 let timerEnabled=true;
 let embeddedExtraMarkup=null;
+let streamModeEnabled=false;
+const broadcastState={
+  players:[
+    {name:'DavoXeneize',score:0},
+    {name:'LaCobra',score:0}
+  ]
+};
 
 // ============================================================
 //  NAVIGATION
@@ -525,6 +666,24 @@ function goHome(){
   clearInterval(stream2pState.timer);
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('home').classList.add('active');
+  updateGlobalStreamModeUI();
+}
+
+function updateGlobalStreamModeUI(){
+  const btn=document.getElementById('home-stream-toggle');
+  if(btn){
+    btn.textContent=streamModeEnabled?'ON':'OFF';
+    btn.className='state'+(streamModeEnabled?' on':'');
+  }
+}
+function setScreenStreamLayout(screenId,enabled){
+  const el=document.getElementById(screenId);
+  if(!el) return;
+  el.classList.toggle('stream-layout-on', enabled);
+}
+function toggleGlobalStreamMode(){
+  streamModeEnabled=!streamModeEnabled;
+  updateGlobalStreamModeUI();
 }
 
 function showConnectionGame(mode){
@@ -533,6 +692,8 @@ function showConnectionGame(mode){
   clearInterval(chainState.timer);
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('game-puente').classList.add('active');
+  setScreenStreamLayout('game-puente',streamModeEnabled);
+  setupSoloBroadcast('puente-stream-overlay',0,0,0);
   const isBridges=mode==='bridges';
   document.getElementById('bridges-content').style.display=isBridges?'block':'none';
   document.getElementById('chain-content').style.display=isBridges?'none':'block';
@@ -618,6 +779,8 @@ function newBridgesRound(){
   bridgesState.score=0;
   document.getElementById('puente-timer').textContent='2:00';
   document.getElementById('puente-timer').className='timer-display';
+  document.getElementById('puente-score').textContent='0 pts';
+  setBroadcastScores(0,0);
 
   setPlayerCards(pair.a,pair.b);
   document.getElementById('inst-a').textContent=pair.a;
@@ -665,6 +828,7 @@ function submitBridge(){
   bridgesState.found.push(found);
   bridgesState.score+=Math.ceil(bridgesState.timeLeft/3)+20;
   document.getElementById('puente-score').textContent=bridgesState.score+' pts';
+  setBroadcastScores(bridgesState.score,0);
 
   const item=document.createElement('div');
   item.className='found-item';
@@ -773,6 +937,8 @@ function newChainRound(){
   chainState.minPath=pair.minPath;
   chainState.minIntermediates=pair.minIntermediates;
   chainState.complete=false;
+  document.getElementById('puente-score').textContent='0 pts';
+  setBroadcastScores(0,0);
 
   setPlayerCards(pair.a,pair.b);
   document.getElementById('chain-inst-a').textContent=pair.a;
@@ -968,6 +1134,7 @@ function endChain(won,reason){
   }
   chainState.score=score;
   document.getElementById('puente-score').textContent=score+' pts';
+  setBroadcastScores(chainState.score,0);
 
   // Show min path
   document.getElementById('chain-min-tag').style.display='inline-block';
@@ -1083,6 +1250,57 @@ function setPlayerCards(a,b){
 }
 function showFeedback(id,msg,type){const el=document.getElementById(id);el.textContent=msg;el.className='feedback-msg '+type;}
 function hideFeedback(id){const el=document.getElementById(id);el.className='feedback-msg';el.textContent='';}
+function escapeHtml(str){
+  return String(str).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+}
+function getStreamPlayersForOverlay(){
+  return stream2pState.players?.length===2
+    ? stream2pState.players
+    : broadcastState.players;
+}
+function renderStreamCameraOverlay(activeIdx=-1,playersOverride=null){
+  const players=playersOverride||getStreamPlayersForOverlay();
+  return `
+    <div class="stream-cams">
+      ${players.map((p,i)=>`
+        <div class="stream-cam-slot ${i===0?'left':'right'} ${i===activeIdx?'active':''}" style="--cam-accent:${i===0?'var(--blue)':'var(--gold)'}">
+          <div class="stream-cam-box">Camara</div>
+          <div class="stream-cam-meta">
+            <div class="stream-cam-name">${escapeHtml(p.name)}</div>
+            <div class="stream-cam-score" id="stream-cam-score-${i}">${p.score} pts</div>
+            <div class="stream-cam-status">${i===activeIdx?'En juego':'En espera'}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>`;
+}
+function syncStreamOverlayScores(playersOverride=null){
+  const players=playersOverride||getStreamPlayersForOverlay();
+  players.forEach((p,i)=>{
+    const scoreEl=document.getElementById(`stream-cam-score-${i}`);
+    if(scoreEl) scoreEl.textContent=p.score+' pts';
+  });
+}
+function resetBroadcastScores(){
+  broadcastState.players[0].score=0;
+  broadcastState.players[1].score=0;
+}
+function setBroadcastScores(left=0,right=0){
+  broadcastState.players[0].score=left;
+  broadcastState.players[1].score=right;
+  syncStreamOverlayScores(broadcastState.players);
+}
+function setupSoloBroadcast(targetId,activeIdx=0,leftScore=0,rightScore=0){
+  const el=document.getElementById(targetId);
+  if(!el) return;
+  if(!streamModeEnabled){
+    el.innerHTML='';
+    return;
+  }
+  resetBroadcastScores();
+  el.innerHTML=renderStreamCameraOverlay(activeIdx,broadcastState.players);
+  setBroadcastScores(leftScore,rightScore);
+}
 
 // ============================================================
 //  STREAM MODE
@@ -1090,6 +1308,8 @@ function hideFeedback(id){const el=document.getElementById(id);el.className='fee
 function startStream(){
   clearInterval(streamState.timer);
   clearInterval(stream2pState.timer);
+  stream2pState.players=[];
+  resetBroadcastScores();
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const scr=document.getElementById('game-stream');
   scr.classList.add('active');
@@ -1098,19 +1318,24 @@ function startStream(){
       <button class="back-btn" onclick="goHome()">← Inicio</button>
       <span class="game-title">📺 Modo Stream</span>
     </div>
-    <div class="game-body" style="max-width:600px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:2.5rem;text-align:center">
-      <div style="font-size:4rem;margin-bottom:.8rem">📺</div>
-      <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.4rem">Modo Stream</h2>
-      <p style="color:var(--muted);margin-bottom:2rem">5 categorías · 5 preguntas cada una · sin repetir</p>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%">
-        <button class="btn-primary" style="flex:1;min-width:200px;padding:1.2rem;font-size:1.05rem" onclick="startStream1P()">🎮 1 Jugador</button>
-        <button class="btn-primary" style="flex:1;min-width:200px;padding:1.2rem;font-size:1.05rem;background:var(--purple);border-color:var(--purple)" onclick="setupStream2P()">👥 2 Jugadores</button>
+    <div class="game-body stream-broadcast">
+      ${renderStreamCameraOverlay()}
+      <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+        <div class="stream-title-kicker">Formato stream</div>
+        <div style="font-size:4rem;margin-bottom:.8rem">📺</div>
+        <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.4rem">Modo Stream</h2>
+        <p style="color:var(--muted);margin-bottom:2rem">5 categorías · 5 preguntas cada una · sin repetir</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%">
+          <button class="btn-primary" style="flex:1;min-width:200px;padding:1.2rem;font-size:1.05rem" onclick="startStream1P()">🎮 1 Jugador</button>
+          <button class="btn-primary" style="flex:1;min-width:200px;padding:1.2rem;font-size:1.05rem;background:var(--purple);border-color:var(--purple)" onclick="setupStream2P()">👥 2 Jugadores</button>
+        </div>
       </div>
     </div>`;
 }
 
 function startStream1P(){
   clearInterval(streamState.timer);
+  resetBroadcastScores();
   const scr=document.getElementById('game-stream');
   scr.innerHTML=`
     <div class="game-header">
@@ -1120,23 +1345,29 @@ function startStream1P(){
       <button class="timer-toggle${timerEnabled?'':' off'}" id="stream-timer-toggle" onclick="toggleTimer()">${timerEnabled?'⏱ Con Tiempo':'⏱ Sin Tiempo'}</button>
       <span class="score-display" id="stream-score">0 pts</span>
     </div>
-    <div class="game-body" style="max-width:700px">
-      <div class="stream-cats" id="stream-cats"></div>
-      <div class="stream-cat-banner" id="stream-cat-banner">Categoría</div>
-      <div style="text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:.5rem" id="stream-q-num">Pregunta 1 de 25</div>
-      <div class="timer-bar"><div class="timer-fill" id="stream-timer-fill" style="width:100%"></div></div>
-      <div class="stream-photo-wrap"><img id="stream-photo" alt=""><div class="stream-photo-flag" id="stream-photo-flag">⚽</div></div>
-      <div class="stream-q-text" id="stream-q-text">Cargando…</div>
-      <div class="stream-options" id="stream-options"></div>
-      <div class="stream-ex" id="stream-ex"></div>
-      <button class="stream-next" id="stream-next" onclick="nextStreamQuestion()">Siguiente →</button>
+    <div class="game-body stream-broadcast">
+      ${renderStreamCameraOverlay(0,broadcastState.players)}
+      <div class="stream-center wide">
+        <div class="stream-game-shell">
+          <div class="stream-cats" id="stream-cats"></div>
+          <div class="stream-cat-banner" id="stream-cat-banner">Categoría</div>
+          <div style="text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:.15rem" id="stream-q-num">Pregunta 1 de 25</div>
+          <div class="timer-bar"><div class="timer-fill" id="stream-timer-fill" style="width:100%"></div></div>
+          <div class="stream-photo-wrap"><img id="stream-photo" alt=""><div class="stream-photo-flag" id="stream-photo-flag">⚽</div></div>
+          <div class="stream-q-text" id="stream-q-text">Cargando…</div>
+          <div class="stream-options" id="stream-options"></div>
+          <div class="stream-ex" id="stream-ex"></div>
+          <button class="stream-next" id="stream-next" onclick="nextStreamQuestion()">Siguiente →</button>
+        </div>
+      </div>
     </div>`;
   streamState.questions=[];
   STREAM_CATS.forEach(({key})=>{
     const qs=shuffle(STREAM_TRIVIA.filter(q=>q.catKey===key));
     qs.slice(0,5).forEach(q=>streamState.questions.push(q));
   });
-  streamState.current=0; streamState.score=0;
+  streamState.current=0; streamState.score=0; streamState.mode='normal';
+  setBroadcastScores(0,0);
   showStreamQuestion();
 }
 
@@ -1147,36 +1378,41 @@ function setupStream2P(){
       <button class="back-btn" onclick="startStream()">← Volver</button>
       <span class="game-title">👥 Stream — 2 Jugadores</span>
     </div>
-    <div class="game-body" style="max-width:480px">
-      <h3 style="text-align:center;margin-bottom:1.5rem;font-size:1.3rem">¿Cómo se llaman?</h3>
-      <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem">
-        <div>
-          <label style="color:var(--blue);font-weight:700;display:block;margin-bottom:.4rem">🔵 Jugador 1</label>
-          <input id="p1-name" class="player-input" type="text" placeholder="Nombre del jugador 1" maxlength="18">
+    <div class="game-body stream-broadcast">
+      ${renderStreamCameraOverlay()}
+      <div class="stream-center compact">
+        <h3 style="text-align:center;margin-bottom:1.5rem;font-size:1.3rem">¿Cómo se llaman?</h3>
+        <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem">
+          <div>
+            <label style="color:var(--blue);font-weight:700;display:block;margin-bottom:.4rem">🔵 Jugador 1</label>
+            <input id="p1-name" class="player-input" type="text" placeholder="Nombre del jugador 1" maxlength="18" value="DavoXeneize">
+          </div>
+          <div>
+            <label style="color:var(--gold);font-weight:700;display:block;margin-bottom:.4rem">🟡 Jugador 2</label>
+            <input id="p2-name" class="player-input" type="text" placeholder="Nombre del jugador 2" maxlength="18" value="LaCobra">
+          </div>
         </div>
-        <div>
-          <label style="color:var(--gold);font-weight:700;display:block;margin-bottom:.4rem">🟡 Jugador 2</label>
-          <input id="p2-name" class="player-input" type="text" placeholder="Nombre del jugador 2" maxlength="18">
-        </div>
+        <button class="btn-primary" style="width:100%;padding:1rem;font-size:1.05rem" onclick="initStream2P()">¡Empezar stream! →</button>
       </div>
-      <button class="btn-primary" style="width:100%;padding:1rem;font-size:1.05rem" onclick="initStream2P()">¡Empezar stream! →</button>
     </div>`;
   setTimeout(()=>document.getElementById('p1-name').focus(),100);
 }
 
 function initStream2P(){
-  const p1=document.getElementById('p1-name').value.trim()||'Jugador 1';
-  const p2=document.getElementById('p2-name').value.trim()||'Jugador 2';
+  const p1=document.getElementById('p1-name').value.trim()||'DavoXeneize';
+  const p2=document.getElementById('p2-name').value.trim()||'LaCobra';
   // Asignar preguntas únicas: shuffle por categoría, P1 primeras 5, P2 siguientes 5
   stream2pState.players=[
-    {name:p1,score:0,catsDone:[],catQuestions:{}},
-    {name:p2,score:0,catsDone:[],catQuestions:{}}
+    {name:p1,score:0,catsDone:[],catQuestions:{},catProgress:{}},
+    {name:p2,score:0,catsDone:[],catQuestions:{},catProgress:{}}
   ];
   stream2pState.currentPlayer=0;
   STREAM_CATS.forEach(({key})=>{
     const qs=shuffle(STREAM_TRIVIA.filter(q=>q.catKey===key));
     stream2pState.players[0].catQuestions[key]=qs.slice(0,5);
     stream2pState.players[1].catQuestions[key]=qs.slice(5,10);
+    stream2pState.players[0].catProgress[key]=0;
+    stream2pState.players[1].catProgress[key]=0;
   });
   showCatSelect2P();
 }
@@ -1184,35 +1420,48 @@ function initStream2P(){
 function showCatSelect2P(){
   const pi=stream2pState.currentPlayer;
   const p=stream2pState.players[pi];
-  const other=stream2pState.players[1-pi];
   const color=pi===0?'var(--blue)':'var(--gold)';
   const emoji=pi===0?'🔵':'🟡';
   const catBtns=STREAM_CATS.map(({key,label})=>{
-    const done=p.catsDone.includes(key);
+    const done=(p.catProgress[key]||0)>=5;
     return `<button class="stream-cat-btn${done?' done':''}" ${done?'disabled':''} onclick="${done?'':` startCatRound2P('${key}')`}">${label}${done?' ✓':''}</button>`;
   }).join('');
+  const randomBtn=`<button class="stream-cat-btn" style="border-color:rgba(255,159,67,.35);color:#ffd7ad" onclick="startRandomCat2P()">🎲 Aleatorio</button>`;
+  const totalCats=STREAM_CATS.length;
   document.getElementById('game-stream').innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title">👥 Stream 2P</span>
       <span class="header-spacer"></span>
-      <span style="color:var(--blue);font-weight:700;font-size:.9rem">${stream2pState.players[0].name}: ${stream2pState.players[0].score}</span>
-      <span style="color:var(--muted);padding:0 .3rem">·</span>
-      <span style="color:var(--gold);font-weight:700;font-size:.9rem">${stream2pState.players[1].name}: ${stream2pState.players[1].score}</span>
+      <span class="stream-score-chip" style="border-color:rgba(92,200,255,.25)"><span style="color:var(--blue)">🔵</span> <strong>${stream2pState.players[0].score}</strong></span>
+      <span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${stream2pState.players[1].score}</strong></span>
     </div>
-    <div class="game-body" style="max-width:600px;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:1.5rem">
-      <div style="font-size:2.5rem;margin-bottom:.3rem">${emoji}</div>
-      <h2 style="font-size:1.6rem;font-weight:900;color:${color};margin-bottom:.3rem">${p.name}</h2>
-      <p style="color:var(--muted);margin-bottom:1.5rem">Elige una categoría para jugar:</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;width:100%">${catBtns}</div>
-      <p style="color:var(--muted);font-size:.78rem;margin-top:1rem">${p.catsDone.length}/5 categorías completadas</p>
+    <div class="game-body stream-broadcast">
+      ${renderStreamCameraOverlay(pi)}
+      <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div class="stream-turn-note">${stream2pState.currentPlayer===0?'🔵':'🟡'} Turno de ${p.name}</div>
+        <div style="font-size:2.5rem;margin-bottom:.3rem">${emoji}</div>
+        <h2 style="font-size:1.6rem;font-weight:900;color:${color};margin-bottom:.3rem">${p.name}</h2>
+        <p style="color:var(--muted);margin-bottom:1.5rem">Elige una categoría para jugar:</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;width:100%">${catBtns}${randomBtn}</div>
+        <p style="color:var(--muted);font-size:.78rem;margin-top:1rem">${p.catsDone.length}/${totalCats} categorías completadas</p>
+      </div>
     </div>`;
 }
 
 function startCatRound2P(catKey){
   stream2pState.currentCat=catKey;
-  stream2pState.currentQIdx=0;
+  const p=stream2pState.players[stream2pState.currentPlayer];
+  stream2pState.currentQIdx=p.catProgress[catKey]||0;
   showStream2PQuestion();
+}
+
+function startRandomCat2P(){
+  const p=stream2pState.players[stream2pState.currentPlayer];
+  const available=STREAM_CATS.filter(({key})=>!p.catsDone.includes(key));
+  if(!available.length) return;
+  const picked=available[Math.floor(Math.random()*available.length)];
+  startCatRound2P(picked.key);
 }
 
 function showStream2PQuestion(){
@@ -1227,22 +1476,27 @@ function showStream2PQuestion(){
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title" style="color:${color}">${p.name}</span>
       <span class="header-spacer"></span>
-      <span style="font-weight:700;font-size:.85rem;color:var(--blue)">${stream2pState.players[0].name} ${stream2pState.players[0].score}pts</span>
-      <span style="color:var(--muted);padding:0 .3rem">·</span>
-      <span style="font-weight:700;font-size:.85rem;color:var(--gold)">${stream2pState.players[1].name} ${stream2pState.players[1].score}pts</span>
+      <span class="stream-score-chip" style="border-color:rgba(92,200,255,.25)"><span style="color:var(--blue)">🔵</span> <strong>${stream2pState.players[0].score}</strong></span>
+      <span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${stream2pState.players[1].score}</strong></span>
     </div>
-    <div class="game-body" style="max-width:700px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem">
-        <span style="font-size:.82rem;color:var(--muted)">${catInfo.label} · Pregunta ${stream2pState.currentQIdx+1}/5</span>
-        <span style="font-size:.82rem;font-weight:700;color:${color}" id="s2p-pts">${p.score} pts</span>
+    <div class="game-body stream-broadcast">
+      ${renderStreamCameraOverlay(pi)}
+      <div class="stream-center wide">
+        <div class="stream-game-shell">
+          <div class="stream-turn-note">${stream2pState.currentPlayer===0?'🔵':'🟡'} Turno de ${p.name}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;gap:1rem;flex-wrap:wrap">
+            <span style="font-size:.82rem;color:var(--muted)">${catInfo.label} · Pregunta ${(p.catProgress[stream2pState.currentCat]||0)+1}/5 · ${stream2pState.currentPlayer===0?'Player 1':'Player 2'}</span>
+            <span style="font-size:.82rem;font-weight:700;color:${color}" id="s2p-pts">${p.score} pts</span>
+          </div>
+          <div class="stream-cat-banner">${catInfo.cat||catInfo.label}</div>
+          <div class="timer-bar"><div class="timer-fill" id="s2p-timer-fill" style="width:100%"></div></div>
+          <div class="stream-photo-wrap"><img id="s2p-photo" alt=""><div class="stream-photo-flag" id="s2p-flag">${catInfo.emoji}</div></div>
+          <div class="stream-q-text">${q.q}</div>
+          <div class="stream-options" id="s2p-options"></div>
+          <div class="stream-ex" id="s2p-ex"></div>
+          <button class="stream-next" id="s2p-next" onclick="nextStream2PQ()">Siguiente →</button>
+        </div>
       </div>
-      <div class="stream-cat-banner">${catInfo.cat||catInfo.label}</div>
-      <div class="timer-bar"><div class="timer-fill" id="s2p-timer-fill" style="width:100%"></div></div>
-      <div class="stream-photo-wrap"><img id="s2p-photo" alt=""><div class="stream-photo-flag" id="s2p-flag">${catInfo.emoji}</div></div>
-      <div class="stream-q-text">${q.q}</div>
-      <div class="stream-options" id="s2p-options"></div>
-      <div class="stream-ex" id="s2p-ex"></div>
-      <button class="stream-next" id="s2p-next" onclick="nextStream2PQ()">Siguiente →</button>
     </div>`;
   if(catInfo.img) loadWikiImg(catInfo.img,document.getElementById('s2p-photo'),document.getElementById('s2p-flag'),250);
   const grid=document.getElementById('s2p-options');
@@ -1292,9 +1546,10 @@ function answerStream2P(idx,btn,q){
   document.getElementById('s2p-options').querySelectorAll('.stream-opt').forEach((b,i)=>{b.disabled=true;if(stream2pState.shuffled[i]===q.c)b.classList.add('correct');});
   if(idx===q.c){
     btn.classList.add('correct');
-    const pts=100+(timerEnabled?Math.round(stream2pState.timeLeft*5):0);
+    const pts=100;
     p.score+=pts;
     document.getElementById('s2p-pts').textContent=p.score+' pts';
+    syncStreamOverlayScores();
   } else {
     btn.classList.add('wrong');
   }
@@ -1304,13 +1559,16 @@ function answerStream2P(idx,btn,q){
 }
 
 function nextStream2PQ(){
-  stream2pState.currentQIdx++;
-  if(stream2pState.currentQIdx<5){showStream2PQuestion();return;}
-  // Terminó la categoría
-  stream2pState.players[stream2pState.currentPlayer].catsDone.push(stream2pState.currentCat);
-  const allDone=stream2pState.players[0].catsDone.length===5&&stream2pState.players[1].catsDone.length===5;
+  const currentPlayerObj=stream2pState.players[stream2pState.currentPlayer];
+  currentPlayerObj.catProgress[stream2pState.currentCat]=(currentPlayerObj.catProgress[stream2pState.currentCat]||0)+1;
+  stream2pState.currentQIdx=currentPlayerObj.catProgress[stream2pState.currentCat];
+  if(stream2pState.currentQIdx>=5 && !currentPlayerObj.catsDone.includes(stream2pState.currentCat)){
+    currentPlayerObj.catsDone.push(stream2pState.currentCat);
+  }
+  const totalCats=STREAM_CATS.length;
+  const allDone=stream2pState.players[0].catsDone.length===totalCats&&stream2pState.players[1].catsDone.length===totalCats;
   if(allDone){showStream2PEnd();return;}
-  // Pasar al otro jugador
+  // Alterna una pregunta por jugador
   stream2pState.currentPlayer=1-stream2pState.currentPlayer;
   const p=stream2pState.players[stream2pState.currentPlayer];
   const color=stream2pState.currentPlayer===0?'var(--blue)':'var(--gold)';
@@ -1320,21 +1578,24 @@ function nextStream2PQ(){
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title">👥 Stream 2P</span>
       <span class="header-spacer"></span>
-      <span style="color:var(--blue);font-weight:700;font-size:.9rem">${stream2pState.players[0].name}: ${stream2pState.players[0].score}</span>
-      <span style="color:var(--muted);padding:0 .3rem">·</span>
-      <span style="color:var(--gold);font-weight:700;font-size:.9rem">${stream2pState.players[1].name}: ${stream2pState.players[1].score}</span>
+      <span class="stream-score-chip" style="border-color:rgba(92,200,255,.25)"><span style="color:var(--blue)">🔵</span> <strong>${stream2pState.players[0].score}</strong></span>
+      <span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${stream2pState.players[1].score}</strong></span>
     </div>
-    <div class="game-body" style="max-width:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:2rem;text-align:center">
-      <div style="font-size:3rem;margin-bottom:.5rem">✅</div>
-      <h3 style="color:${prev===stream2pState.players[0]?'var(--blue)':'var(--gold)'};font-size:1.3rem;margin-bottom:.3rem">${prev.name} terminó</h3>
-      <div style="font-size:1.8rem;font-weight:900;color:${prev===stream2pState.players[0]?'var(--blue)':'var(--gold)'};margin:.3rem 0">${prev.score} pts</div>
-      <div style="background:var(--card2);border-radius:10px;padding:.8rem 1.4rem;margin:1rem 0;font-size:.9rem">
-        <span style="color:var(--blue)">${stream2pState.players[0].name}: ${stream2pState.players[0].score} pts</span>
-        &nbsp;&nbsp;·&nbsp;&nbsp;
-        <span style="color:var(--gold)">${stream2pState.players[1].name}: ${stream2pState.players[1].score} pts</span>
+    <div class="game-body stream-broadcast">
+      ${renderStreamCameraOverlay(stream2pState.currentPlayer)}
+      <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+        <div class="stream-turn-note">${stream2pState.currentPlayer===0?'🔵':'🟡'} Turno de ${p.name}</div>
+        <div style="font-size:3rem;margin-bottom:.5rem">✅</div>
+        <h3 style="color:${prev===stream2pState.players[0]?'var(--blue)':'var(--gold)'};font-size:1.3rem;margin-bottom:.3rem">${prev.name} terminó</h3>
+        <div style="font-size:1.8rem;font-weight:900;color:${prev===stream2pState.players[0]?'var(--blue)':'var(--gold)'};margin:.3rem 0">${prev.score} pts</div>
+        <div style="background:var(--card2);border-radius:10px;padding:.8rem 1.4rem;margin:1rem 0;font-size:.9rem">
+          <span style="color:var(--blue)">${stream2pState.players[0].name}: ${stream2pState.players[0].score} pts</span>
+          &nbsp;&nbsp;·&nbsp;&nbsp;
+          <span style="color:var(--gold)">${stream2pState.players[1].name}: ${stream2pState.players[1].score} pts</span>
+        </div>
+        <p style="color:var(--muted);margin-bottom:1.2rem">Ahora le toca a <strong style="color:${color}">${p.name}</strong> — elige tu categoría</p>
+        <button class="btn-primary" style="padding:1rem 2rem;font-size:1.05rem" onclick="showCatSelect2P()">Elegir categoría →</button>
       </div>
-      <p style="color:var(--muted);margin-bottom:1.2rem">Ahora le toca a <strong style="color:${color}">${p.name}</strong> — elige tu categoría</p>
-      <button class="btn-primary" style="padding:1rem 2rem;font-size:1.05rem" onclick="showCatSelect2P()">Elegir categoría →</button>
     </div>`;
 }
 
@@ -1347,8 +1608,9 @@ function showStream2PEnd(){
       <button class="back-btn" onclick="goHome()">← Inicio</button>
       <span class="game-title">📺 Stream Finalizado</span>
     </div>
-    <div class="game-body" style="display:flex;align-items:center;justify-content:center">
-      <div style="text-align:center;padding:2rem 1rem;max-width:520px">
+    <div class="game-body stream-broadcast">
+      ${renderStreamCameraOverlay()}
+      <div class="stream-center compact" style="text-align:center;padding:2rem 1rem">
         <div style="font-size:4rem;margin-bottom:.8rem">🏆</div>
         <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:1.2rem">¡Stream completado!</h2>
         <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem">
@@ -1382,15 +1644,19 @@ function showStreamQuestion(){
 
   // Category pills
   const cats=document.getElementById('stream-cats');
-  cats.innerHTML=STREAM_CATS.map(({key,label},ci)=>{
-    const start=ci*5, end=start+4;
-    let cls='scat-pill';
-    if(streamState.current>end) cls+=' done';
-    else if(streamState.current>=start) cls+=' active';
-    return `<span class="${cls}">${label}</span>`;
-  }).join('');
+  if(streamState.mode==='random'){
+    cats.innerHTML=`<span class="scat-pill active">🎲 Aleatorio Mix</span><span class="scat-pill">${q.cat}</span>`;
+  } else {
+    cats.innerHTML=STREAM_CATS.map(({key,label},ci)=>{
+      const start=ci*5, end=start+4;
+      let cls='scat-pill';
+      if(streamState.current>end) cls+=' done';
+      else if(streamState.current>=start) cls+=' active';
+      return `<span class="${cls}">${label}</span>`;
+    }).join('');
+  }
 
-  document.getElementById('stream-cat-banner').textContent=q.cat;
+  document.getElementById('stream-cat-banner').textContent=streamState.mode==='random' ? `🎲 ${q.cat}` : q.cat;
   document.getElementById('stream-q-num').textContent=`Pregunta ${streamState.current+1} de 25`;
   document.getElementById('stream-q-text').textContent=q.q;
   document.getElementById('stream-ex').className='stream-ex';
@@ -1455,9 +1721,10 @@ function answerStream(idx,btn){
   allBtns.forEach((b,i)=>{b.disabled=true;if(streamState.shuffled[i]===q.c)b.classList.add('correct');});
   if(idx===q.c){
     btn.classList.add('correct');
-    const pts=100+Math.round(streamState.timeLeft*5);
+    const pts=100;
     streamState.score+=pts;
     document.getElementById('stream-score').textContent=streamState.score+' pts';
+    setBroadcastScores(streamState.score,0);
   } else {
     btn.classList.add('wrong');
   }
@@ -1483,16 +1750,19 @@ function showStreamEnd(){
       <button class="back-btn" onclick="goHome()">← Inicio</button>
       <span class="game-title">📺 Modo Stream</span>
     </div>
-    <div class="game-body" style="display:flex;align-items:center;justify-content:center">
-      <div style="text-align:center;padding:2rem 1rem;max-width:500px">
-        <div style="font-size:5rem;margin-bottom:1rem">${emoji}</div>
-        <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.5rem">¡Stream completado!</h2>
-        <div style="font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--gold),#ff9f43);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:1rem 0">${s} pts</div>
-        <p style="color:var(--muted);margin-bottom:.5rem">25 preguntas · 5 categorías</p>
-        <p style="color:var(--muted);margin-bottom:1.5rem">${msg}</p>
-        <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
-          <button class="btn-primary" onclick="startStream()">🔄 Repetir Stream</button>
-          <button class="btn-secondary" onclick="goHome()">🏠 Inicio</button>
+    <div class="game-body stream-broadcast">
+      ${renderStreamCameraOverlay(0,broadcastState.players)}
+      <div class="stream-center compact" style="display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center;padding:2rem 1rem;max-width:500px">
+          <div style="font-size:5rem;margin-bottom:1rem">${emoji}</div>
+          <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.5rem">¡Stream completado!</h2>
+          <div style="font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--gold),#ff9f43);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:1rem 0">${s} pts</div>
+          <p style="color:var(--muted);margin-bottom:.5rem">25 preguntas · 5 categorías</p>
+          <p style="color:var(--muted);margin-bottom:1.5rem">${msg}</p>
+          <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+            <button class="btn-primary" onclick="startStream()">🔄 Repetir Stream</button>
+            <button class="btn-secondary" onclick="goHome()">🏠 Inicio</button>
+          </div>
         </div>
       </div>
     </div>`;
@@ -1743,16 +2013,18 @@ const STREAM_TRIVIA=[
 const triviaState={questions:[],current:0,score:0,streak:0,timer:null,timeLeft:20,answered:false,shuffled:[],explanationShown:false};
 const streamState={questions:[],current:0,score:0,timer:null,timeLeft:20,answered:false,shuffled:[]};
 const stream2pState={
-  players:[{name:'Jugador 1',score:0,catsDone:[],catQuestions:{}},{name:'Jugador 2',score:0,catsDone:[],catQuestions:{}}],
+  players:[{name:'DavoXeneize',score:0,catsDone:[],catQuestions:{}},{name:'LaCobra',score:0,catsDone:[],catQuestions:{}}],
   currentPlayer:0,currentCat:'',currentQIdx:0,answered:false,shuffled:[],timer:null,timeLeft:20
 };
 
 function startTrivia(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('game-trivia').classList.add('active');
+  setScreenStreamLayout('game-trivia',streamModeEnabled);
   triviaState.questions=shuffle(TRIVIA).slice(0,10);
   triviaState.current=0; triviaState.score=0; triviaState.streak=0;
   document.getElementById('trivia-score').textContent='0 pts';
+  setupSoloBroadcast('trivia-stream-overlay',0,0,0);
   showQuestion();
 }
 
@@ -1813,6 +2085,7 @@ function answerTrivia(idx,btn,shuffled){
     const pts=100+(triviaState.streak>1?(triviaState.streak-1)*25:0);
     triviaState.score+=pts;
     document.getElementById('trivia-score').textContent=triviaState.score+' pts';
+    setBroadcastScores(triviaState.score,0);
     document.getElementById('streak-display').textContent=triviaState.streak>=2?`🔥 Racha: ${triviaState.streak}`:'';
   } else {
     btn.classList.add('wrong');
@@ -1904,6 +2177,8 @@ function showTriviaEnd(){
       </div>
     </div>`;
 }
+
+updateGlobalStreamModeUI();
 </script>
 </body>
 </html>
