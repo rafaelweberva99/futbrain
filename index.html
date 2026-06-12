@@ -403,7 +403,7 @@ pointer-events:none;z-index:0}
     </div>
     <div class="game-card stream-card" onclick="startStream()">
       <div class="icon">📺</div>
-      <h2>Modo Stream</h2>
+      <h2>Zona Mixta</h2>
       <p>25 preguntas épicas con fotos: Champions, Mundiales, Libertadores, traspasos históricos y las 5 grandes ligas. Ideal para el stream.</p>
       <span class="badge easy">25 PREGUNTAS · FOTOS</span>
     </div>
@@ -1365,14 +1365,14 @@ function startStream(){
   scr.innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Inicio</button>
-      <span class="game-title">📺 Modo Stream</span>
+      <span class="game-title">📺 Zona Mixta</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled()}
       <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
         <div class="stream-title-kicker">Formato stream</div>
         <div style="font-size:4rem;margin-bottom:.8rem">📺</div>
-        <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.4rem">Modo Stream</h2>
+        <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.4rem">Zona Mixta</h2>
         <p style="color:var(--muted);margin-bottom:2rem">5 categorías, mezcla aleatoria y desempate estilo Messinario.</p>
         <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%">
           <button class="btn-primary" style="flex:1;min-width:200px;padding:1.2rem;font-size:1.05rem" onclick="showStream1PModeSelect()">🎮 1 Jugador</button>
@@ -1389,7 +1389,7 @@ function showStream1PModeSelect(){
   scr.innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="startStream()">← Volver</button>
-      <span class="game-title">🎮 Stream 1 Jugador</span>
+      <span class="game-title">🎮 Zona Mixta 1 Jugador</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(0,broadcastState.players)}
@@ -1417,7 +1417,7 @@ function startStream1P(mode='normal'){
   scr.innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="startStream()">← Volver</button>
-      <span class="game-title">📺 Modo Stream</span>
+      <span class="game-title">📺 Zona Mixta</span>
       <span class="header-spacer"></span>
       <button class="timer-toggle${timerEnabled?'':' off'}" id="stream-timer-toggle" onclick="toggleTimer()">${timerEnabled?'⏱ Con Tiempo':'⏱ Sin Tiempo'}</button>
       <span class="score-display" id="stream-score">0 pts</span>
@@ -1513,7 +1513,7 @@ function showCatSelect2P(){
   document.getElementById('game-stream').innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Salir</button>
-      <span class="game-title">👥 Stream 2P</span>
+      <span class="game-title">👥 Zona Mixta 2P</span>
       <span class="header-spacer"></span>
       <span class="stream-score-chip" style="border-color:rgba(92,200,255,.25)"><span style="color:var(--blue)">🔵</span> <strong>${stream2pState.players[0].score}</strong></span>
       <span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${stream2pState.players[1].score}</strong></span>
@@ -1665,7 +1665,7 @@ function nextStream2PQ(){
   document.getElementById('game-stream').innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Salir</button>
-      <span class="game-title">👥 Stream 2P</span>
+      <span class="game-title">👥 Zona Mixta 2P</span>
       <span class="header-spacer"></span>
       <span class="stream-score-chip" style="border-color:rgba(92,200,255,.25)"><span style="color:var(--blue)">🔵</span> <strong>${stream2pState.players[0].score}</strong></span>
       <span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${stream2pState.players[1].score}</strong></span>
@@ -1696,7 +1696,7 @@ function showStream2PEnd(){
   document.getElementById('game-stream').innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Inicio</button>
-      <span class="game-title">📺 Stream Finalizado</span>
+      <span class="game-title">📺 Zona Mixta Finalizada</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled()}
@@ -1839,7 +1839,7 @@ function showStreamEnd(){
   document.getElementById('game-stream').innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Inicio</button>
-      <span class="game-title">📺 Modo Stream</span>
+      <span class="game-title">📺 Zona Mixta</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(0,broadcastState.players)}
