@@ -100,6 +100,9 @@ pointer-events:none;z-index:0}
 .vs-badge{background:linear-gradient(135deg,var(--green),var(--blue));border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem;flex-shrink:0;margin:0 auto}
 .instructions{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem;margin-bottom:.9rem;font-size:.85rem;color:var(--muted);line-height:1.5}
 .instructions strong{color:var(--text)}
+.score-note{background:linear-gradient(135deg,rgba(247,183,51,.10),rgba(92,200,255,.08));border:1px solid rgba(247,183,51,.24);border-radius:12px;padding:.8rem 1rem;margin-bottom:.85rem;font-size:.82rem;line-height:1.45;color:#dbe6fb}
+.score-note strong{color:#fff2c9}
+.score-note .mini{display:block;color:var(--muted);font-size:.76rem;margin-top:.22rem}
 .input-row{display:flex;gap:.5rem;margin-bottom:.5rem;position:relative}
 .autocomplete-wrap{flex:1;position:relative}
 .player-input{width:100%;padding:.75rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:1rem;outline:none;transition:border-color .2s}
@@ -277,9 +280,11 @@ pointer-events:none;z-index:0}
 #game-puente:not(.stream-layout-on) #puente-stream-overlay,
 #game-trivia:not(.stream-layout-on) #trivia-stream-overlay{display:none}
 #game-puente:not(.stream-layout-on) .stream-broadcast,
-#game-trivia:not(.stream-layout-on) .stream-broadcast{display:block;max-width:920px;min-height:auto;height:auto;overflow:visible}
+#game-trivia:not(.stream-layout-on) .stream-broadcast,
+#game-stream:not(.stream-layout-on) .stream-broadcast{display:block;max-width:920px;min-height:auto;height:auto;overflow:visible}
 #game-puente:not(.stream-layout-on) .stream-center,
-#game-trivia:not(.stream-layout-on) .stream-center{display:block;max-width:none;width:100%;height:auto;padding-top:0}
+#game-trivia:not(.stream-layout-on) .stream-center,
+#game-stream:not(.stream-layout-on) .stream-center{display:block;max-width:none;width:100%;height:auto;padding-top:0}
 #game-puente.stream-layout-on #puente-stream-overlay,
 #game-trivia.stream-layout-on #trivia-stream-overlay{display:contents}
 #game-puente.stream-layout-on #puente-stream-overlay .stream-cams,
@@ -441,6 +446,10 @@ pointer-events:none;z-index:0}
 
     <!-- ===== BRIDGES MODE ===== -->
     <div id="bridges-content">
+      <div class="score-note">
+        <strong>Puntaje:</strong> cada puente correcto suma <strong>100 pts</strong> y la racha aumenta el valor del siguiente.
+        <span class="mini">Si completas los 3, cierras la ronda con puntaje perfecto.</span>
+      </div>
       <div class="progress-bar"><div class="progress-fill" id="puente-progress" style="width:0%"></div></div>
       <div class="instructions">
         <strong>¿Cómo jugar?</strong> Encuentra <strong>3 jugadores</strong> que hayan jugado en el mismo club (al mismo tiempo) con <span id="inst-a" style="color:var(--blue)">Jugador A</span> y también con <span id="inst-b" style="color:var(--gold)">Jugador B</span>. ¡Solo clubes, sin selecciones!
@@ -461,6 +470,10 @@ pointer-events:none;z-index:0}
 
     <!-- ===== CHAIN MODE ===== -->
     <div id="chain-content" style="display:none">
+      <div class="score-note">
+        <strong>Puntaje:</strong> si completas la cadena ganas una base alta y te premia terminar con menos pasos.
+        <span class="mini">Encontrar el camino óptimo vale más que una cadena larga.</span>
+      </div>
       <div class="slots-bar" id="slots-bar">
         <span class="slots-label">Jugadores intermedios:</span>
       </div>
@@ -508,6 +521,10 @@ pointer-events:none;z-index:0}
   <div class="game-body stream-broadcast">
     <div id="trivia-stream-overlay"></div>
     <div class="stream-center wide">
+      <div class="score-note">
+        <strong>Puntaje:</strong> cada respuesta correcta suma <strong>100 pts</strong> y la racha agrega bonus.
+        <span class="mini">Mientras más respuestas seguidas aciertes, más vale cada una.</span>
+      </div>
       <div class="trivia-meta">
         <span class="q-counter" id="q-counter">Pregunta 1 de 10</span>
         <span id="streak-display" style="color:var(--gold);font-weight:700"></span>
@@ -531,6 +548,31 @@ pointer-events:none;z-index:0}
 const FUTBRAIN_DB = window.FUTBRAIN_DB || [];
 const DB_HELPERS = window.FUTBRAIN_DB_HELPERS || {};
 const DB = window.FUTBRAIN_DB_LEGACY || {};
+
+const MESSINARIO_LADDER=[100,200,400,800,1600,3200,6400];
+const MESSINARIO_QUESTIONS=[
+  {tier:1,q:'¿Qué selección ganó el Mundial de Qatar 2022?',opts:['Francia','Argentina','Brasil','Croacia'],c:1,ex:'Argentina ganó el Mundial de Qatar 2022 tras vencer a Francia en los penales.'},
+  {tier:1,q:'¿En qué club juega Erling Haaland desde 2022?',opts:['Liverpool','Manchester City','Bayern Munich','PSG'],c:1,ex:'Haaland llegó al Manchester City en 2022 y rompió récords de goles en Inglaterra.'},
+  {tier:1,q:'¿Qué club ganó la Champions League 2023-24?',opts:['Real Madrid','Manchester City','Borussia Dortmund','Inter Milan'],c:0,ex:'Real Madrid ganó su 15ª Champions League en 2024.'},
+  {tier:2,q:'¿Quién ganó el Balón de Oro 2022?',opts:['Karim Benzema','Lionel Messi','Kylian Mbappé','Luka Modric'],c:0,ex:'Karim Benzema ganó el Balón de Oro 2022 por su temporada con Real Madrid.'},
+  {tier:2,q:'¿Qué club ganó la Premier League 2015-16?',opts:['Arsenal','Chelsea','Leicester City','Tottenham'],c:2,ex:'Leicester City protagonizó una de las mayores sorpresas de la historia del fútbol.'},
+  {tier:2,q:'¿Quién fue el máximo goleador del Mundial 2022?',opts:['Lionel Messi','Kylian Mbappé','Olivier Giroud','Julián Álvarez'],c:1,ex:'Mbappé terminó como goleador con 8 tantos, incluido un hat-trick en la final.'},
+  {tier:3,q:'¿Qué club eliminó al Barcelona con un 4-0 en Anfield en la Champions 2019?',opts:['Manchester City','Bayern Munich','Liverpool','Chelsea'],c:2,ex:'Liverpool remontó el 3-0 de la ida y ganó 4-0 en Anfield.'},
+  {tier:3,q:'¿Qué jugador marcó 41 goles en la Bundesliga 2020-21 y rompió el récord de Gerd Müller?',opts:['Erling Haaland','Robert Lewandowski','Thomas Müller','Harry Kane'],c:1,ex:'Lewandowski rompió el récord histórico con 41 goles.'},
+  {tier:3,q:'¿Qué técnico llevó al Bayer Leverkusen al título invicto de Bundesliga 2023-24?',opts:['Thomas Tuchel','Xabi Alonso','Jürgen Klopp','Edin Terzic'],c:1,ex:'Xabi Alonso consiguió la primera Bundesliga del Leverkusen de forma invicta.'},
+  {tier:4,q:'¿Qué jugador convirtió el famoso gol de volea en la final de Champions 2002?',opts:['Raúl','Zinedine Zidane','Roberto Carlos','Luis Figo'],c:1,ex:'Zidane marcó uno de los goles más icónicos de la historia en Glasgow.'},
+  {tier:4,q:'¿Qué club ganó la Copa Libertadores 2018 en la final jugada en Madrid?',opts:['Boca Juniors','River Plate','Palmeiras','Flamengo'],c:1,ex:'River venció 3-1 a Boca en el Bernabéu y ganó la final más recordada del torneo.'},
+  {tier:4,q:'¿Qué selección ganó la Eurocopa 2016?',opts:['Alemania','Portugal','Francia','España'],c:1,ex:'Portugal ganó la Euro 2016 con gol de Éder en la final ante Francia.'},
+  {tier:5,q:'¿Qué club fichó a Neymar por 222 millones de euros en 2017?',opts:['Barcelona','Manchester City','PSG','Real Madrid'],c:2,ex:'PSG pagó la cláusula de rescisión de Neymar y batió el récord histórico.'},
+  {tier:5,q:'¿Qué club ganó la Champions League 2003-04 con José Mourinho?',opts:['Porto','Monaco','Milan','Valencia'],c:0,ex:'El Porto de Mourinho sorprendió a Europa y ganó la Champions en 2004.'},
+  {tier:5,q:'¿Qué jugador hizo el “gol del siglo” ante Inglaterra en México 1986?',opts:['Jorge Valdano','Diego Maradona','Gary Lineker','Claudio Caniggia'],c:1,ex:'Maradona firmó una de las mejores jugadas de la historia de los Mundiales.'},
+  {tier:6,q:'¿Qué equipo perdió la final del Mundial de Clubes 2012 contra Corinthians?',opts:['Chelsea','Bayern Munich','Monterrey','Al Ahly'],c:0,ex:'Corinthians venció 1-0 al Chelsea en Yokohama con gol de Paolo Guerrero.'},
+  {tier:6,q:'¿Qué club cortó la racha de 9 Scudettos seguidos de Juventus en 2020-21?',opts:['Milan','Napoli','Inter Milan','Roma'],c:2,ex:'Inter ganó la Serie A 2020-21 con Antonio Conte como entrenador.'},
+  {tier:6,q:'¿Qué selección ganó la primera Copa América de Lionel Messi en 2021?',opts:['Brasil','Uruguay','Argentina','Colombia'],c:2,ex:'Argentina venció 1-0 a Brasil en el Maracaná y Messi ganó su primera Copa América.'},
+  {tier:7,q:'¿Qué club ganó la primera Champions League de su historia en 2012 tras vencer al Bayern en Múnich?',opts:['Chelsea','Manchester United','Inter Milan','Arsenal'],c:0,ex:'Chelsea ganó la final por penales en el Allianz Arena con Drogba como héroe.'},
+  {tier:7,q:'¿Qué selección ganó el Mundial 2010 con un gol de Iniesta en la final?',opts:['Países Bajos','España','Alemania','Argentina'],c:1,ex:'España ganó su primer Mundial en Sudáfrica 2010 con gol de Iniesta en el alargue.'},
+  {tier:7,q:'¿Quién es el máximo goleador histórico de la Champions League?',opts:['Lionel Messi','Raúl','Karim Benzema','Cristiano Ronaldo'],c:3,ex:'Cristiano Ronaldo lidera la tabla histórica de goleadores de la Champions.'},
+];
 
 // ============================================================
 //  TRIVIA
@@ -1258,6 +1300,9 @@ function getStreamPlayersForOverlay(){
     ? stream2pState.players
     : broadcastState.players;
 }
+function applyGlobalStreamLayout(screenId){
+  setScreenStreamLayout(screenId,streamModeEnabled);
+}
 function renderStreamCameraOverlay(activeIdx=-1,playersOverride=null){
   const players=playersOverride||getStreamPlayersForOverlay();
   return `
@@ -1273,6 +1318,9 @@ function renderStreamCameraOverlay(activeIdx=-1,playersOverride=null){
         </div>
       `).join('')}
     </div>`;
+}
+function renderStreamOverlayIfEnabled(activeIdx=-1,playersOverride=null){
+  return streamModeEnabled ? renderStreamCameraOverlay(activeIdx,playersOverride) : '';
 }
 function syncStreamOverlayScores(playersOverride=null){
   const players=playersOverride||getStreamPlayersForOverlay();
@@ -1313,29 +1361,58 @@ function startStream(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const scr=document.getElementById('game-stream');
   scr.classList.add('active');
+  applyGlobalStreamLayout('game-stream');
   scr.innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Inicio</button>
       <span class="game-title">📺 Modo Stream</span>
     </div>
     <div class="game-body stream-broadcast">
-      ${renderStreamCameraOverlay()}
+      ${renderStreamOverlayIfEnabled()}
       <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
         <div class="stream-title-kicker">Formato stream</div>
         <div style="font-size:4rem;margin-bottom:.8rem">📺</div>
         <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:.4rem">Modo Stream</h2>
-        <p style="color:var(--muted);margin-bottom:2rem">5 categorías · 5 preguntas cada una · sin repetir</p>
+        <p style="color:var(--muted);margin-bottom:2rem">5 categorías, mezcla aleatoria y desempate estilo Messinario.</p>
         <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%">
-          <button class="btn-primary" style="flex:1;min-width:200px;padding:1.2rem;font-size:1.05rem" onclick="startStream1P()">🎮 1 Jugador</button>
+          <button class="btn-primary" style="flex:1;min-width:200px;padding:1.2rem;font-size:1.05rem" onclick="showStream1PModeSelect()">🎮 1 Jugador</button>
           <button class="btn-primary" style="flex:1;min-width:200px;padding:1.2rem;font-size:1.05rem;background:var(--purple);border-color:var(--purple)" onclick="setupStream2P()">👥 2 Jugadores</button>
         </div>
       </div>
     </div>`;
 }
 
-function startStream1P(){
+function showStream1PModeSelect(){
+  resetBroadcastScores();
+  applyGlobalStreamLayout('game-stream');
+  const scr=document.getElementById('game-stream');
+  scr.innerHTML=`
+    <div class="game-header">
+      <button class="back-btn" onclick="startStream()">← Volver</button>
+      <span class="game-title">🎮 Stream 1 Jugador</span>
+    </div>
+    <div class="game-body stream-broadcast">
+      ${renderStreamOverlayIfEnabled(0,broadcastState.players)}
+      <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+        <div class="stream-title-kicker">Elige el formato</div>
+        <div class="score-note" style="text-align:left;width:100%;margin-bottom:1rem">
+          <strong>Puntaje Stream:</strong> en el modo normal cada correcta suma <strong>100 pts</strong>.
+          <span class="mini">En 2 jugadores, Messinario Apuesta usa esos puntos reales como capital para arriesgar.</span>
+        </div>
+        <h2 style="font-size:1.7rem;font-weight:900;margin-bottom:.45rem">1 Jugador</h2>
+        <p style="color:var(--muted);margin-bottom:1.7rem">Puedes jugar por categorías o en una mezcla aleatoria de preguntas.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%">
+          <button class="btn-primary" style="flex:1;min-width:220px;padding:1.15rem;font-size:1rem" onclick="startStream1P('normal')">🏆 Modo normal</button>
+          <button class="btn-primary" style="flex:1;min-width:220px;padding:1.15rem;font-size:1rem;background:var(--orange);border-color:var(--orange)" onclick="startStream1P('random')">🎲 Aleatorio Mix</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function startStream1P(mode='normal'){
   clearInterval(streamState.timer);
   resetBroadcastScores();
+  applyGlobalStreamLayout('game-stream');
   const scr=document.getElementById('game-stream');
   scr.innerHTML=`
     <div class="game-header">
@@ -1346,7 +1423,7 @@ function startStream1P(){
       <span class="score-display" id="stream-score">0 pts</span>
     </div>
     <div class="game-body stream-broadcast">
-      ${renderStreamCameraOverlay(0,broadcastState.players)}
+      ${renderStreamOverlayIfEnabled(0,broadcastState.players)}
       <div class="stream-center wide">
         <div class="stream-game-shell">
           <div class="stream-cats" id="stream-cats"></div>
@@ -1366,20 +1443,22 @@ function startStream1P(){
     const qs=shuffle(STREAM_TRIVIA.filter(q=>q.catKey===key));
     qs.slice(0,5).forEach(q=>streamState.questions.push(q));
   });
-  streamState.current=0; streamState.score=0; streamState.mode='normal';
+  if(mode==='random') streamState.questions=shuffle(streamState.questions);
+  streamState.current=0; streamState.score=0; streamState.mode=mode;
   setBroadcastScores(0,0);
   showStreamQuestion();
 }
 
 // ── 2P SETUP ──
 function setupStream2P(){
+  applyGlobalStreamLayout('game-stream');
   document.getElementById('game-stream').innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="startStream()">← Volver</button>
       <span class="game-title">👥 Stream — 2 Jugadores</span>
     </div>
     <div class="game-body stream-broadcast">
-      ${renderStreamCameraOverlay()}
+      ${renderStreamOverlayIfEnabled()}
       <div class="stream-center compact">
         <h3 style="text-align:center;margin-bottom:1.5rem;font-size:1.3rem">¿Cómo se llaman?</h3>
         <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem">
@@ -1418,6 +1497,7 @@ function initStream2P(){
 }
 
 function showCatSelect2P(){
+  applyGlobalStreamLayout('game-stream');
   const pi=stream2pState.currentPlayer;
   const p=stream2pState.players[pi];
   const color=pi===0?'var(--blue)':'var(--gold)';
@@ -1427,6 +1507,8 @@ function showCatSelect2P(){
     return `<button class="stream-cat-btn${done?' done':''}" ${done?'disabled':''} onclick="${done?'':` startCatRound2P('${key}')`}">${label}${done?' ✓':''}</button>`;
   }).join('');
   const randomBtn=`<button class="stream-cat-btn" style="border-color:rgba(255,159,67,.35);color:#ffd7ad" onclick="startRandomCat2P()">🎲 Aleatorio</button>`;
+  const messiReady=(stream2pState.players[0].score>0||stream2pState.players[1].score>0);
+  const messiBtn=`<button class="stream-cat-btn" ${messiReady?'':'disabled'} style="border-color:rgba(247,183,51,.42);color:${messiReady?'#ffe0a8':'var(--muted)'}" onclick="${messiReady?'enterMessinarioFromStream2P()':''}">🐐 Messinario Apuesta</button>`;
   const totalCats=STREAM_CATS.length;
   document.getElementById('game-stream').innerHTML=`
     <div class="game-header">
@@ -1437,13 +1519,18 @@ function showCatSelect2P(){
       <span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${stream2pState.players[1].score}</strong></span>
     </div>
     <div class="game-body stream-broadcast">
-      ${renderStreamCameraOverlay(pi)}
+      ${renderStreamOverlayIfEnabled(pi)}
       <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;text-align:center">
         <div class="stream-turn-note">${stream2pState.currentPlayer===0?'🔵':'🟡'} Turno de ${p.name}</div>
+        <div class="score-note" style="text-align:left;width:100%;margin-bottom:1rem">
+          <strong>Puntaje Stream:</strong> cada correcta suma <strong>100 pts</strong>.
+          <span class="mini">Messinario Apuesta te deja arriesgar parte de ese puntaje para subir más o perderlo.</span>
+        </div>
         <div style="font-size:2.5rem;margin-bottom:.3rem">${emoji}</div>
         <h2 style="font-size:1.6rem;font-weight:900;color:${color};margin-bottom:.3rem">${p.name}</h2>
         <p style="color:var(--muted);margin-bottom:1.5rem">Elige una categoría para jugar:</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;width:100%">${catBtns}${randomBtn}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;width:100%">${catBtns}${randomBtn}${messiBtn}</div>
+        <p style="color:var(--muted);font-size:.76rem;margin-top:.85rem">${messiReady?'Apuesta parte de los puntos ya ganados para intentar subir más.':'Messinario se habilita cuando ya hayan sumado puntos en el stream.'}</p>
         <p style="color:var(--muted);font-size:.78rem;margin-top:1rem">${p.catsDone.length}/${totalCats} categorías completadas</p>
       </div>
     </div>`;
@@ -1465,6 +1552,7 @@ function startRandomCat2P(){
 }
 
 function showStream2PQuestion(){
+  applyGlobalStreamLayout('game-stream');
   const pi=stream2pState.currentPlayer;
   const p=stream2pState.players[pi];
   const q=p.catQuestions[stream2pState.currentCat][stream2pState.currentQIdx];
@@ -1480,7 +1568,7 @@ function showStream2PQuestion(){
       <span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${stream2pState.players[1].score}</strong></span>
     </div>
     <div class="game-body stream-broadcast">
-      ${renderStreamCameraOverlay(pi)}
+      ${renderStreamOverlayIfEnabled(pi)}
       <div class="stream-center wide">
         <div class="stream-game-shell">
           <div class="stream-turn-note">${stream2pState.currentPlayer===0?'🔵':'🟡'} Turno de ${p.name}</div>
@@ -1573,6 +1661,7 @@ function nextStream2PQ(){
   const p=stream2pState.players[stream2pState.currentPlayer];
   const color=stream2pState.currentPlayer===0?'var(--blue)':'var(--gold)';
   const prev=stream2pState.players[1-stream2pState.currentPlayer];
+  applyGlobalStreamLayout('game-stream');
   document.getElementById('game-stream').innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Salir</button>
@@ -1582,7 +1671,7 @@ function nextStream2PQ(){
       <span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${stream2pState.players[1].score}</strong></span>
     </div>
     <div class="game-body stream-broadcast">
-      ${renderStreamCameraOverlay(stream2pState.currentPlayer)}
+      ${renderStreamOverlayIfEnabled(stream2pState.currentPlayer)}
       <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
         <div class="stream-turn-note">${stream2pState.currentPlayer===0?'🔵':'🟡'} Turno de ${p.name}</div>
         <div style="font-size:3rem;margin-bottom:.5rem">✅</div>
@@ -1603,13 +1692,14 @@ function showStream2PEnd(){
   clearInterval(stream2pState.timer);
   const p0=stream2pState.players[0],p1=stream2pState.players[1];
   const winner=p0.score>p1.score?p0:p1.score>p0.score?p1:null;
+  applyGlobalStreamLayout('game-stream');
   document.getElementById('game-stream').innerHTML=`
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Inicio</button>
       <span class="game-title">📺 Stream Finalizado</span>
     </div>
     <div class="game-body stream-broadcast">
-      ${renderStreamCameraOverlay()}
+      ${renderStreamOverlayIfEnabled()}
       <div class="stream-center compact" style="text-align:center;padding:2rem 1rem">
         <div style="font-size:4rem;margin-bottom:.8rem">🏆</div>
         <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:1.2rem">¡Stream completado!</h2>
@@ -1740,6 +1830,7 @@ function nextStreamQuestion(){
 }
 
 function showStreamEnd(){
+  applyGlobalStreamLayout('game-stream');
   clearInterval(streamState.timer);
   const s=streamState.score;
   let emoji='🥉',msg='¡Buen intento! El chat aprendió mucho.';
@@ -1751,7 +1842,7 @@ function showStreamEnd(){
       <span class="game-title">📺 Modo Stream</span>
     </div>
     <div class="game-body stream-broadcast">
-      ${renderStreamCameraOverlay(0,broadcastState.players)}
+      ${renderStreamOverlayIfEnabled(0,broadcastState.players)}
       <div class="stream-center compact" style="display:flex;align-items:center;justify-content:center">
         <div style="text-align:center;padding:2rem 1rem;max-width:500px">
           <div style="font-size:5rem;margin-bottom:1rem">${emoji}</div>
@@ -2016,6 +2107,15 @@ const stream2pState={
   players:[{name:'DavoXeneize',score:0,catsDone:[],catQuestions:{}},{name:'LaCobra',score:0,catsDone:[],catQuestions:{}}],
   currentPlayer:0,currentCat:'',currentQIdx:0,answered:false,shuffled:[],timer:null,timeLeft:20
 };
+const messinarioState={
+  mode:'1p',
+  players:[],
+  currentPlayer:0,
+  currentTier:0,
+  answered:false,
+  shuffled:[],
+  pendingBank:0
+};
 
 function startTrivia(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -2173,6 +2273,598 @@ function showTriviaEnd(){
         <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
           <button class="btn-primary" onclick="startTrivia()">🔄 Jugar de nuevo</button>
           <button class="btn-secondary" onclick="goHome()">🏠 Inicio</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function pickMessinarioQuestions(perPlayer=1){
+  const packs=[];
+  for(let slot=0;slot<perPlayer;slot++){
+    const run=[];
+    for(let tier=1;tier<=MESSINARIO_LADDER.length;tier++){
+      const pool=shuffle(MESSINARIO_QUESTIONS.filter(q=>q.tier===tier));
+      run.push(pool[slot % pool.length]);
+    }
+    packs.push(run);
+  }
+  return packs;
+}
+
+function showMessinarioModeSelect(){
+  resetBroadcastScores();
+  applyGlobalStreamLayout('game-stream');
+  document.getElementById('game-stream').innerHTML=`
+    <div class="game-header">
+      <button class="back-btn" onclick="startStream()">← Volver</button>
+      <span class="game-title">🐐 Quién Quiere Ser Messinario</span>
+    </div>
+    <div class="game-body stream-broadcast">
+      ${renderStreamOverlayIfEnabled()}
+      <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+        <div class="stream-title-kicker">Modo desempate</div>
+        <div class="score-note" style="text-align:left;width:100%;margin-bottom:1rem">
+          <strong>Cómo puntúa Messinario:</strong> entras con tu puntaje actual y eliges cuánto apostar.
+          <span class="mini">Si aciertas sumas esa apuesta; si fallas la pierdes. Más apuesta = pregunta más difícil.</span>
+        </div>
+        <div style="font-size:4rem;margin-bottom:.5rem">🐐</div>
+        <h2 style="font-size:1.75rem;font-weight:900;margin-bottom:.5rem">Quién quiere ser Messinario</h2>
+        <p style="color:var(--muted);margin-bottom:1.6rem">Escalera de premios, dificultad creciente y si fallas vuelves a 0.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%">
+          <button class="btn-primary" style="flex:1;min-width:220px;padding:1.15rem;font-size:1rem" onclick="startMessinario1P()">🎮 1 Jugador</button>
+          <button class="btn-primary" style="flex:1;min-width:220px;padding:1.15rem;font-size:1rem;background:var(--purple);border-color:var(--purple)" onclick="setupMessinario2P()">👥 2 Jugadores</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderMessinarioLadder(activeTier,player){
+  return `<div style="display:grid;gap:.4rem;margin-bottom:1rem">
+    ${MESSINARIO_LADDER.map((pts,i)=>{
+      const isActive=i===activeTier;
+      const isWon=player.score>=pts;
+      const bg=isActive?'linear-gradient(135deg,rgba(247,183,51,.22),rgba(255,159,67,.18))':isWon?'rgba(16,185,129,.16)':'rgba(255,255,255,.04)';
+      const br=isActive?'rgba(247,183,51,.55)':isWon?'rgba(110,231,183,.42)':'rgba(255,255,255,.08)';
+      const col=isActive?'#ffe9b2':isWon?'#ddfff1':'#dbe6fb';
+      return `<div style="padding:.55rem .8rem;border-radius:12px;border:1px solid ${br};background:${bg};color:${col};font-weight:800;display:flex;justify-content:space-between;gap:1rem">
+        <span>Pregunta ${i+1}</span><span>${pts} pts</span>
+      </div>`;
+    }).reverse().join('')}
+  </div>`;
+}
+
+function startMessinario1P(){
+  const [questions]=pickMessinarioQuestions(1);
+  messinarioState.mode='1p';
+  messinarioState.players=[{name:'Jugador 1',score:0,alive:true,questions,currentTier:0}];
+  messinarioState.currentPlayer=0;
+  messinarioState.currentTier=0;
+  messinarioState.answered=false;
+  messinarioState.pendingBank=0;
+  setBroadcastScores(0,0);
+  showMessinarioQuestion();
+}
+
+function setupMessinario2P(){
+  resetBroadcastScores();
+  applyGlobalStreamLayout('game-stream');
+  document.getElementById('game-stream').innerHTML=`
+    <div class="game-header">
+      <button class="back-btn" onclick="showMessinarioModeSelect()">← Volver</button>
+      <span class="game-title">🐐 Messinario 2P</span>
+    </div>
+    <div class="game-body stream-broadcast">
+      ${renderStreamOverlayIfEnabled()}
+      <div class="stream-center compact">
+        <h3 style="text-align:center;margin-bottom:1.5rem;font-size:1.3rem">¿Cómo se llaman?</h3>
+        <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem">
+          <div>
+            <label style="color:var(--blue);font-weight:700;display:block;margin-bottom:.4rem">🔵 Jugador 1</label>
+            <input id="messi-p1-name" class="player-input" type="text" maxlength="18" value="DavoXeneize">
+          </div>
+          <div>
+            <label style="color:var(--gold);font-weight:700;display:block;margin-bottom:.4rem">🟡 Jugador 2</label>
+            <input id="messi-p2-name" class="player-input" type="text" maxlength="18" value="LaCobra">
+          </div>
+        </div>
+        <button class="btn-primary" style="width:100%;padding:1rem;font-size:1.05rem" onclick="initMessinario2P()">Empezar duelo →</button>
+      </div>
+    </div>`;
+}
+
+function initMessinario2P(){
+  const p1=document.getElementById('messi-p1-name').value.trim()||'DavoXeneize';
+  const p2=document.getElementById('messi-p2-name').value.trim()||'LaCobra';
+  const [q1,q2]=pickMessinarioQuestions(2);
+  messinarioState.mode='2p';
+  messinarioState.players=[
+    {name:p1,score:0,alive:true,questions:q1,currentTier:0},
+    {name:p2,score:0,alive:true,questions:q2,currentTier:0}
+  ];
+  messinarioState.currentPlayer=0;
+  messinarioState.currentTier=0;
+  messinarioState.answered=false;
+  messinarioState.pendingBank=0;
+  setBroadcastScores(0,0);
+  showMessinarioQuestion();
+}
+
+function getNextMessinarioPlayer(startIdx=0){
+  for(let offset=0;offset<messinarioState.players.length;offset++){
+    const idx=(startIdx+offset)%messinarioState.players.length;
+    const p=messinarioState.players[idx];
+    if(p.alive&&p.currentTier<MESSINARIO_LADDER.length) return idx;
+  }
+  return -1;
+}
+
+function showMessinarioQuestion(){
+  applyGlobalStreamLayout('game-stream');
+  const pi=getNextMessinarioPlayer(messinarioState.currentPlayer);
+  if(pi===-1){ showMessinarioEnd(); return; }
+  messinarioState.currentPlayer=pi;
+  const p=messinarioState.players[pi];
+  const q=p.questions[p.currentTier];
+  const ladderPts=MESSINARIO_LADDER[p.currentTier];
+  const accent=pi===0?'var(--blue)':'var(--gold)';
+  document.getElementById('game-stream').innerHTML=`
+    <div class="game-header">
+      <button class="back-btn" onclick="goHome()">← Salir</button>
+      <span class="game-title">🐐 Messinario</span>
+      <span class="header-spacer"></span>
+      <span class="stream-score-chip" style="border-color:rgba(92,200,255,.25)"><span style="color:var(--blue)">🔵</span> <strong>${messinarioState.players[0]?.score||0}</strong></span>
+      ${messinarioState.players[1]?`<span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${messinarioState.players[1].score}</strong></span>`:''}
+    </div>
+    <div class="game-body stream-broadcast">
+      ${renderStreamOverlayIfEnabled(pi,messinarioState.players)}
+      <div class="stream-center wide">
+        <div class="stream-game-shell">
+          <div class="stream-turn-note">${messinarioState.mode==='2p'?(pi===0?'🔵':'🟡')+' Turno de '+p.name:'🐐 Modo individual'}</div>
+          <div style="text-align:center;padding:.7rem 1rem;border-radius:14px;border:1px solid rgba(247,183,51,.28);background:linear-gradient(135deg,rgba(247,183,51,.14),rgba(255,159,67,.10));margin-bottom:.6rem">
+            <div style="font-size:.82rem;color:#ffe4a6;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Premio en juego</div>
+            <div style="font-size:2rem;font-weight:900;color:#fff2c9">${ladderPts} pts</div>
+            <div style="font-size:.78rem;color:var(--muted)">Si fallas, vuelves a 0</div>
+          </div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:1rem;align-items:start">
+            <div>
+              <div class="stream-cat-banner" style="margin-bottom:.7rem">Pregunta ${p.currentTier+1} · Dificultad ${p.currentTier+1}/7</div>
+              <div class="stream-q-text" style="margin-bottom:.9rem">${q.q}</div>
+              <div class="stream-options" id="messi-options"></div>
+              <div class="stream-ex" id="messi-ex"></div>
+              <button class="stream-next" id="messi-next" onclick="nextMessinarioStep()">Siguiente →</button>
+            </div>
+            <div>${renderMessinarioLadder(p.currentTier,p)}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  const grid=document.getElementById('messi-options');
+  const idxs=shuffle([0,1,2,3]);
+  messinarioState.shuffled=idxs;
+  idxs.forEach(orig=>{
+    const btn=document.createElement('button');
+    btn.className='stream-opt';
+    btn.textContent=q.opts[orig];
+    btn.onclick=()=>answerMessinario(orig,btn,q,ladderPts);
+    grid.appendChild(btn);
+  });
+}
+
+function answerMessinario(idx,btn,q,ladderPts){
+  if(messinarioState.answered) return;
+  messinarioState.answered=true;
+  const pi=messinarioState.currentPlayer;
+  const p=messinarioState.players[pi];
+  document.getElementById('messi-options').querySelectorAll('.stream-opt').forEach((b,i)=>{
+    b.disabled=true;
+    if(messinarioState.shuffled[i]===q.c) b.classList.add('correct');
+  });
+  if(idx===q.c){
+    btn.classList.add('correct');
+    p.score=ladderPts;
+    messinarioState.pendingBank=ladderPts;
+    p.currentTier+=1;
+    if(pi===0) setBroadcastScores(p.score,messinarioState.players[1]?.score||0);
+    else setBroadcastScores(messinarioState.players[0].score,p.score);
+    document.getElementById('messi-ex').textContent=`✅ Correcto. ${q.ex}`;
+    document.getElementById('messi-ex').className='stream-ex show';
+  } else {
+    btn.classList.add('wrong');
+    p.score=0;
+    p.alive=false;
+    messinarioState.pendingBank=0;
+    if(pi===0) setBroadcastScores(0,messinarioState.players[1]?.score||0);
+    else setBroadcastScores(messinarioState.players[0].score,0);
+    document.getElementById('messi-ex').textContent=`❌ Incorrecto. ${q.ex} Pierdes todo tu acumulado.`;
+    document.getElementById('messi-ex').className='stream-ex show';
+  }
+  document.getElementById('messi-next').className='stream-next show';
+}
+
+function nextMessinarioStep(){
+  messinarioState.answered=false;
+  if(messinarioState.mode==='1p'){
+    const p=messinarioState.players[0];
+    if(!p.alive||p.currentTier>=MESSINARIO_LADDER.length){ showMessinarioEnd(); return; }
+    showMessinarioQuestion();
+    return;
+  }
+  const other=1-messinarioState.currentPlayer;
+  const otherPlayer=messinarioState.players[other];
+  const currentPlayer=messinarioState.players[messinarioState.currentPlayer];
+  if(otherPlayer.alive&&otherPlayer.currentTier===currentPlayer.currentTier){
+    messinarioState.currentPlayer=other;
+    showMessinarioQuestion();
+    return;
+  }
+  const nextIdx=getNextMessinarioPlayer(0);
+  if(nextIdx===-1){ showMessinarioEnd(); return; }
+  messinarioState.currentPlayer=nextIdx;
+  showMessinarioQuestion();
+}
+
+function showMessinarioEnd(){
+  applyGlobalStreamLayout('game-stream');
+  const p0=messinarioState.players[0];
+  const p1=messinarioState.players[1]||null;
+  const winner=!p1?p0:(p0.score>p1.score?p0:p1.score>p0.score?p1:null);
+  document.getElementById('game-stream').innerHTML=`
+    <div class="game-header">
+      <button class="back-btn" onclick="goHome()">← Inicio</button>
+      <span class="game-title">🐐 Messinario Finalizado</span>
+    </div>
+    <div class="game-body stream-broadcast">
+      ${renderStreamOverlayIfEnabled(winner?(winner===p0?0:1):-1,messinarioState.players)}
+      <div class="stream-center compact" style="text-align:center;padding:2rem 1rem">
+        <div style="font-size:4rem;margin-bottom:.8rem">🏆</div>
+        <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:1rem">Fin de Messinario</h2>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.4rem">
+          <div style="background:var(--card2);border:2px solid var(--blue);border-radius:14px;padding:1.2rem 2rem;min-width:150px">
+            <div style="color:var(--blue);font-weight:900;font-size:1.05rem;margin-bottom:.3rem">${p0.name}</div>
+            <div style="font-size:2.2rem;font-weight:900">${p0.score}</div>
+            <div style="font-size:.75rem;color:var(--muted)">pts</div>
+          </div>
+          ${p1?`<div style="background:var(--card2);border:2px solid var(--gold);border-radius:14px;padding:1.2rem 2rem;min-width:150px">
+            <div style="color:var(--gold);font-weight:900;font-size:1.05rem;margin-bottom:.3rem">${p1.name}</div>
+            <div style="font-size:2.2rem;font-weight:900">${p1.score}</div>
+            <div style="font-size:.75rem;color:var(--muted)">pts</div>
+          </div>`:''}
+        </div>
+        <p style="font-size:1.08rem;font-weight:800;color:${winner?'var(--gold)':'var(--muted)'};margin-bottom:1.4rem">
+          ${p1?(winner?`🐐 ${winner.name} se convierte en Messinario`:'🤝 Empate total en Messinario'):`🐐 Terminaste con ${p0.score} pts`}
+        </p>
+        <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+          <button class="btn-primary" onclick="showMessinarioModeSelect()">🔄 Jugar otra vez</button>
+          <button class="btn-secondary" onclick="startStream()">📺 Volver al Stream</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+const MESSI_BANKROLL=1000;
+const MESSI_WAGERS=[
+  {amount:100,label:'Controlado',tiers:[1,2],accent:'var(--blue)',note:'Pregunta accesible'},
+  {amount:250,label:'Picante',tiers:[3,4],accent:'var(--purple)',note:'Dificultad media'},
+  {amount:500,label:'Valiente',tiers:[5,6],accent:'var(--orange)',note:'Pregunta dura'},
+  {amount:800,label:'Bestial',tiers:[7],accent:'var(--gold)',note:'Nivel leyenda'}
+];
+function messiCreatePlayer(name){
+  return {name,score:MESSI_BANKROLL,roundsPlayed:0,corrects:0,usedQuestions:[],lastResult:''};
+}
+function messiGetWager(amount){ return MESSI_WAGERS.find(w=>w.amount===amount); }
+function messiPickQuestion(player,wager){
+  const fresh=shuffle(MESSINARIO_QUESTIONS.filter(q=>wager.tiers.includes(q.tier)&&!player.usedQuestions.includes(q.q)));
+  if(fresh.length) return fresh[0];
+  return shuffle(MESSINARIO_QUESTIONS.filter(q=>wager.tiers.includes(q.tier)))[0];
+}
+function messiSyncScores(){
+  setBroadcastScores(messinarioState.players[0]?.score||0,messinarioState.players[1]?.score||0);
+}
+function messiWinner(){
+  const p0=messinarioState.players[0];
+  const p1=messinarioState.players[1]||null;
+  if(!p1) return p0;
+  if(p0.score!==p1.score) return p0.score>p1.score?p0:p1;
+  if(p0.corrects!==p1.corrects) return p0.corrects>p1.corrects?p0:p1;
+  return null;
+}
+function messiRoundText(){
+  if(messinarioState.mode==='1p') return `Turno ${messinarioState.players[0].roundsPlayed+1}/${messinarioState.maxRounds}`;
+  if(messinarioState.suddenDeath) return 'Muerte súbita';
+  const p=messinarioState.players[messinarioState.currentPlayer];
+  return `Ronda ${p.roundsPlayed+1}/${messinarioState.maxRounds}`;
+}
+function messiChoosePlayer(){
+  if(messinarioState.mode==='1p') return 0;
+  const p0=messinarioState.players[0],p1=messinarioState.players[1];
+  if(p0.roundsPlayed===p1.roundsPlayed) return 0;
+  return p0.roundsPlayed<p1.roundsPlayed?0:1;
+}
+function messiShouldEnd(){
+  if(messinarioState.mode==='1p'){
+    const p=messinarioState.players[0];
+    return p.roundsPlayed>=messinarioState.maxRounds||p.score<100;
+  }
+  const p0=messinarioState.players[0],p1=messinarioState.players[1];
+  const bothDone=p0.roundsPlayed>=messinarioState.maxRounds&&p1.roundsPlayed>=messinarioState.maxRounds;
+  if(bothDone){
+    if(p0.score===p1.score&&p0.corrects===p1.corrects&&p0.score>=100&&p1.score>=100){
+      messinarioState.suddenDeath=true;
+      return false;
+    }
+    return true;
+  }
+  if((p0.score<100||p1.score<100)&&p0.score!==p1.score) return true;
+  return false;
+}
+function messiCards(){
+  const p0=messinarioState.players[0],p1=messinarioState.players[1]||null;
+  return `<div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.1rem">
+    <div style="background:var(--card2);border:2px solid var(--blue);border-radius:14px;padding:1rem 1.4rem;min-width:170px;text-align:center">
+      <div style="color:var(--blue);font-weight:900">${p0.name}</div>
+      <div style="font-size:2rem;font-weight:900">${p0.score}</div>
+      <div style="font-size:.76rem;color:var(--muted)">${p0.corrects} aciertos</div>
+    </div>
+    ${p1?`<div style="background:var(--card2);border:2px solid var(--gold);border-radius:14px;padding:1rem 1.4rem;min-width:170px;text-align:center">
+      <div style="color:var(--gold);font-weight:900">${p1.name}</div>
+      <div style="font-size:2rem;font-weight:900">${p1.score}</div>
+      <div style="font-size:.76rem;color:var(--muted)">${p1.corrects} aciertos</div>
+    </div>`:''}
+  </div>`;
+}
+function messiBetButtons(player){
+  return MESSI_WAGERS.map(w=>{
+    const disabled=player.score<w.amount;
+    return `<button class="stream-cat-btn" ${disabled?'disabled':''}
+      style="text-align:left;border-color:${disabled?'rgba(255,255,255,.08)':`color-mix(in srgb, ${w.accent} 55%, white 10%)`};opacity:${disabled?.55:1}"
+      onclick="${disabled?'':`startMessinarioWager(${w.amount})`}">
+      <div style="font-size:1rem;font-weight:900;color:${disabled?'var(--muted)':w.accent}">${w.label} · ${w.amount} pts</div>
+      <div style="font-size:.78rem;color:var(--muted);margin-top:.25rem">${w.note}</div>
+    </button>`;
+  }).join('');
+}
+
+function showMessinarioModeSelect(){
+  resetBroadcastScores();
+  applyGlobalStreamLayout('game-stream');
+  document.getElementById('game-stream').innerHTML=`
+    <div class="game-header">
+      <button class="back-btn" onclick="startStream()">← Volver</button>
+      <span class="game-title">🐐 Messinario Desempate</span>
+    </div>
+    <div class="game-body stream-broadcast">
+      ${renderStreamOverlayIfEnabled()}
+      <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+        <div class="stream-title-kicker">Modo desempate</div>
+        <div style="font-size:4rem;margin-bottom:.5rem">🐐</div>
+        <h2 style="font-size:1.75rem;font-weight:900;margin-bottom:.5rem">Messinario</h2>
+        <p style="color:var(--muted);margin-bottom:1.6rem">Todos arrancan con ${MESSI_BANKROLL} puntos. A mayor apuesta, más premio y preguntas más difíciles.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%">
+          <button class="btn-primary" style="flex:1;min-width:220px;padding:1.15rem;font-size:1rem" onclick="startMessinario1P()">🎮 1 Jugador</button>
+          <button class="btn-primary" style="flex:1;min-width:220px;padding:1.15rem;font-size:1rem;background:var(--purple);border-color:var(--purple)" onclick="setupMessinario2P()">👥 2 Jugadores</button>
+        </div>
+      </div>
+    </div>`;
+}
+function startMessinario1P(){
+  messinarioState.mode='1p';
+  messinarioState.players=[messiCreatePlayer('Jugador 1')];
+  messinarioState.currentPlayer=0;
+  messinarioState.maxRounds=5;
+  messinarioState.suddenDeath=false;
+  messinarioState.currentQuestion=null;
+  messinarioState.currentBet=0;
+  messiSyncScores();
+  showMessinarioBetSelect();
+}
+function setupMessinario2P(){
+  resetBroadcastScores();
+  applyGlobalStreamLayout('game-stream');
+  document.getElementById('game-stream').innerHTML=`
+    <div class="game-header">
+      <button class="back-btn" onclick="showMessinarioModeSelect()">← Volver</button>
+      <span class="game-title">🐐 Messinario 2P</span>
+    </div>
+    <div class="game-body stream-broadcast">
+      ${renderStreamOverlayIfEnabled()}
+      <div class="stream-center compact">
+        <h3 style="text-align:center;margin-bottom:1.5rem;font-size:1.3rem">¿Cómo se llaman?</h3>
+        <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem">
+          <div>
+            <label style="color:var(--blue);font-weight:700;display:block;margin-bottom:.4rem">🔵 Jugador 1</label>
+            <input id="messi-p1-name" class="player-input" type="text" maxlength="18" value="DavoXeneize">
+          </div>
+          <div>
+            <label style="color:var(--gold);font-weight:700;display:block;margin-bottom:.4rem">🟡 Jugador 2</label>
+            <input id="messi-p2-name" class="player-input" type="text" maxlength="18" value="LaCobra">
+          </div>
+        </div>
+        <button class="btn-primary" style="width:100%;padding:1rem;font-size:1.05rem" onclick="initMessinario2P()">Empezar desempate →</button>
+      </div>
+    </div>`;
+}
+function initMessinario2P(){
+  const p1=document.getElementById('messi-p1-name').value.trim()||'DavoXeneize';
+  const p2=document.getElementById('messi-p2-name').value.trim()||'LaCobra';
+  messinarioState.mode='2p';
+  messinarioState.players=[messiCreatePlayer(p1),messiCreatePlayer(p2)];
+  messinarioState.currentPlayer=0;
+  messinarioState.maxRounds=4;
+  messinarioState.suddenDeath=false;
+  messinarioState.currentQuestion=null;
+  messinarioState.currentBet=0;
+  messiSyncScores();
+  showMessinarioBetSelect();
+}
+function enterMessinarioFromStream2P(){
+  const p1=stream2pState.players[0];
+  const p2=stream2pState.players[1];
+  messinarioState.mode='2p';
+  messinarioState.players=[
+    {name:p1.name,score:p1.score,roundsPlayed:0,corrects:0,usedQuestions:[],lastResult:''},
+    {name:p2.name,score:p2.score,roundsPlayed:0,corrects:0,usedQuestions:[],lastResult:''}
+  ];
+  messinarioState.currentPlayer=0;
+  messinarioState.maxRounds=3;
+  messinarioState.suddenDeath=false;
+  messinarioState.currentQuestion=null;
+  messinarioState.currentBet=0;
+  messiSyncScores();
+  showMessinarioBetSelect('Apuesta puntos reales del stream. Si fallas, los pierdes.');
+}
+function showMessinarioBetSelect(message=''){
+  applyGlobalStreamLayout('game-stream');
+  if(messiShouldEnd()){ showMessinarioEnd(); return; }
+  messinarioState.currentPlayer=messiChoosePlayer();
+  const pi=messinarioState.currentPlayer;
+  const p=messinarioState.players[pi];
+  const accent=pi===0?'var(--blue)':'var(--gold)';
+  const info=message||p.lastResult||'Elige tu apuesta. Cuanto más arriesgas, más difícil se pone.';
+  document.getElementById('game-stream').innerHTML=`
+    <div class="game-header">
+      <button class="back-btn" onclick="goHome()">← Salir</button>
+      <span class="game-title">🐐 Messinario Desempate</span>
+      <span class="header-spacer"></span>
+      <span class="stream-score-chip" style="border-color:rgba(92,200,255,.25)"><span style="color:var(--blue)">🔵</span> <strong>${messinarioState.players[0].score}</strong></span>
+      ${messinarioState.players[1]?`<span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${messinarioState.players[1].score}</strong></span>`:''}
+    </div>
+    <div class="game-body stream-broadcast">
+      ${renderStreamOverlayIfEnabled(pi,messinarioState.players)}
+      <div class="stream-center wide">
+        <div class="stream-game-shell">
+          <div class="stream-turn-note">${messinarioState.mode==='2p'?(pi===0?'🔵':'🟡')+' Turno de '+p.name:'🐐 Modo individual'} · ${messiRoundText()}</div>
+          ${messiCards()}
+          <div style="padding:1rem 1.1rem;border-radius:16px;border:1px solid color-mix(in srgb, ${accent} 35%, white 10%);background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.03));margin-bottom:.9rem">
+            <div style="font-size:.8rem;color:${accent};font-weight:900;letter-spacing:.08em;text-transform:uppercase">Bank actual</div>
+            <div style="font-size:2.35rem;font-weight:900">${p.score} pts</div>
+            <div style="font-size:.85rem;color:var(--muted);margin-top:.25rem">${info}</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">${messiBetButtons(p)}</div>
+          ${messinarioState.suddenDeath?'<div class="optimal-banner" style="margin-top:.9rem">⚡ Muerte súbita: siguen apostando hasta que uno saque ventaja real.</div>':''}
+        </div>
+      </div>
+    </div>`;
+}
+function startMessinarioWager(amount){
+  const wager=messiGetWager(amount);
+  const player=messinarioState.players[messinarioState.currentPlayer];
+  if(!wager||player.score<amount) return;
+  messinarioState.currentBet=amount;
+  messinarioState.currentWager=wager;
+  messinarioState.currentQuestion=messiPickQuestion(player,wager);
+  messinarioState.answered=false;
+  showMessinarioQuestion();
+}
+function showMessinarioQuestion(){
+  applyGlobalStreamLayout('game-stream');
+  const pi=messinarioState.currentPlayer;
+  const p=messinarioState.players[pi];
+  const q=messinarioState.currentQuestion;
+  const wager=messinarioState.currentWager;
+  document.getElementById('game-stream').innerHTML=`
+    <div class="game-header">
+      <button class="back-btn" onclick="goHome()">← Salir</button>
+      <span class="game-title">🐐 Messinario</span>
+      <span class="header-spacer"></span>
+      <span class="stream-score-chip" style="border-color:rgba(92,200,255,.25)"><span style="color:var(--blue)">🔵</span> <strong>${messinarioState.players[0].score}</strong></span>
+      ${messinarioState.players[1]?`<span class="stream-score-chip" style="border-color:rgba(247,183,51,.25)"><span style="color:var(--gold)">🟡</span> <strong>${messinarioState.players[1].score}</strong></span>`:''}
+    </div>
+    <div class="game-body stream-broadcast">
+      ${renderStreamOverlayIfEnabled(pi,messinarioState.players)}
+      <div class="stream-center wide">
+        <div class="stream-game-shell">
+          <div class="stream-turn-note">${messinarioState.mode==='2p'?(pi===0?'🔵':'🟡')+' Turno de '+p.name:'🐐 Modo individual'} · ${messiRoundText()}</div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:1rem;align-items:start">
+            <div>
+              <div class="stream-cat-banner" style="margin-bottom:.65rem">${wager.label} · ${messinarioState.currentBet} pts</div>
+              <div style="padding:.75rem 1rem;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);margin-bottom:.8rem">
+                <div style="font-size:.8rem;color:${wager.accent};font-weight:900;letter-spacing:.08em;text-transform:uppercase">Nivel de riesgo</div>
+                <div style="font-size:1.45rem;font-weight:900;margin-top:.2rem">${wager.note}</div>
+              </div>
+              <div class="stream-q-text" style="margin-bottom:.9rem">${q.q}</div>
+              <div class="stream-options" id="messi-options"></div>
+              <div class="stream-ex" id="messi-ex"></div>
+              <button class="stream-next" id="messi-next" onclick="nextMessinarioStep()">Siguiente →</button>
+            </div>
+            <div style="display:grid;gap:.45rem">
+              ${MESSI_WAGERS.map(w=>`<div style="padding:.6rem .8rem;border-radius:12px;border:1px solid ${w.amount===messinarioState.currentBet?`color-mix(in srgb, ${w.accent} 55%, white 10%)`:'rgba(255,255,255,.08)'};background:${w.amount===messinarioState.currentBet?'linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03))':'rgba(255,255,255,.03)'}">
+                <div style="font-weight:900;color:${w.accent}">${w.label}</div>
+                <div style="font-size:.78rem;color:var(--muted)">${w.amount} pts · ${w.note}</div>
+              </div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  const grid=document.getElementById('messi-options');
+  const idxs=shuffle([0,1,2,3]);
+  messinarioState.shuffled=idxs;
+  idxs.forEach(orig=>{
+    const btn=document.createElement('button');
+    btn.className='stream-opt';
+    btn.textContent=q.opts[orig];
+    btn.onclick=()=>answerMessinario(orig,btn,q);
+    grid.appendChild(btn);
+  });
+}
+function answerMessinario(idx,btn,q){
+  if(messinarioState.answered) return;
+  messinarioState.answered=true;
+  const pi=messinarioState.currentPlayer;
+  const p=messinarioState.players[pi];
+  const bet=messinarioState.currentBet;
+  document.getElementById('messi-options').querySelectorAll('.stream-opt').forEach((b,i)=>{
+    b.disabled=true;
+    if(messinarioState.shuffled[i]===q.c) b.classList.add('correct');
+  });
+  p.roundsPlayed+=1;
+  p.usedQuestions.push(q.q);
+  if(idx===q.c){
+    btn.classList.add('correct');
+    p.score+=bet;
+    p.corrects+=1;
+    p.lastResult=`✅ Acertaste y sumaste ${bet} pts.`;
+    document.getElementById('messi-ex').textContent=`✅ Correcto. ${q.ex}`;
+  } else {
+    btn.classList.add('wrong');
+    p.score=Math.max(0,p.score-bet);
+    p.lastResult=`❌ Fallaste y perdiste ${bet} pts.`;
+    document.getElementById('messi-ex').textContent=`❌ Incorrecto. ${q.ex} Pierdes ${bet} pts.`;
+  }
+  messiSyncScores();
+  document.getElementById('messi-ex').className='stream-ex show';
+  document.getElementById('messi-next').className='stream-next show';
+}
+function nextMessinarioStep(){
+  messinarioState.answered=false;
+  messinarioState.currentQuestion=null;
+  messinarioState.currentBet=0;
+  messinarioState.currentWager=null;
+  showMessinarioBetSelect();
+}
+function showMessinarioEnd(){
+  applyGlobalStreamLayout('game-stream');
+  const p0=messinarioState.players[0];
+  const p1=messinarioState.players[1]||null;
+  const winner=messiWinner();
+  const subtitle=messinarioState.mode==='2p'
+    ? winner?`🐐 ${winner.name} gana el desempate`:'🤝 Empate total'
+    : `🐐 Terminaste con ${p0.score} pts`;
+  document.getElementById('game-stream').innerHTML=`
+    <div class="game-header">
+      <button class="back-btn" onclick="goHome()">← Inicio</button>
+      <span class="game-title">🐐 Messinario Finalizado</span>
+    </div>
+    <div class="game-body stream-broadcast">
+      ${renderStreamOverlayIfEnabled(winner?(winner===p0?0:1):-1,messinarioState.players)}
+      <div class="stream-center compact" style="text-align:center;padding:2rem 1rem">
+        <div style="font-size:4rem;margin-bottom:.8rem">🏆</div>
+        <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:1rem">Fin del desempate</h2>
+        ${messiCards()}
+        <p style="font-size:1.08rem;font-weight:800;color:${winner?'var(--gold)':'var(--muted)'};margin-bottom:1.4rem">${subtitle}</p>
+        <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+          <button class="btn-primary" onclick="showMessinarioModeSelect()">🔄 Jugar otra vez</button>
+          <button class="btn-secondary" onclick="startStream()">📺 Volver al Stream</button>
         </div>
       </div>
     </div>`;
