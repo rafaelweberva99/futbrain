@@ -319,29 +319,29 @@ pointer-events:none;z-index:0}
   .stream-cams{grid-template-columns:1fr}
 }
 @media(min-width:1100px){
-  html,body{height:100vh;overflow:hidden}
+  html,body{height:auto;overflow-x:hidden;overflow-y:auto}
   body{min-height:100vh}
-  .screen{height:100vh;min-height:100vh;overflow:hidden}
-  .screen.active{overflow:hidden}
-  .game-body{overflow:hidden}
-  #home{min-height:100vh;padding:2.1rem 1.25rem 2rem;gap:1.5rem;justify-content:center}
+  .screen{height:auto;min-height:100vh;overflow:visible}
+  .screen.active{overflow:visible}
+  .game-body{overflow:visible;padding-bottom:2rem}
+  #home{min-height:100vh;padding:2.4rem 1.25rem 2.4rem;gap:1.5rem;justify-content:center}
   .logo{max-width:700px}
   .logo h1{font-size:clamp(2.7rem,6vw,5rem)}
   .logo p{font-size:1rem;line-height:1.55}
   .games-grid{max-width:980px;gap:1rem}
   .game-card{min-height:220px;padding:1.6rem}
   .game-card .icon{font-size:2.35rem;margin-bottom:.85rem}
-  .stream-broadcast{height:calc(100vh - 96px);min-height:calc(100vh - 96px);overflow:hidden;display:grid;
+  .stream-broadcast{height:auto;min-height:calc(100vh - 96px);overflow:visible;display:grid;
     grid-template-columns:minmax(260px,320px) minmax(560px,780px) minmax(260px,320px);
-    grid-template-rows:auto 1fr;column-gap:2rem;align-items:start;justify-content:center}
+    grid-template-rows:auto auto;column-gap:2rem;align-items:start;justify-content:center}
   .stream-cams{grid-column:1 / 4;grid-row:1;margin-bottom:0}
   #game-puente.stream-layout-on #puente-stream-overlay .stream-cams,
   #game-trivia.stream-layout-on #trivia-stream-overlay .stream-cams{grid-column:1 / 4;grid-row:1}
-  .stream-center{grid-column:2;grid-row:2;height:100%;display:flex;flex-direction:column;justify-content:flex-start;padding-top:.5rem}
+  .stream-center{grid-column:2;grid-row:2;height:auto;display:block;padding-top:.75rem;padding-bottom:1.25rem}
   .stream-center.wide{max-width:780px;width:100%}
   .stream-center.compact{max-width:620px;width:100%}
   .stream-cam-box{height:176px}
-  .stream-game-shell{gap:.28rem;height:100%;grid-template-rows:auto auto auto auto auto auto minmax(0,1fr) auto;display:grid;align-content:start}
+  .stream-game-shell{gap:.55rem;height:auto;display:flex;flex-direction:column;align-content:stretch}
   .stream-turn-note{margin-bottom:.35rem;padding:.3rem .72rem;font-size:.72rem}
   .stream-cat-banner{padding:.42rem .8rem;margin-bottom:.38rem;font-size:1rem}
   .timer-bar{margin-bottom:.65rem}
@@ -350,8 +350,8 @@ pointer-events:none;z-index:0}
   .stream-q-text{font-size:.94rem;line-height:1.25;margin-bottom:.32rem}
   .stream-options{gap:.42rem;margin-bottom:.2rem}
   .stream-opt{padding:.6rem .7rem;font-size:.86rem;line-height:1.2}
-  .stream-ex{padding:.5rem .7rem;margin:.15rem 0;font-size:.8rem;line-height:1.25;max-height:72px;overflow:hidden}
-  .stream-next{padding:.72rem;font-size:.92rem;margin-top:.15rem;position:sticky;bottom:0;z-index:2;box-shadow:0 12px 24px rgba(0,0,0,.25)}
+  .stream-ex{padding:.6rem .8rem;margin:.18rem 0;font-size:.82rem;line-height:1.3;max-height:none;overflow:visible}
+  .stream-next{padding:.78rem;font-size:.92rem;margin-top:.2rem;position:static;box-shadow:none}
   #game-puente.stream-layout-on #chain-content{gap:.42rem}
   #game-puente.stream-layout-on #chain-content .slots-bar{font-size:.76rem}
   #game-puente.stream-layout-on #chain-content .chain-tag{padding:.3rem .62rem;font-size:.74rem}
@@ -364,7 +364,7 @@ pointer-events:none;z-index:0}
   #game-puente.stream-layout-on #chain-content .chain-arrow .arrow-line{font-size:.94rem}
   #game-puente.stream-layout-on #chain-content .chain-arrow .arrow-club{font-size:.52rem;max-width:58px;line-height:1.15}
   #game-puente.stream-layout-on #chain-content .instructions{padding:.65rem .8rem;font-size:.76rem;line-height:1.35}
-  #game-puente.stream-layout-on #chain-content #chain-input-row{margin-top:auto}
+  #game-puente.stream-layout-on #chain-content #chain-input-row{margin-top:.35rem}
   #game-puente.stream-layout-on #chain-content #chain-end .result-box{padding:1rem}
 }
 </style>
