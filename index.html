@@ -41,16 +41,21 @@ pointer-events:none;z-index:0}
 .logo::before{content:'';position:absolute;left:-60px;bottom:-90px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,.16),transparent 68%);pointer-events:none}
 .logo::after{content:'';position:absolute;right:-70px;top:-70px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(92,200,255,.20),transparent 68%);pointer-events:none}
 .home-panel{display:none}
-.home-stream-toggle{display:inline-flex;align-items:center;gap:.7rem;padding:.55rem .95rem;border-radius:999px;background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);margin-top:1rem}
-.home-stream-toggle .label{font-size:.82rem;font-weight:800;color:#dfe9ff;letter-spacing:.04em;text-transform:uppercase}
+.home-stream-toggle{margin:1.2rem auto 0;max-width:540px;padding:1rem 1.1rem 1.05rem;border-radius:22px;
+  background:
+    radial-gradient(circle at top right, rgba(92,200,255,.16), transparent 36%),
+    linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+  border:1px solid rgba(92,200,255,.18);box-shadow:0 20px 46px rgba(3,8,20,.24)}
+.home-stream-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.75rem;flex-wrap:wrap}
+.home-stream-toggle .label{font-size:.78rem;font-weight:900;color:#dfe9ff;letter-spacing:.08em;text-transform:uppercase}
+.home-stream-copy{font-size:.8rem;line-height:1.45;color:var(--muted);text-align:left}
 .home-stream-select{
-  min-width:140px;padding:.45rem 2.1rem .45rem .85rem;border-radius:999px;
-  font-size:.8rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+  min-width:165px;padding:.6rem 2.3rem .6rem .95rem;border-radius:999px;
+  font-size:.82rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
   border:1px solid rgba(110,231,183,.26);background:
-    linear-gradient(135deg,rgba(16,185,129,.18),rgba(92,200,255,.14));
+    linear-gradient(135deg,rgba(16,185,129,.24),rgba(92,200,255,.2));
   color:#ecfff8;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;-moz-appearance:none;
-  box-shadow:0 10px 26px rgba(92,200,255,.10)
+  box-shadow:0 12px 28px rgba(92,200,255,.14)
 }
 .home-stream-select:hover{border-color:rgba(110,231,183,.42)}
 .home-stream-select:focus{
@@ -74,14 +79,21 @@ pointer-events:none;z-index:0}
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   text-shadow:0 0 40px rgba(92,200,255,.18)}
 .logo p{color:#d3def2;font-size:1.04rem;line-height:1.65;max-width:760px;margin:.85rem auto 0}
-.home-lead{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center}
-.home-pill{display:inline-flex;align-items:center;gap:.45rem;padding:.45rem .78rem;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:.77rem;font-weight:800;color:#dfe9ff;letter-spacing:.04em}
+.home-lead{margin:1.15rem auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;max-width:940px}
+.home-pill{display:flex;align-items:flex-start;gap:.7rem;padding:.95rem 1rem;border-radius:20px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.08);text-align:left;box-shadow:0 16px 34px rgba(3,8,20,.16)}
+.home-pill-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(92,200,255,.22),rgba(16,185,129,.16));font-size:1.05rem;flex-shrink:0}
+.home-pill-title{display:block;font-size:.88rem;font-weight:900;color:#f7fbff;letter-spacing:.01em}
+.home-pill-sub{display:block;font-size:.73rem;line-height:1.4;color:var(--muted);margin-top:.16rem}
 .home-subgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem;width:100%}
 .home-info-chip{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:1rem 1rem .95rem;text-align:left}
 .home-info-chip strong{display:block;font-size:.88rem;color:#fff;margin-bottom:.2rem}
 .home-info-chip span{display:block;font-size:.78rem;line-height:1.45;color:var(--muted)}
 .games-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;width:100%}
 @media(max-width:920px){
+  .home-lead{grid-template-columns:1fr}
   .home-subgrid{grid-template-columns:1fr}
   .games-grid{grid-template-columns:1fr}
 }
@@ -331,6 +343,20 @@ pointer-events:none;z-index:0}
 .stream-cat-btn{padding:1.1rem .8rem;border:2px solid var(--border);background:var(--card);border-radius:12px;color:var(--text);cursor:pointer;font-size:.95rem;font-weight:700;transition:all .2s;text-align:center}
 .stream-cat-btn:hover:not(:disabled){border-color:var(--green);background:rgba(57,211,83,.08)}
 .stream-cat-btn.done{background:rgba(57,211,83,.1);border-color:var(--green);color:var(--glow);cursor:not-allowed}
+.stream-roulette-shell{width:100%;display:flex;flex-direction:column;gap:.9rem;align-items:center}
+.stream-roulette-stage{width:100%;max-width:720px;border-radius:22px;padding:1.2rem 1.1rem;background:
+  radial-gradient(circle at top center, rgba(92,200,255,.16), transparent 42%),
+  linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  border:1px solid rgba(92,200,255,.22);box-shadow:0 24px 60px rgba(3,8,20,.28)}
+.stream-roulette-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.75rem}
+.stream-roulette-badge{padding:.36rem .78rem;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:.74rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#dff4ff}
+.stream-roulette-label{font-size:2.1rem;font-weight:900;letter-spacing:-.03em;color:#fff;line-height:1.05;text-shadow:0 0 26px rgba(92,200,255,.16)}
+.stream-roulette-sub{font-size:.88rem;color:var(--muted);line-height:1.45;margin-top:.35rem}
+.stream-roulette-track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;width:100%}
+.stream-roulette-chip{padding:.9rem .8rem;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(8,18,34,.72);color:#d9e7ff;font-weight:800;font-size:.9rem;transition:all .18s}
+.stream-roulette-chip.active{border-color:rgba(92,200,255,.58);background:linear-gradient(135deg,rgba(92,200,255,.18),rgba(16,185,129,.12));color:#fff;box-shadow:0 14px 34px rgba(92,200,255,.12);transform:translateY(-2px) scale(1.01)}
+.stream-roulette-chip.done{border-style:dashed;color:var(--muted);opacity:.62}
+.stream-roulette-footer{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;width:100%}
 .stream-p-tag{display:inline-block;padding:.25rem .8rem;border-radius:20px;font-weight:700;font-size:.85rem}
 .stream-score-bar{display:flex;gap:1rem;justify-content:center;padding:.5rem 1rem;background:var(--card2);border-radius:10px;margin-bottom:.8rem;font-size:.92rem;font-weight:700}
 .stream-broadcast{max-width:1380px;margin:0 auto;min-height:calc(100vh - 96px)}
@@ -474,19 +500,40 @@ pointer-events:none;z-index:0}
         <h1>FutBrain</h1>
         <p>Conecta jugadores, arma caminos imposibles y cierra el stream con rondas que se entienden rapido y se ven bien en pantalla.</p>
         <div class="home-lead">
-          <span class="home-pill">⚽ 3 juegos principales</span>
-          <span class="home-pill">🧠 conexiones reales</span>
-          <span class="home-pill">📺 visual para stream</span>
+          <div class="home-pill">
+            <div class="home-pill-icon">⚽</div>
+            <div>
+              <span class="home-pill-title">3 formatos fuertes</span>
+              <span class="home-pill-sub">Puente, Cadena y Zona Mixta pensados para entrar rapido y generar clip.</span>
+            </div>
+          </div>
+          <div class="home-pill">
+            <div class="home-pill-icon">🧠</div>
+            <div>
+              <span class="home-pill-title">Conexiones reales</span>
+              <span class="home-pill-sub">Cruces por clubes y trayectorias que abren debate al instante entre chat y streamers.</span>
+            </div>
+          </div>
+          <div class="home-pill">
+            <div class="home-pill-icon">📺</div>
+            <div>
+              <span class="home-pill-title">Diseño de directo</span>
+              <span class="home-pill-sub">Marcador central, cámaras limpias y reglas pensadas para verse bien en pantalla.</span>
+            </div>
+          </div>
         </div>
         <div class="home-stream-toggle">
-          <span class="label">Modo Stream Global</span>
-          <div class="home-stream-select-wrap">
-            <select id="home-stream-mode" class="home-stream-select" onchange="setGlobalStreamMode(this.value)">
-              <option value="off">OFF</option>
-              <option value="solo">1P</option>
-              <option value="duo">2P</option>
-            </select>
+          <div class="home-stream-head">
+            <span class="label">Cabina de Stream</span>
+            <div class="home-stream-select-wrap">
+              <select id="home-stream-mode" class="home-stream-select" onchange="setGlobalStreamMode(this.value)">
+                <option value="off">OFF</option>
+                <option value="solo">1P</option>
+                <option value="duo">2P</option>
+              </select>
+            </div>
           </div>
+          <div class="home-stream-copy">Elige cómo quieres ver todo el juego: sin cámaras, con una sola cámara para streamer individual o con dos cámaras para cruce entre streamers.</div>
         </div>
       </div>
     </div>
@@ -45762,6 +45809,7 @@ function goHome(){
   clearInterval(triviaState.timer);
   clearInterval(streamState.timer);
   clearInterval(stream2pState.timer);
+  clearTimeout(stream2pState.rouletteTimer);
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('home').classList.add('active');
   updateGlobalStreamModeUI();
@@ -46991,14 +47039,41 @@ function renderScoreRuleNote(mode){
 function renderStreamHeaderScore(content){
   return `<span class="stream-header-score">${content}</span>`;
 }
+function resetStream2PSession(){
+  clearInterval(stream2pState.timer);
+  clearTimeout(stream2pState.rouletteTimer);
+  stream2pState.players=[];
+  stream2pState.currentPlayer=0;
+  stream2pState.currentCat='';
+  stream2pState.currentQIdx=0;
+  stream2pState.answered=false;
+  stream2pState.shuffled=[];
+  stream2pState.timeLeft=20;
+  stream2pState.roulettePreviewKey='';
+  stream2pState.rouletteSpinning=false;
+  stream2pState.initialized=false;
+}
+function updateStream2PScoreDisplays(){
+  const p0=stream2pState.players[0];
+  const p1=stream2pState.players[1];
+  if(!p0||!p1) return;
+  const header=document.getElementById('stream-score-2p');
+  if(header) header.textContent=`${formatPoints(p0.score)} - ${formatPoints(p1.score)}`;
+  const p0Line=document.getElementById('stream-score-p0');
+  if(p0Line) p0Line.textContent=`${p0.name}: ${formatPoints(p0.score)} pts`;
+  const p1Line=document.getElementById('stream-score-p1');
+  if(p1Line) p1Line.textContent=`${p1.name}: ${formatPoints(p1.score)} pts`;
+  syncStreamOverlayScores(stream2pState.players);
+}
 
 // ============================================================
 //  STREAM MODE
 // ============================================================
 function startStream(){
   clearInterval(streamState.timer);
+  clearTimeout(streamState.rouletteTimer);
   clearInterval(stream2pState.timer);
-  stream2pState.players=[];
+  clearTimeout(stream2pState.rouletteTimer);
   resetBroadcastScores();
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const scr=document.getElementById('game-stream');
@@ -47009,6 +47084,10 @@ function startStream(){
     return;
   }
   if(streamMode==='duo'){
+    if(stream2pState.initialized&&stream2pState.players.length===2){
+      showCatSelect2P();
+      return;
+    }
     setupStream2P();
     return;
   }
@@ -47059,6 +47138,7 @@ function showStream1PModeSelect(){
 
 function startStream1P(mode='normal'){
   clearInterval(streamState.timer);
+  clearTimeout(streamState.rouletteTimer);
   resetBroadcastScores();
   applyGlobalStreamLayout('game-stream');
   const scr=document.getElementById('game-stream');
@@ -47088,18 +47168,25 @@ function startStream1P(mode='normal'){
       </div>
     </div>`;
   streamState.questions=[];
+  streamState.byCat={};
   STREAM_CATS.forEach(({key})=>{
-    const qs=STREAM_TRIVIA.filter(q=>q.catKey===key);
-    pickStreamSetPerCategory(key,5).forEach(q=>streamState.questions.push(q));
+    const picked=pickStreamSetPerCategory(key,5);
+    streamState.byCat[key]=mode==='random'?shuffle([...picked]):picked;
+    picked.forEach(q=>streamState.questions.push(q));
   });
-  if(mode==='random') streamState.questions=shuffle(streamState.questions);
-  streamState.current=0; streamState.score=0; streamState.mode=mode;
+  streamState.current=0;
+  streamState.score=0;
+  streamState.mode=mode;
+  streamState.currentQuestion=null;
+  streamState.roulettePreviewKey='';
+  streamState.rouletteSpinning=false;
   setBroadcastScores(0,0);
-  showStreamQuestion();
+  showStreamRoulette1P();
 }
 
 // â”€â”€ 2P SETUP â”€â”€
 function setupStream2P(){
+  resetStream2PSession();
   applyGlobalStreamLayout('game-stream');
   document.getElementById('game-stream').innerHTML=`
     <div class="game-header">
@@ -47135,6 +47222,10 @@ function initStream2P(){
     {name:p2,score:0,catsDone:[],catQuestions:{},catProgress:{}}
   ];
   stream2pState.currentPlayer=0;
+  stream2pState.initialized=true;
+  stream2pState.roulettePreviewKey='';
+  stream2pState.rouletteSpinning=false;
+  clearTimeout(stream2pState.rouletteTimer);
   STREAM_CATS.forEach(({key})=>{
     const qs=STREAM_TRIVIA.filter(q=>q.catKey===key);
     const picked=pickStreamSetPerCategory(key,10);
@@ -47146,17 +47237,28 @@ function initStream2P(){
   showCatSelect2P();
 }
 
+function getAvailableStreamCatsForCurrentPlayer(){
+  const p=stream2pState.players[stream2pState.currentPlayer];
+  return STREAM_CATS.filter(({key})=>!p.catsDone.includes(key));
+}
+
 function showCatSelect2P(){
   applyGlobalStreamLayout('game-stream');
   const pi=stream2pState.currentPlayer;
   const p=stream2pState.players[pi];
   const color=pi===0?'var(--blue)':'var(--gold)';
   const emoji=pi===0?'🔵':'🟡';
+  const available=getAvailableStreamCatsForCurrentPlayer();
+  if(!available.length){ showStream2PEnd(); return; }
+  if(!stream2pState.roulettePreviewKey||!available.some(cat=>cat.key===stream2pState.roulettePreviewKey)){
+    stream2pState.roulettePreviewKey=available[0].key;
+  }
+  const preview=STREAM_CATS.find(cat=>cat.key===stream2pState.roulettePreviewKey)||available[0];
   const catBtns=STREAM_CATS.map(({key,label})=>{
     const done=(p.catProgress[key]||0)>=5;
-    return `<button class="stream-cat-btn${done?' done':''}" ${done?'disabled':''} onclick="${done?'':` startCatRound2P('${key}')`}">${label}${done?' ✓':''}</button>`;
+    const active=key===preview.key;
+    return `<div class="stream-roulette-chip${done?' done':''}${active&&!done?' active':''}">${label}${done?' ✓':''}</div>`;
   }).join('');
-  const randomBtn=`<button class="stream-cat-btn" style="border-color:rgba(255,159,67,.35);color:#ffd7ad" onclick="startRandomCat2P()">🎲 Aleatorio</button>`;
   const messiReady=(stream2pState.players[0].score>0||stream2pState.players[1].score>0);
   const messiBtn=`<button class="stream-cat-btn" ${messiReady?'':'disabled'} style="border-color:rgba(247,183,51,.42);color:${messiReady?'#ffe0a8':'var(--muted)'}" onclick="${messiReady?'enterMessinarioFromStream2P()':''}">🐐 Messinario Apuesta</button>`;
   const totalCats=STREAM_CATS.length;
@@ -47165,7 +47267,7 @@ function showCatSelect2P(){
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title">👥 Zona Mixta 2P</span>
       <span class="header-spacer"></span>
-      ${renderStreamHeaderScore(`${formatPoints(stream2pState.players[0].score)} - ${formatPoints(stream2pState.players[1].score)}`)}
+      <span class="stream-header-score" id="stream-score-2p">${formatPoints(stream2pState.players[0].score)} - ${formatPoints(stream2pState.players[1].score)}</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(pi)}
@@ -47174,12 +47276,62 @@ function showCatSelect2P(){
         ${renderScoreRuleNote('stream2p')}
         <div style="font-size:2.5rem;margin-bottom:.3rem">${emoji}</div>
         <h2 style="font-size:1.6rem;font-weight:900;color:${color};margin-bottom:.3rem">${p.name}</h2>
-        <p style="color:var(--muted);margin-bottom:1.5rem">Elige una categoría para jugar:</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;width:100%">${catBtns}${randomBtn}${messiBtn}</div>
+        <p style="color:var(--muted);margin-bottom:.8rem">La ruleta decide la categoría para mantener ritmo y sorpresa en directo.</p>
+        <div class="stream-roulette-shell">
+          <div class="stream-roulette-stage">
+            <div class="stream-roulette-top">
+              <span class="stream-roulette-badge">🎡 Ruleta de categoría</span>
+              <span class="stream-roulette-badge">${available.length} disponibles</span>
+            </div>
+            <div class="stream-roulette-label" id="stream-roulette-label">${preview.label}</div>
+            <div class="stream-roulette-sub">Las categorías ya jugadas quedan fuera. Cuando salga una, arranca la ronda al tiro.</div>
+            <div class="stream-roulette-track" id="stream-roulette-track" style="margin-top:1rem">${catBtns}</div>
+          </div>
+          <div class="stream-roulette-footer">
+            <button class="btn-primary" id="stream-roulette-btn" style="padding:1rem 2rem;font-size:1.05rem" onclick="spinStreamRoulette2P()">🎡 Girar ruleta</button>
+            ${messiBtn}
+          </div>
+        </div>
         <p style="color:var(--muted);font-size:.76rem;margin-top:.85rem">${messiReady?'Apuesta parte de los puntos ya ganados para intentar subir más.':'Messinario se habilita cuando ya hayan sumado puntos en el stream.'}</p>
         <p style="color:var(--muted);font-size:.78rem;margin-top:1rem">${p.catsDone.length}/${totalCats} categorías completadas</p>
       </div>
     </div>`;
+}
+
+function spinStreamRoulette2P(){
+  const available=getAvailableStreamCatsForCurrentPlayer();
+  if(!available.length||stream2pState.rouletteSpinning) return;
+  const btn=document.getElementById('stream-roulette-btn');
+  if(btn) btn.disabled=true;
+  stream2pState.rouletteSpinning=true;
+  let tick=0;
+  let delay=80;
+  const totalTicks=18+Math.floor(Math.random()*8);
+  const spinStep=()=>{
+    const current=available[tick%available.length];
+    stream2pState.roulettePreviewKey=current.key;
+    const labelEl=document.getElementById('stream-roulette-label');
+    const trackEl=document.getElementById('stream-roulette-track');
+    if(labelEl) labelEl.textContent=current.label;
+    if(trackEl){
+      trackEl.innerHTML=STREAM_CATS.map(({key,label})=>{
+        const p=stream2pState.players[stream2pState.currentPlayer];
+        const done=(p.catProgress[key]||0)>=5;
+        const active=key===current.key;
+        return `<div class="stream-roulette-chip${done?' done':''}${active&&!done?' active':''}">${label}${done?' ✓':''}</div>`;
+      }).join('');
+    }
+    tick++;
+    if(tick<totalTicks){
+      if(tick>10) delay+=18;
+      stream2pState.rouletteTimer=setTimeout(spinStep,delay);
+      return;
+    }
+    stream2pState.rouletteSpinning=false;
+    if(btn) btn.disabled=false;
+    setTimeout(()=>startCatRound2P(current.key),500);
+  };
+  spinStep();
 }
 
 function startCatRound2P(catKey){
@@ -47210,7 +47362,7 @@ function showStream2PQuestion(){
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title" style="color:${color}">${p.name}</span>
       <span class="header-spacer"></span>
-      ${renderStreamHeaderScore(`${formatPoints(stream2pState.players[0].score)} - ${formatPoints(stream2pState.players[1].score)}`)}
+      <span class="stream-header-score" id="stream-score-2p">${formatPoints(stream2pState.players[0].score)} - ${formatPoints(stream2pState.players[1].score)}</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(pi)}
@@ -47283,9 +47435,10 @@ function answerStream2P(idx,btn,q){
     const pts=1;
     p.score+=pts;
     document.getElementById('s2p-pts').textContent=p.score+' pts';
-    syncStreamOverlayScores();
+    updateStream2PScoreDisplays();
   } else {
     btn.classList.add('wrong');
+    updateStream2PScoreDisplays();
   }
   document.getElementById('s2p-ex').textContent=q.ex;
   document.getElementById('s2p-ex').className='stream-ex show';
@@ -47313,7 +47466,7 @@ function nextStream2PQ(){
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title">👥 Zona Mixta 2P</span>
       <span class="header-spacer"></span>
-      ${renderStreamHeaderScore(`${formatPoints(stream2pState.players[0].score)} - ${formatPoints(stream2pState.players[1].score)}`)}
+      <span class="stream-header-score" id="stream-score-2p">${formatPoints(stream2pState.players[0].score)} - ${formatPoints(stream2pState.players[1].score)}</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(stream2pState.currentPlayer)}
@@ -47323,9 +47476,9 @@ function nextStream2PQ(){
         <h3 style="color:${prev===stream2pState.players[0]?'var(--blue)':'var(--gold)'};font-size:1.3rem;margin-bottom:.3rem">${prev.name} terminó</h3>
         <div style="font-size:1.8rem;font-weight:900;color:${prev===stream2pState.players[0]?'var(--blue)':'var(--gold)'};margin:.3rem 0">${prev.score} pts</div>
         <div style="background:var(--card2);border-radius:10px;padding:.8rem 1.4rem;margin:1rem 0;font-size:.9rem">
-          <span style="color:var(--blue)">${stream2pState.players[0].name}: ${stream2pState.players[0].score} pts</span>
+          <span style="color:var(--blue)" id="stream-score-p0">${stream2pState.players[0].name}: ${formatPoints(stream2pState.players[0].score)} pts</span>
           &nbsp;&nbsp;·&nbsp;&nbsp;
-          <span style="color:var(--gold)">${stream2pState.players[1].name}: ${stream2pState.players[1].score} pts</span>
+          <span style="color:var(--gold)" id="stream-score-p1">${stream2pState.players[1].name}: ${formatPoints(stream2pState.players[1].score)} pts</span>
         </div>
         <p style="color:var(--muted);margin-bottom:1.2rem">Ahora le toca a <strong style="color:${color}">${p.name}</strong> — elige tu categoría</p>
         <button class="btn-primary" style="padding:1rem 2rem;font-size:1.05rem" onclick="showCatSelect2P()">Elegir categoría →</button>
@@ -47366,30 +47519,109 @@ function showStream2PEnd(){
           ${winner?`🎉 ¡${winner.name} gana el stream!`:'🤝 ¡Empate perfecto!'}
         </p>
         <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
-          <button class="btn-primary" onclick="startStream()">🔄 Nuevo Stream</button>
+          <button class="btn-primary" onclick="resetStream2PSession();startStream()">🔄 Nuevo Stream</button>
           <button class="btn-secondary" onclick="goHome()">🏠 Inicio</button>
         </div>
       </div>
     </div>`;
 }
 
+function getAvailableStreamCats1P(){
+  return STREAM_CATS.filter(({key})=>(streamState.byCat[key]||[]).length>0);
+}
+
+function showStreamRoulette1P(){
+  const available=getAvailableStreamCats1P();
+  if(!available.length){ showStreamEnd(); return; }
+  if(!streamState.roulettePreviewKey||!available.some(cat=>cat.key===streamState.roulettePreviewKey)){
+    streamState.roulettePreviewKey=available[0].key;
+  }
+  const preview=STREAM_CATS.find(cat=>cat.key===streamState.roulettePreviewKey)||available[0];
+  const track=STREAM_CATS.map(({key,label})=>{
+    const done=(streamState.byCat[key]||[]).length===0;
+    const active=key===preview.key;
+    return `<div class="stream-roulette-chip${done?' done':''}${active&&!done?' active':''}">${label}${done?' ✓':''}</div>`;
+  }).join('');
+  document.getElementById('stream-cats').innerHTML=streamState.mode==='random'
+    ? `<span class="scat-pill active">🎲 Aleatorio Mix</span><span class="scat-pill">${available.length} categorias vivas</span>`
+    : `<span class="scat-pill active">🎡 Ruleta por categoría</span><span class="scat-pill">${available.length} categorias disponibles</span>`;
+  document.getElementById('stream-cat-banner').textContent=streamState.mode==='random'?'🎲 Ruleta Mix':'🎡 Ruleta de categoría';
+  document.getElementById('stream-q-num').textContent=`Pregunta ${streamState.current+1} de ${streamState.questions.length}`;
+  document.getElementById('stream-q-text').innerHTML=`
+    <div class="stream-roulette-shell">
+      <div class="stream-roulette-stage">
+        <div class="stream-roulette-top">
+          <span class="stream-roulette-badge">${streamState.mode==='random'?'🎲 Mix impredecible':'🎡 Giro de categoría'}</span>
+          <span class="stream-roulette-badge">${available.length} disponibles</span>
+        </div>
+        <div class="stream-roulette-label" id="stream-roulette1p-label">${preview.label}</div>
+        <div class="stream-roulette-sub">La ruleta decide la próxima categoría. Apenas se frena, aparece la pregunta.</div>
+        <div class="stream-roulette-track" id="stream-roulette1p-track" style="margin-top:1rem">${track}</div>
+      </div>
+      <div class="stream-roulette-footer">
+        <button class="btn-primary" id="stream-roulette1p-btn" style="padding:1rem 2rem;font-size:1.05rem" onclick="spinStreamRoulette1P()">🎡 Girar ruleta</button>
+      </div>
+    </div>`;
+  document.getElementById('stream-options').innerHTML='';
+  document.getElementById('stream-ex').className='stream-ex';
+  document.getElementById('stream-ex').textContent='';
+  document.getElementById('stream-next').className='stream-next';
+  const photo=document.getElementById('stream-photo');
+  const flag=document.getElementById('stream-photo-flag');
+  photo.style.display='none'; photo.src='';
+  flag.style.display='flex';
+  flag.textContent='🎡';
+}
+
+function spinStreamRoulette1P(){
+  const available=getAvailableStreamCats1P();
+  if(!available.length||streamState.rouletteSpinning) return;
+  const btn=document.getElementById('stream-roulette1p-btn');
+  if(btn) btn.disabled=true;
+  streamState.rouletteSpinning=true;
+  let tick=0;
+  let delay=80;
+  const totalTicks=18+Math.floor(Math.random()*8);
+  const spinStep=()=>{
+    const current=available[tick%available.length];
+    streamState.roulettePreviewKey=current.key;
+    const labelEl=document.getElementById('stream-roulette1p-label');
+    const trackEl=document.getElementById('stream-roulette1p-track');
+    if(labelEl) labelEl.textContent=current.label;
+    if(trackEl){
+      trackEl.innerHTML=STREAM_CATS.map(({key,label})=>{
+        const done=(streamState.byCat[key]||[]).length===0;
+        const active=key===current.key;
+        return `<div class="stream-roulette-chip${done?' done':''}${active&&!done?' active':''}">${label}${done?' ✓':''}</div>`;
+      }).join('');
+    }
+    tick++;
+    if(tick<totalTicks){
+      if(tick>10) delay+=18;
+      streamState.rouletteTimer=setTimeout(spinStep,delay);
+      return;
+    }
+    streamState.rouletteSpinning=false;
+    if(btn) btn.disabled=false;
+    streamState.currentQuestion=(streamState.byCat[current.key]||[]).shift();
+    setTimeout(()=>showStreamQuestion(),450);
+  };
+  spinStep();
+}
+
 function showStreamQuestion(){
-  const q=streamState.questions[streamState.current];
+  const q=streamState.currentQuestion;
   streamState.answered=false; streamState.timeLeft=20;
 
   // Category pills
   const cats=document.getElementById('stream-cats');
-  if(streamState.mode==='random'){
-    cats.innerHTML=`<span class="scat-pill active">🎲 Aleatorio Mix</span><span class="scat-pill">${q.cat}</span>`;
-  } else {
-    cats.innerHTML=STREAM_CATS.map(({key,label},ci)=>{
-      const start=ci*5, end=start+4;
-      let cls='scat-pill';
-      if(streamState.current>end) cls+=' done';
-      else if(streamState.current>=start) cls+=' active';
-      return `<span class="${cls}">${label}</span>`;
-    }).join('');
-  }
+  cats.innerHTML=STREAM_CATS.map(({key,label})=>{
+    const left=(streamState.byCat[key]||[]).length;
+    let cls='scat-pill';
+    if(left===0) cls+=' done';
+    if(key===q.catKey) cls+=' active';
+    return `<span class="${cls}">${label}${left===0?' ✓':''}</span>`;
+  }).join('');
 
   document.getElementById('stream-cat-banner').textContent=streamState.mode==='random' ? `🎲 ${q.cat}` : q.cat;
   document.getElementById('stream-q-num').textContent=`Pregunta ${streamState.current+1} de ${streamState.questions.length}`;
@@ -47439,7 +47671,7 @@ function startStreamTimer(){
 
 function timeoutStream(){
   streamState.answered=true;
-  const q=streamState.questions[streamState.current];
+  const q=streamState.currentQuestion;
   const allBtns=document.getElementById('stream-options').querySelectorAll('.stream-opt');
   allBtns.forEach((b,i)=>{b.disabled=true;if(streamState.shuffled[i]===q.c)b.classList.add('correct');});
   document.getElementById('stream-ex').textContent='⏰ '+q.ex;
@@ -47451,7 +47683,7 @@ function answerStream(idx,btn){
   if(streamState.answered) return;
   streamState.answered=true;
   clearInterval(streamState.timer);
-  const q=streamState.questions[streamState.current];
+  const q=streamState.currentQuestion;
   const allBtns=document.getElementById('stream-options').querySelectorAll('.stream-opt');
   allBtns.forEach((b,i)=>{b.disabled=true;if(streamState.shuffled[i]===q.c)b.classList.add('correct');});
   if(idx===q.c){
@@ -47470,8 +47702,9 @@ function answerStream(idx,btn){
 
 function nextStreamQuestion(){
   streamState.current++;
+  streamState.currentQuestion=null;
   if(streamState.current>=25) showStreamEnd();
-  else showStreamQuestion();
+  else showStreamRoulette1P();
 }
 
 function showStreamEnd(){
@@ -48048,10 +48281,10 @@ applyDifficultyDefaults(STREAM_TRIVIA,q=>q.catKey);
 //  TRIVIA
 // ============================================================
 const triviaState={questions:[],current:0,score:0,streak:0,timer:null,timeLeft:20,answered:false,shuffled:[],explanationShown:false};
-const streamState={questions:[],current:0,score:0,timer:null,timeLeft:20,answered:false,shuffled:[]};
+const streamState={questions:[],current:0,score:0,timer:null,timeLeft:20,answered:false,shuffled:[],byCat:{},currentQuestion:null,rouletteTimer:null,roulettePreviewKey:'',rouletteSpinning:false,mode:'normal'};
 const stream2pState={
   players:[{name:'DavoXeneize',score:0,catsDone:[],catQuestions:{}},{name:'LaCobra',score:0,catsDone:[],catQuestions:{}}],
-  currentPlayer:0,currentCat:'',currentQIdx:0,answered:false,shuffled:[],timer:null,timeLeft:20
+  currentPlayer:0,currentCat:'',currentQIdx:0,answered:false,shuffled:[],timer:null,timeLeft:20,rouletteTimer:null,roulettePreviewKey:'',rouletteSpinning:false,initialized:false
 };
 const messinarioState={
   mode:'1p',
@@ -48307,6 +48540,22 @@ function messiBetButtons(player){
     </button>`;
   }).join('');
 }
+function returnMessinarioToStream2P(){
+  if(messinarioState.mode!=='2p'||stream2pState.players.length!==2){
+    startStream();
+    return;
+  }
+  const p0=messinarioState.players[0];
+  const p1=messinarioState.players[1];
+  if(p0&&stream2pState.players[0]) stream2pState.players[0].score=p0.score;
+  if(p1&&stream2pState.players[1]) stream2pState.players[1].score=p1.score;
+  const winner=messiWinner();
+  if(winner===p0) stream2pState.currentPlayer=0;
+  else if(winner===p1) stream2pState.currentPlayer=1;
+  updateStream2PScoreDisplays();
+  applyGlobalStreamLayout('game-stream');
+  showCatSelect2P();
+}
 
 function showMessinarioModeSelect(){
   resetBroadcastScores();
@@ -48550,7 +48799,7 @@ function showMessinarioEnd(){
         <p style="font-size:1.08rem;font-weight:800;color:${winner?'var(--gold)':'var(--muted)'};margin-bottom:1.4rem">${subtitle}</p>
         <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
           <button class="btn-primary" onclick="showMessinarioModeSelect()">🔄 Jugar otra vez</button>
-          <button class="btn-secondary" onclick="startStream()">📺 Volver al Stream</button>
+          <button class="btn-secondary" onclick="returnMessinarioToStream2P()">📺 Volver a Zona Mixta</button>
         </div>
       </div>
     </div>`;
