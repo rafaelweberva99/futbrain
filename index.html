@@ -137,6 +137,19 @@ pointer-events:none;z-index:0}
 .back-btn:hover{border-color:var(--blue);background:rgba(92,200,255,.10);box-shadow:0 10px 24px rgba(92,200,255,.14);transform:translateX(-1px)}
 .game-title{font-weight:800;font-size:1.08rem;letter-spacing:-.01em}
 .header-spacer{flex:1}
+.game-mode-wrap{position:relative;display:inline-flex;align-items:center;gap:.5rem}
+.game-mode-label{font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.game-stream-mode-select{
+  min-width:152px;padding:.5rem 2rem .5rem .8rem;border-radius:999px;
+  font-size:.76rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid rgba(92,200,255,.22);background:linear-gradient(135deg,rgba(92,200,255,.16),rgba(16,185,129,.12));
+  color:#eef8ff;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;-moz-appearance:none
+}
+.game-mode-wrap::after{
+  content:'▾';position:absolute;right:.82rem;top:50%;transform:translateY(-52%);
+  color:#dff4ff;font-size:.78rem;font-weight:900;pointer-events:none
+}
+.game-stream-mode-select option{background:#101c31;color:#ecfff8}
 .score-display{font-weight:900;color:#ffe39a;font-size:1.18rem;letter-spacing:-.02em}
 .score-display.vs-score{font-size:1.7rem;line-height:1}
 .screen.stream-layout-on .game-header.stream-score-header{position:sticky}
@@ -169,17 +182,40 @@ pointer-events:none;z-index:0}
 .mode-examples h4{font-size:.86rem;letter-spacing:.06em;text-transform:uppercase;color:#dff4ff;margin-bottom:.7rem}
 .mode-examples-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.65rem}
 .mode-example-card{background:rgba(8,18,34,.7);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:.75rem .8rem}
+.mode-example-card.showcase{padding:1rem 1rem 1.05rem;background:
+  radial-gradient(circle at top center, rgba(92,200,255,.08), transparent 34%),
+  linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+  box-shadow:0 18px 36px rgba(3,8,20,.18)}
 .mode-example-label{font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--blue);margin-bottom:.35rem}
 .mode-example-card.chain .mode-example-label{color:var(--gold)}
 .mode-example-main{font-size:.92rem;font-weight:800;line-height:1.45;color:var(--text)}
 .mode-example-sub{font-size:.76rem;line-height:1.45;color:var(--muted);margin-top:.35rem}
+.mode-example-stack{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.72rem;margin-top:.6rem}
+.mode-example-flow{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;width:100%}
+.mode-example-connector{font-size:1.05rem;font-weight:900;color:#d8e8ff;opacity:.85}
+.mode-example-answer{display:flex;flex-direction:column;align-items:center;gap:.32rem}
+.mode-example-answer-tag{font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--glow)}
+.mode-carousel{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.75rem;align-items:center;margin-top:.9rem}
+.mode-carousel-btn{
+  width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);color:#eef6ff;font-size:1.1rem;font-weight:900;cursor:pointer;
+  transition:all .2s
+}
+.mode-carousel-btn:hover{border-color:rgba(247,183,51,.45);background:rgba(247,183,51,.12);color:#fff3cf}
+.mode-carousel-meta{text-align:center;font-size:.76rem;color:var(--muted);margin-top:.55rem}
+@media(max-width:640px){
+  .mode-carousel{grid-template-columns:1fr;gap:.55rem}
+  .mode-carousel-btn{justify-self:center}
+  .mode-example-flow{flex-direction:column}
+  .mode-example-connector{font-size:1.15rem}
+}
 .mode-preview{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1rem 1rem 1.1rem;margin-bottom:1rem}
 .mode-preview-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.9rem;flex-wrap:wrap}
 .mode-preview-title{font-size:1.15rem;font-weight:900;color:#fff}
 .mode-preview-copy{font-size:.85rem;line-height:1.5;color:var(--muted);max-width:720px}
 .mode-preview-copy strong{color:var(--text)}
 .mode-preview-actions{display:flex;gap:.8rem;justify-content:center;margin-top:1rem;flex-wrap:wrap}
-.mode-example-visual{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;margin-top:.45rem}
+.mode-example-visual{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:wrap;margin-top:.45rem}
 .mode-preview-steps{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:.7rem}
 .mode-step-pill{padding:.32rem .72rem;border-radius:999px;font-size:.74rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#dfe9ff}
 .mode-step-pill.start{border-color:rgba(92,200,255,.45);color:var(--blue)}
@@ -201,6 +237,39 @@ pointer-events:none;z-index:0}
 .score-note{background:linear-gradient(135deg,rgba(247,183,51,.10),rgba(92,200,255,.08));border:1px solid rgba(247,183,51,.24);border-radius:12px;padding:.8rem 1rem;margin-bottom:.85rem;font-size:.82rem;line-height:1.45;color:#dbe6fb}
 .score-note strong{color:#fff2c9}
 .score-note .mini{display:block;color:var(--muted);font-size:.76rem;margin-top:.22rem}
+.objective-panel{
+  background:
+    radial-gradient(circle at top right, rgba(92,200,255,.12), transparent 35%),
+    linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+  border:1px solid rgba(92,200,255,.18);
+  border-radius:16px;
+  padding:.95rem 1rem 1rem;
+  margin-bottom:.9rem;
+  box-shadow:0 16px 36px rgba(3,8,20,.16)
+}
+.objective-head{display:flex;justify-content:space-between;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:.75rem}
+.objective-title{font-size:.8rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#dff4ff}
+.objective-target{font-size:.76rem;font-weight:800;color:#fff2c9;background:rgba(247,183,51,.08);border:1px solid rgba(247,183,51,.25);padding:.24rem .65rem;border-radius:999px}
+.objective-line{font-size:.9rem;line-height:1.45;color:#eef5ff;margin-bottom:.8rem}
+.objective-line strong{color:#ffffff}
+.objective-line .blue{color:var(--blue)}
+.objective-line .gold{color:var(--gold)}
+.objective-bars{display:grid;gap:.7rem}
+.objective-row{display:grid;grid-template-columns:98px minmax(0,1fr) auto;gap:.7rem;align-items:center}
+.objective-name{font-size:.79rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#dfe9ff}
+.objective-points{font-size:.94rem;font-weight:900;color:#ffffff}
+.objective-track{position:relative;height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+.objective-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,rgba(92,200,255,.88),rgba(16,185,129,.92))}
+.objective-fill.gold{background:linear-gradient(90deg,rgba(247,183,51,.88),rgba(255,159,67,.94))}
+.objective-fill.solo{background:linear-gradient(90deg,rgba(110,231,183,.9),rgba(92,200,255,.92))}
+.objective-mini{margin-top:.75rem;font-size:.76rem;line-height:1.45;color:var(--muted)}
+.objective-mini strong{color:#fff}
+@media(max-width:640px){
+  .game-mode-label{display:none}
+  .game-stream-mode-select{min-width:132px}
+  .objective-row{grid-template-columns:1fr;gap:.35rem}
+  .objective-points{text-align:right}
+}
 .input-row{display:flex;gap:.5rem;margin-bottom:.5rem;position:relative}
 .autocomplete-wrap{flex:1;position:relative}
 .player-input{width:100%;padding:.75rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:1rem;outline:none;transition:border-color .2s}
@@ -348,6 +417,53 @@ pointer-events:none;z-index:0}
   radial-gradient(circle at top center, rgba(92,200,255,.16), transparent 42%),
   linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
   border:1px solid rgba(92,200,255,.22);box-shadow:0 24px 60px rgba(3,8,20,.28)}
+.stream-entry-shell{width:100%;display:flex;flex-direction:column;gap:1rem;align-items:center}
+.stream-entry-hero{
+  width:100%;max-width:760px;border-radius:26px;padding:1.2rem 1.1rem 1.15rem;
+  background:
+    radial-gradient(circle at top center, rgba(92,200,255,.17), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(16,185,129,.13), transparent 32%),
+    linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  border:1px solid rgba(92,200,255,.22);
+  box-shadow:0 24px 60px rgba(3,8,20,.28)
+}
+.stream-entry-icon{font-size:4rem;line-height:1;margin:.2rem 0 .7rem}
+.stream-entry-title{font-size:2rem;font-weight:900;letter-spacing:-.04em;margin-bottom:.35rem}
+.stream-entry-copy{font-size:1rem;line-height:1.6;color:#dbe7ff;max-width:700px;margin:0 auto}
+.stream-entry-subcopy{font-size:.92rem;line-height:1.55;color:var(--muted);max-width:680px;margin:.4rem auto 0}
+.stream-entry-cats{display:flex;justify-content:center;gap:.55rem;flex-wrap:wrap;margin-top:1rem}
+.stream-entry-cat{
+  padding:.42rem .78rem;border-radius:999px;background:rgba(8,18,34,.72);
+  border:1px solid rgba(255,255,255,.08);font-size:.78rem;font-weight:900;
+  color:#eef5ff;letter-spacing:.03em
+}
+.stream-entry-highlights{width:100%;max-width:760px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+.stream-entry-highlight{
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:1rem .95rem;text-align:left;
+  box-shadow:0 16px 34px rgba(3,8,20,.14)
+}
+.stream-entry-highlight strong{display:block;font-size:.88rem;color:#fff;margin-bottom:.18rem}
+.stream-entry-highlight span{display:block;font-size:.78rem;line-height:1.45;color:var(--muted)}
+.stream-entry-actions{width:100%;max-width:760px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.stream-entry-btn{
+  border:none;border-radius:22px;padding:1.2rem 1.1rem;cursor:pointer;text-align:left;color:#fff;
+  background:linear-gradient(135deg, rgba(16,185,129,.92), rgba(92,200,255,.9));
+  box-shadow:0 24px 54px rgba(16,185,129,.16);transition:transform .2s,box-shadow .2s,filter .2s
+}
+.stream-entry-btn.alt{
+  background:linear-gradient(135deg, rgba(192,132,252,.95), rgba(247,183,51,.86));
+  box-shadow:0 24px 54px rgba(192,132,252,.15)
+}
+.stream-entry-btn:hover{transform:translateY(-3px);filter:brightness(1.04)}
+.stream-entry-btn small{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;opacity:.84;margin-bottom:.35rem}
+.stream-entry-btn strong{display:block;font-size:1.3rem;line-height:1.1;margin-bottom:.28rem}
+.stream-entry-btn span{display:block;font-size:.85rem;line-height:1.45;color:rgba(255,255,255,.92)}
+@media(max-width:760px){
+  .stream-entry-highlights{grid-template-columns:1fr}
+  .stream-entry-actions{grid-template-columns:1fr}
+  .stream-entry-title{font-size:1.8rem}
+}
 .stream-roulette-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.75rem}
 .stream-roulette-badge{padding:.36rem .78rem;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:.74rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#dff4ff}
 .stream-roulette-label{font-size:2.1rem;font-weight:900;letter-spacing:-.03em;color:#fff;line-height:1.05;text-shadow:0 0 26px rgba(92,200,255,.16)}
@@ -511,7 +627,7 @@ pointer-events:none;z-index:0}
             <div class="home-pill-icon">🧠</div>
             <div>
               <span class="home-pill-title">Conexiones reales</span>
-              <span class="home-pill-sub">Cruces por clubes y trayectorias que abren debate al instante entre chat y streamers.</span>
+              <span class="home-pill-sub">Cruces por clubes y trayectorias reales para que cada reto tenga logica y variedad.</span>
             </div>
           </div>
           <div class="home-pill">
@@ -522,59 +638,29 @@ pointer-events:none;z-index:0}
             </div>
           </div>
         </div>
-        <div class="home-stream-toggle">
-          <div class="home-stream-head">
-            <span class="label">Cabina de Stream</span>
-            <div class="home-stream-select-wrap">
-              <select id="home-stream-mode" class="home-stream-select" onchange="setGlobalStreamMode(this.value)">
-                <option value="off">OFF</option>
-                <option value="solo">1P</option>
-                <option value="duo">2P</option>
-              </select>
-            </div>
-          </div>
-          <div class="home-stream-copy">Elige cómo quieres ver todo el juego: sin cámaras, con una sola cámara para streamer individual o con dos cámaras para cruce entre streamers.</div>
-        </div>
-      </div>
-    </div>
-    <div class="home-subgrid">
-      <div class="home-info-chip">
-        <strong>El Puente</strong>
-        <span>Encuentra nombres en comun entre dos jugadores y genera debate al instante.</span>
-      </div>
-      <div class="home-info-chip">
-        <strong>La Cadena</strong>
-        <span>El modo mas original del proyecto: cada paso conecta carreras reales.</span>
-      </div>
-      <div class="home-info-chip">
-        <strong>Zona Mixta</strong>
-        <span>Formato rapido para stream, rondas cortas y momentos faciles de clippear.</span>
       </div>
     </div>
     <div class="games-grid">
-      <div class="game-card chain-card featured" onclick="showChainGame()">
-        <div class="card-kicker">Modo estrella</div>
-        <div class="icon">CAD</div>
-        <h2>La Cadena</h2>
-        <p>Conecta al jugador A con el jugador B armando un camino valido, paso a paso. Aqui importa el orden y cada decision pesa.</p>
-        <span class="badge hard">CAMINO HASTA LA META</span>
-        <div class="card-action">Entrar al modo →</div>
-      </div>
       <div class="game-card bridge-card" onclick="showBridgesGame()">
-        <div class="card-kicker">Reto rapido</div>
-        <div class="icon">LINK</div>
+        <div class="icon">NEXO</div>
         <h2>El Puente</h2>
-        <p>Encuentra nombres que conecten con los dos jugadores del reto. Ideal para turnos rapidos y debate inmediato.</p>
+        <p>Encuentra jugadores en comun entre dos nombres grandes. Es rapido, directo y facil de entender al instante.</p>
         <span class="badge medium">3 PUENTES</span>
-        <div class="card-action">Buscar puentes →</div>
+        <div class="card-action">Buscar nexos →</div>
+      </div>
+      <div class="game-card chain-card featured" onclick="showChainGame()">
+        <div class="icon">RUTA</div>
+        <h2>La Cadena</h2>
+        <p>Une al jugador A con el jugador B siguiendo una ruta real de vestuarios compartidos. Aqui manda el orden.</p>
+        <span class="badge hard">CAMINO HASTA LA META</span>
+        <div class="card-action">Trazar ruta →</div>
       </div>
       <div class="game-card stream-card" onclick="startStream()">
-        <div class="card-kicker">Modo show</div>
-        <div class="icon">LIVE</div>
+        <div class="icon">CABINA</div>
         <h2>Zona Mixta</h2>
-        <p>Preguntas con ritmo, categorias potentes y formato competitivo para cerrar un stream con energia y momentos faciles de clippear.</p>
+        <p>Preguntas con ritmo, categorias potentes y un formato dinamico para sostener partidas cortas y claras.</p>
         <span class="badge easy">PREGUNTAS + REACCION</span>
-        <div class="card-action">Ir a Zona Mixta →</div>
+        <div class="card-action">Entrar a cabina →</div>
       </div>
     </div>
   </div>
@@ -585,6 +671,14 @@ pointer-events:none;z-index:0}
   <div class="game-header stream-score-header" id="puente-header">
     <button class="back-btn" onclick="goHome()">&larr; Inicio</button>
     <span class="game-title" id="puente-game-title">El Puente</span>
+    <div class="game-mode-wrap">
+      <span class="game-mode-label">Vista</span>
+      <select class="game-stream-mode-select" data-stream-mode-select onchange="changeGamePresentation('connections',this.value)">
+        <option value="off">Normal</option>
+        <option value="solo">Stream 1P</option>
+        <option value="duo">Stream 2P</option>
+      </select>
+    </div>
     <span class="header-spacer"></span>
     <span class="score-display" id="puente-score">0 pts</span>
   </div>
@@ -617,10 +711,11 @@ pointer-events:none;z-index:0}
         <strong>Puntaje:</strong> cada puente correcto suma <strong>+1</strong>.
         <span class="mini" id="bridges-score-mini">Si completas los 3, ganas <strong>+2 extra</strong>. Cada <strong>5 victorias seguidas</strong> sumas <strong>+1 bonus de racha</strong>.</span>
       </div>
+      <div id="bridges-race-panel"></div>
       <div class="stream-turn-note" id="bridges-turn-note" style="display:none"></div>
       <div class="progress-bar"><div class="progress-fill" id="puente-progress" style="width:0%"></div></div>
       <div class="instructions">
-        <strong>Como jugar:</strong> aqui <strong>no armas un recorrido</strong>. Solo debes escribir <strong>3 jugadores distintos</strong> que hayan coincidido en club y temporada con <span id="inst-a" style="color:var(--blue)">Jugador A</span> y tambien con <span id="inst-b" style="color:var(--gold)">Jugador B</span>. Son 3 puentes comunes entre ambos.
+        <strong>Como jugar:</strong> escribe <strong>3 jugadores distintos</strong> que hayan compartido club con <span id="inst-a" style="color:var(--blue)">Jugador A</span> y tambien con <span id="inst-b" style="color:var(--gold)">Jugador B</span>. No armas ruta: solo buscas nombres en comun.
       </div>
       <div class="feedback-msg" id="bridges-feedback"></div>
       <div class="input-row">
@@ -647,6 +742,7 @@ pointer-events:none;z-index:0}
         <strong>Puntaje:</strong> cerrar la cadena da <strong>+3</strong>.
         <span class="mini" id="chain-score-mini">Tienes <strong>maximo 3 intermedios</strong>. Si la cierras con <strong>1 intermedio</strong>, ganas <strong>+2 extra</strong>. Si la cierras con <strong>2 intermedios</strong>, ganas <strong>+1 extra</strong>. Cada <strong>5 victorias seguidas</strong> sumas <strong>+1 bonus de racha</strong>.</span>
       </div>
+      <div id="chain-race-panel"></div>
       <div class="slots-bar" id="slots-bar">
         <span class="slots-label">Jugadores intermedios:</span>
       </div>
@@ -660,7 +756,7 @@ pointer-events:none;z-index:0}
       </div>
 
       <div class="instructions" id="chain-instructions">
-        <strong>Como jugar:</strong> aqui <strong>si armas un recorrido</strong>. Debes conectar <span id="chain-inst-a" style="color:var(--blue)">Jugador A</span> con <span id="chain-inst-b" style="color:var(--gold)">Jugador B</span> agregando jugadores en orden. Cada nombre nuevo debe haber compartido club con el anterior. Tienes <strong>hasta 3 intermedios</strong> y cierras cuando puedas escribir a <span id="chain-inst-b2" style="color:var(--gold)">Jugador B</span>.
+        <strong>Como jugar:</strong> conecta <span id="chain-inst-a" style="color:var(--blue)">Jugador A</span> con <span id="chain-inst-b" style="color:var(--gold)">Jugador B</span> en orden. Cada nombre nuevo debe haber jugado con el anterior. Tienes <strong>hasta 3 intermedios</strong> y ganas mas si llegas antes.
       </div>
 
       <div class="stream-turn-note" id="chain-turn-note" style="display:none"></div>
@@ -691,6 +787,13 @@ pointer-events:none;z-index:0}
   <div class="game-header stream-score-header">
     <button class="back-btn" onclick="goHome()">&larr; Inicio</button>
     <span class="game-title">Trivia Futbol</span>
+    <div class="game-mode-wrap">
+      <span class="game-mode-label">Vista</span>
+      <select class="game-stream-mode-select" data-stream-mode-select onchange="changeGamePresentation('trivia',this.value)">
+        <option value="off">Normal</option>
+        <option value="solo">Stream 1P</option>
+      </select>
+    </div>
     <span class="header-spacer"></span>
     <span class="stream-header-score" id="trivia-score">0 pts</span>
   </div>
@@ -701,6 +804,7 @@ pointer-events:none;z-index:0}
         <strong>Puntaje:</strong> cada respuesta correcta suma <strong>+1</strong>.
         <span class="mini">Desde la tercera correcta seguida, cada acierto vale <strong>+2</strong>. En 10 preguntas, el maximo es <strong>18 pts</strong>.</span>
       </div>
+      <div id="trivia-race-panel"></div>
       <div class="trivia-meta">
         <span class="q-counter" id="q-counter">Pregunta 1 de 10</span>
         <span id="streak-display" style="color:var(--gold);font-weight:700"></span>
@@ -5787,7 +5891,7 @@ pointer-events:none;z-index:0}
     "country": "Argentina",
     "photo": null,
     "birthYear": 1978,
-    "wiki": "Juan Riquelme",
+    "wiki": "Juan Román Riquelme",
     "wikipediaUrl": null,
     "wikidataUrl": null,
     "status": "ampliado",
@@ -29511,7 +29615,7 @@ pointer-events:none;z-index:0}
   },
   "Juan Riquelme": {
     "flag": "",
-    "wiki": "Juan Riquelme",
+    "wiki": "Juan Román Riquelme",
     "photo": null,
     "birthYear": 1978,
     "country": "Argentina",
@@ -45735,12 +45839,14 @@ let playerA=null, playerB=null;
 let timerEnabled=true;
 let embeddedExtraMarkup=null;
 let streamMode='off';
+const STREAM_TARGET_SCORE=25;
 const broadcastState={
   players:[
     {name:'DavoXeneize',score:0},
     {name:'LaCobra',score:0}
   ]
 };
+const streamRaceState={scores:[0,0]};
 const HISTORY_STORAGE_KEY='futbrain_seen_history_v1';
 let seenHistory=loadSeenHistory();
 
@@ -45822,6 +45928,11 @@ function isDualStreamMode(){ return streamMode==='duo'; }
 function updateGlobalStreamModeUI(){
   const select=document.getElementById('home-stream-mode');
   if(select) select.value=streamMode;
+  document.querySelectorAll('[data-stream-mode-select]').forEach(el=>{
+    if(el.value!==streamMode && [...el.options].some(opt=>opt.value===streamMode)){
+      el.value=streamMode;
+    }
+  });
 }
 function setScreenStreamLayout(screenId,enabled){
   const el=document.getElementById(screenId);
@@ -45832,6 +45943,33 @@ function setGlobalStreamMode(mode){
   streamMode=mode;
   updateGlobalStreamModeUI();
 }
+function renderGameModeControl(gameKey,allowDuo=true){
+  const offSelected=streamMode==='off'?' selected':'';
+  const soloSelected=streamMode==='solo'?' selected':'';
+  const duoSelected=streamMode==='duo'?' selected':'';
+  return `<div class="game-mode-wrap">
+    <span class="game-mode-label">Vista</span>
+    <select class="game-stream-mode-select" data-stream-mode-select onchange="changeGamePresentation('${gameKey}',this.value)">
+      <option value="off"${offSelected}>Normal</option>
+      <option value="solo"${soloSelected}>Stream 1P</option>
+      ${allowDuo?`<option value="duo"${duoSelected}>Stream 2P</option>`:''}
+    </select>
+  </div>`;
+}
+function changeGamePresentation(gameKey,mode){
+  setGlobalStreamMode(mode);
+  if(gameKey==='connections'){
+    showConnectionGame(puenteMode);
+    return;
+  }
+  if(gameKey==='trivia'){
+    startTrivia();
+    return;
+  }
+  if(gameKey==='stream'){
+    startStream();
+  }
+}
 
 function showConnectionGame(mode){
   puenteMode=mode;
@@ -45840,15 +45978,20 @@ function showConnectionGame(mode){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('game-puente').classList.add('active');
   setScreenStreamLayout('game-puente',isStreamModeOn());
+  updateGlobalStreamModeUI();
   setupSoloBroadcast('puente-stream-overlay',0,0,0);
   const isBridges=mode==='bridges';
   document.getElementById('bridges-content').style.display=isBridges?'block':'none';
   document.getElementById('chain-content').style.display=isBridges?'none':'block';
   document.getElementById('puente-game-title').textContent=isBridges?'🔗 El Puente':'⛓️ La Cadena';
   if(isBridges){
+    bridgesState.score=0;
+    bridgesState.winStreak=0;
     bridgesState.sessionScores=[0,0];
     bridgesState.playerScores=[0,0];
   }else{
+    chainState.score=0;
+    chainState.winStreak=0;
     chainState.sessionScores=[0,0];
     chainState.currentTurn=0;
   }
@@ -45882,13 +46025,13 @@ function updateConnectionModeNotes(){
   const bridgesMini=document.getElementById('bridges-score-mini');
   if(bridgesMini){
     bridgesMini.innerHTML=isBridgeVersusMode()
-      ? `Cada puente correcto suma <strong>+1</strong> al marcador total. Si fallas, <strong>sigues en tu turno</strong>: el rival solo responde si aprietas <strong>Pasar turno</strong>. Cuando lo haces, el rival juega esa jugada por <strong>+0.5</strong> y luego sigue con su turno normal. <strong>No hay bonus por completar</strong>: en stream importa el acumulado de toda la sesión.`
-      : `Si completas los 3, ganas <strong>+2 extra</strong>. Cada <strong>5 victorias seguidas</strong> sumas <strong>+1 bonus de racha</strong>. Racha actual: <strong>${bridgesState.winStreak}</strong>.`;
+      ? `Cada puente correcto suma <strong>+1</strong> al marcador total. Si fallas, <strong>sigues en tu turno</strong>: el rival solo responde si aprietas <strong>Pasar turno</strong>. Cuando lo haces, el rival juega esa jugada por <strong>+0.5</strong> y luego sigue con su turno normal. <strong>Meta del stream: ${STREAM_TARGET_SCORE} pts</strong>.`
+      : `Cada puente correcto se <strong>acumula</strong> en tu sesión. Si completas los 3, ganas <strong>+2 extra</strong>. Cada <strong>5 victorias seguidas</strong> sumas <strong>+1 bonus de racha</strong>. Racha actual: <strong>${bridgesState.winStreak}</strong>.`;
   }
   const chainMini=document.getElementById('chain-score-mini');
   if(chainMini){
     chainMini.innerHTML=isDualStreamMode()
-      ? `Cerrar la cadena suma <strong>+3</strong>. Si la cierras con <strong>1 intermedio</strong>, ganas <strong>+2 extra</strong>. Si la cierras con <strong>2 intermedios</strong>, ganas <strong>+1 extra</strong>. Si fallas, <strong>sigues en tu turno</strong>: el rival solo entra si aprietas <strong>Pasar turno</strong>. En stream importa el <strong>marcador total de la sesión</strong>.`
+      ? `Cerrar la cadena suma <strong>+3</strong>. Si la cierras con <strong>1 intermedio</strong>, ganas <strong>+2 extra</strong>. Si la cierras con <strong>2 intermedios</strong>, ganas <strong>+1 extra</strong>. Si fallas, <strong>sigues en tu turno</strong>: el rival solo entra si aprietas <strong>Pasar turno</strong>. <strong>Meta del stream: ${STREAM_TARGET_SCORE} pts</strong>.`
       : `Tienes <strong>maximo 3 intermedios</strong>. Si la cierras con <strong>1 intermedio</strong>, ganas <strong>+2 extra</strong>. Si la cierras con <strong>2 intermedios</strong>, ganas <strong>+1 extra</strong>. Cada <strong>5 victorias seguidas</strong> sumas <strong>+1 bonus de racha</strong>. Racha actual: <strong>${chainState.winStreak}</strong>.`;
   }
 }
@@ -45953,6 +46096,7 @@ const BRIDGES_TUTORIAL_EXAMPLES=[
     note:'Henrik Larsson también conecta el ejemplo por Manchester United y Barcelona.'
   }
 ];
+let bridgeTutorialIndex=0;
 const CHAIN_TUTORIAL_EXAMPLES=[
   {
     path:['Cristiano Ronaldo','Sergio Ramos','Kylian Mbappé'],
@@ -45970,6 +46114,7 @@ const CHAIN_TUTORIAL_EXAMPLES=[
     note:'3 intermedios: tambien vale, pero ya no suma bonus por cerrar rapido.'
   }
 ];
+let chainTutorialIndex=0;
 
 function pickModeExamples(pool,count=2){
   return shuffle(pool.slice()).slice(0,Math.min(count,pool.length));
@@ -46034,123 +46179,153 @@ function hydrateExamplePhotos(namesWithRoles){
 function renderBridgeExamples(){
   const wrap=document.getElementById('bridges-preview');
   if(!wrap) return;
-  const examples=BRIDGES_TUTORIAL_EXAMPLES.slice(0,2);
-  const hero=examples[0];
+  const examples=BRIDGES_TUTORIAL_EXAMPLES.slice();
+  if(bridgeTutorialIndex>=examples.length) bridgeTutorialIndex=0;
+  const current=examples[bridgeTutorialIndex];
+  const hero=current;
   wrap.innerHTML=`
     <div class="mode-preview-head">
       <div>
         <div class="mode-preview-title">Asi se juega El Puente</div>
-        <div class="mode-preview-copy"><strong>Idea clave:</strong> aqui buscas <strong>nombres en comun</strong> entre dos jugadores. Ejemplo fijo: conecta a <strong>Cristiano Ronaldo</strong> con <strong>Juan Riquelme</strong>. Ellos <strong>nunca jugaron juntos</strong>, así que debes escribir futbolistas que hayan compartido club con ambos. Cada puente correcto suma <strong>+1 punto</strong>.</div>
+        <div class="mode-preview-copy"><strong>Objetivo:</strong> escribe nombres que conecten a <strong>Cristiano Ronaldo</strong> con <strong>Juan Riquelme</strong>. Cada respuesta debe valer para <strong>los dos</strong>. Cada puente correcto suma <strong>+1</strong>.</div>
         <div class="mode-preview-steps">
-          <span class="mode-step-pill start">1. Inicio</span>
-          <span class="mode-step-pill mid">2. Puente valido</span>
-          <span class="mode-step-pill end">3. Objetivo: llegar a 3</span>
+          <span class="mode-step-pill start">1. Mira la dupla</span>
+          <span class="mode-step-pill mid">2. Escribe 1 nombre que valga para ambos</span>
+          <span class="mode-step-pill end">3. Repite hasta llegar a 3</span>
         </div>
       </div>
     </div>
-    <div class="mode-examples-grid">
-      ${examples.map(ex=>`
-        <div class="mode-example-card">
+    <div class="mode-carousel">
+      <button class="mode-carousel-btn" onclick="moveBridgeExample(-1)">‹</button>
+      <div class="mode-examples-grid" style="grid-template-columns:minmax(0,1fr)">
+        <div class="mode-example-card showcase">
           <div class="mode-example-label">Ejemplo puente</div>
-          <div class="mode-example-main">${uiPlayerName(ex.pair[0])} + ${uiPlayerName(ex.pair[1])}</div>
-          <div class="mode-example-visual">
-            ${renderExamplePlayerChip(ex.pair[0],'goal')}
-            <span class="example-arrow">+</span>
-            ${renderExamplePlayerChip(ex.pair[1],'goal')}
+          <div class="mode-example-main">${uiPlayerName(current.pair[0])} + ${uiPlayerName(current.pair[1])}</div>
+          <div class="mode-example-stack">
+            <div class="mode-example-flow">
+              ${renderExamplePlayerChip(current.pair[0],'goal')}
+              <span class="mode-example-connector">+</span>
+              ${renderExamplePlayerChip(current.pair[1],'goal')}
+              <span class="mode-example-connector">→</span>
+              <div class="mode-example-answer">
+                <span class="mode-example-answer-tag">Respuesta</span>
+                ${renderExamplePlayerChip(current.answer,'bridge')}
+              </div>
+            </div>
           </div>
-          <div class="mode-example-visual">
-            ${renderExamplePlayerChip(ex.answer,'bridge')}
-          </div>
-          <div class="mode-example-sub">${ex.note}</div>
-          <div class="mode-example-sub"><strong>Puntaje:</strong> si respondes <strong>${uiPlayerName(ex.answer)}</strong>, ganas <strong>+${ex.score} pt</strong>.</div>
+          <div class="mode-example-sub"><strong>Respuesta valida:</strong> ${uiPlayerName(current.answer)}.</div>
+          <div class="mode-example-sub">${current.note}</div>
+          <div class="mode-example-sub"><strong>Vale:</strong> <strong>+${current.score} pt</strong>.</div>
         </div>
-      `).join('')}
+      </div>
+      <button class="mode-carousel-btn" onclick="moveBridgeExample(1)">›</button>
     </div>
-      <div class="mode-score-guide">
+    <div class="mode-carousel-meta">Ejemplo ${bridgeTutorialIndex+1} de ${examples.length}</div>
+    <div class="mode-score-guide">
       <div class="mode-score-card">
-        <strong>Primer puente = +1 pt</strong>
-        <span>Ejemplo: Carlos Tevez.</span>
+        <strong>Primer acierto = +1</strong>
+        <span>Un nombre valido para los dos jugadores.</span>
       </div>
       <div class="mode-score-card">
-        <strong>Segundo puente = +1 pt</strong>
-        <span>Ejemplo: Gerard Pique.</span>
+        <strong>Segundo acierto = +1</strong>
+        <span>Debe ser otro nombre distinto.</span>
       </div>
       <div class="mode-score-card">
-        <strong>Tercer puente = +1 pt</strong>
-        <span>Ejemplo: Henrik Larsson.</span>
+        <strong>Tercer acierto = +1</strong>
+        <span>Con eso completas la ronda.</span>
       </div>
       <div class="mode-score-card">
-        <strong>Si completas los 3 = +2 extra</strong>
-        <span>Total perfecto del ejemplo: 5 pts.</span>
+        <strong>Completar los 3 = +2 extra</strong>
+        <span>Ronda perfecta: <strong>5 pts</strong>.</span>
       </div>
     </div>
     <div class="mode-preview-actions">
       <button class="btn-primary" onclick="startBridgeRoundFromIntro()">Continuar al juego</button>
     </div>`;
   setPlayerCards(hero.pair[0],hero.pair[1]);
-  hydrateExamplePhotos(examples.flatMap(ex=>[
-    {name:ex.pair[0],role:'goal'},
-    {name:ex.pair[1],role:'goal'},
-    {name:ex.answer,role:'bridge'}
-  ]));
+  hydrateExamplePhotos([
+    {name:current.pair[0],role:'goal'},
+    {name:current.pair[1],role:'goal'},
+    {name:current.answer,role:'bridge'}
+  ]);
+}
+
+function moveBridgeExample(direction){
+  const total=BRIDGES_TUTORIAL_EXAMPLES.length;
+  bridgeTutorialIndex=(bridgeTutorialIndex+direction+total)%total;
+  renderBridgeExamples();
 }
 
 function renderChainExamples(){
   const wrap=document.getElementById('chain-preview');
   if(!wrap) return;
-  const examples=CHAIN_TUTORIAL_EXAMPLES.slice(0,2);
-  const hero=examples[0];
+  const examples=CHAIN_TUTORIAL_EXAMPLES.slice();
+  if(chainTutorialIndex>=examples.length) chainTutorialIndex=0;
+  const current=examples[chainTutorialIndex];
+  const hero=current;
   wrap.innerHTML=`
     <div class="mode-preview-head">
       <div>
         <div class="mode-preview-title">Asi se juega La Cadena</div>
-        <div class="mode-preview-copy"><strong>Idea clave:</strong> aqui armas un <strong>camino en orden</strong> desde un jugador hasta otro. Ejemplo fijo: conecta <strong>Cristiano Ronaldo</strong> con <strong>Kylian Mbappé</strong>. Debes ir pasando por jugadores que hayan compartido club entre si. Tienes <strong>hasta 3 intermedios</strong>, pero cuanto antes cierres, mas puntos ganas.</div>
+        <div class="mode-preview-copy"><strong>Objetivo:</strong> conecta a <strong>Cristiano Ronaldo</strong> con <strong>Kylian Mbappé</strong>. Cada nombre nuevo debe haber jugado con el anterior. Tienes <strong>hasta 3 intermedios</strong>.</div>
         <div class="mode-preview-steps">
-          <span class="mode-step-pill start">1. Inicio</span>
-          <span class="mode-step-pill mid">2. Intermedio(s)</span>
-          <span class="mode-step-pill end">3. Meta</span>
+          <span class="mode-step-pill start">1. Empieza en A</span>
+          <span class="mode-step-pill mid">2. Agrega nombres en orden</span>
+          <span class="mode-step-pill end">3. Llega a B</span>
         </div>
       </div>
     </div>
-    <div class="mode-examples-grid">
-      ${examples.map(ex=>`
-        <div class="mode-example-card chain">
+    <div class="mode-carousel">
+      <button class="mode-carousel-btn" onclick="moveChainExample(-1)">‹</button>
+      <div class="mode-examples-grid" style="grid-template-columns:minmax(0,1fr)">
+        <div class="mode-example-card chain showcase">
           <div class="mode-example-label">Ejemplo cadena</div>
-          <div class="mode-example-main">${ex.path.map(uiPlayerName).join(' → ')}</div>
-          <div class="mode-example-visual">
-            ${ex.path.map((name,idx)=>`${renderExamplePlayerChip(name,idx===0||idx===ex.path.length-1?'goal':'bridge')}${idx<ex.path.length-1?'<span class="example-arrow">→</span>':''}`).join('')}
+          <div class="mode-example-main">${current.path.map(uiPlayerName).join(' → ')}</div>
+          <div class="mode-example-stack">
+            <div class="mode-example-flow">
+              ${current.path.map((name,idx)=>`${renderExamplePlayerChip(name,idx===0||idx===current.path.length-1?'goal':'bridge')}${idx<current.path.length-1?'<span class="mode-example-connector">→</span>':''}`).join('')}
+            </div>
           </div>
-          <div class="mode-example-sub">${ex.note}</div>
-          <div class="mode-example-sub"><strong>Puntaje:</strong> si respondes con esta ruta, ganas <strong>${ex.score} pts</strong>.</div>
+          <div class="mode-example-sub"><strong>Ruta valida:</strong> esa secuencia completa cierra la cadena.</div>
+          <div class="mode-example-sub">${current.note}</div>
+          <div class="mode-example-sub"><strong>Vale:</strong> <strong>${current.score} pts</strong>.</div>
         </div>
-      `).join('')}
+      </div>
+      <button class="mode-carousel-btn" onclick="moveChainExample(1)">›</button>
     </div>
+    <div class="mode-carousel-meta">Ejemplo ${chainTutorialIndex+1} de ${examples.length}</div>
     <div class="mode-score-guide">
       <div class="mode-score-card">
         <strong>1 intermedio = 5 pts</strong>
-        <span>Base +3 y bonus rapido de +2.</span>
+        <span>La mejor forma de cerrarla.</span>
       </div>
       <div class="mode-score-card">
         <strong>2 intermedios = 4 pts</strong>
-        <span>Base +3 y bonus rapido de +1.</span>
+        <span>Tambien es una buena ruta.</span>
       </div>
       <div class="mode-score-card">
         <strong>3 intermedios = 3 pts</strong>
-        <span>Cadena completada sin bonus extra.</span>
+        <span>Vale, pero sin bonus rapido.</span>
       </div>
       <div class="mode-score-card">
-        <strong>Pista de club = -1</strong>
-        <span>La ayuda resta un punto al total final.</span>
+        <strong>Mientras antes cierres, mejor</strong>
+        <span>Menos pasos = mas puntos.</span>
       </div>
     </div>
     <div class="mode-preview-actions">
       <button class="btn-primary" onclick="startChainRoundFromIntro()">Continuar al juego</button>
     </div>`;
   setPlayerCards(hero.path[0],hero.path[hero.path.length-1]);
-  hydrateExamplePhotos(examples.flatMap(ex=>ex.path.map((name,idx)=>({
+  hydrateExamplePhotos(current.path.map((name,idx)=>({
     name,
-    role: idx===0||idx===ex.path.length-1 ? 'goal' : 'bridge'
-  }))));
+    role: idx===0||idx===current.path.length-1 ? 'goal' : 'bridge'
+  })));
+}
+
+function moveChainExample(direction){
+  const total=CHAIN_TUTORIAL_EXAMPLES.length;
+  chainTutorialIndex=(chainTutorialIndex+direction+total)%total;
+  renderChainExamples();
 }
 
 function generateBridgesPair(diff='any'){
@@ -46188,7 +46363,6 @@ function newBridgesRound(){
   playerA=pair.a; playerB=pair.b;
   bridgesState.bridges=pair.bridges;
   bridgesState.found=[];
-  bridgesState.score=0;
   bridgesState.currentTurn=0;
   bridgesState.playerScores=[0,0];
   bridgesState.passTarget=null;
@@ -46196,8 +46370,8 @@ function newBridgesRound(){
     document.getElementById('puente-score').textContent=`${formatPoints(bridgesState.sessionScores[0])} - ${formatPoints(bridgesState.sessionScores[1])}`;
     setBroadcastScores(bridgesState.sessionScores[0],bridgesState.sessionScores[1]);
   }else{
-    document.getElementById('puente-score').textContent='0 pts';
-    setBroadcastScores(0,0);
+    document.getElementById('puente-score').textContent=isStreamModeOn()?`${formatPoints(bridgesState.score)} / ${STREAM_TARGET_SCORE} pts`:bridgesState.score+' pts';
+    setBroadcastScores(bridgesState.score,0);
   }
 
   setPlayerCards(pair.a,pair.b);
@@ -46214,7 +46388,9 @@ function newBridgesRound(){
   hideFeedback('bridges-feedback');
   updateConnectionModeNotes();
   updateBridgesProgress();
+  if(isBridgeVersusMode()) bridgesState.sessionScores=getStreamRaceScores();
   updateBridgeVersusUI();
+  updateBridgesObjectivePanel();
 }
 
 function startBridgesTimer(){
@@ -46247,12 +46423,13 @@ function updateBridgeVersusUI(){
     if(scoreEl) scoreEl.classList.toggle('vs-score',isStreamModeOn());
     if(headerEl) headerEl.classList.toggle('bridge-versus-header',isStreamModeOn());
     if(passBtn) passBtn.style.display='none';
-    document.getElementById('puente-score').textContent=bridgesState.score+' pts';
+    document.getElementById('puente-score').textContent=isStreamModeOn()?`${formatPoints(bridgesState.score)} / ${STREAM_TARGET_SCORE} pts`:bridgesState.score+' pts';
     setBroadcastScores(bridgesState.score,0);
     const overlay=document.getElementById('puente-stream-overlay');
     if(overlay){
       overlay.innerHTML=isStreamModeOn()?renderStreamCameraOverlay(0,broadcastState.players):'';
     }
+    updateBridgesObjectivePanel();
     return;
   }
   const left=bridgesState.sessionScores[0]||0;
@@ -46276,7 +46453,8 @@ function updateBridgeVersusUI(){
   }
   setBroadcastScores(left,right);
   if(scoreEl) scoreEl.classList.add('vs-score');
-  document.getElementById('puente-score').textContent=`${formatPoints(left)} - ${formatPoints(right)}`;
+  document.getElementById('puente-score').textContent=getStreamRaceLabel(broadcastState.players);
+  updateBridgesObjectivePanel();
 }
 
 function passBridgeTurn(reasonText=''){
@@ -46382,7 +46560,8 @@ function submitBridge(){
   if(isBridgeVersusMode()){
     const earned=stealingTurn?0.5:1;
     bridgesState.playerScores[responder]+=earned;
-    bridgesState.sessionScores[responder]+=earned;
+    addStreamRaceScore(responder,earned);
+    bridgesState.sessionScores=getStreamRaceScores();
     bridgesState.score=bridgesState.sessionScores[0]+bridgesState.sessionScores[1];
     if(stealingTurn){
       bridgesState.currentTurn=responder;
@@ -46405,6 +46584,7 @@ function submitBridge(){
     : `✅ ¡Correcto! ${found} es un puente válido.`,'success');
   document.getElementById('bridgesInput').value='';
   updateBridgesProgress();
+  updateBridgesObjectivePanel();
   if(bridgesState.found.length>=3){clearInterval(bridgesState.timer);setTimeout(()=>endBridges(true),500);}
 }
 
@@ -46444,19 +46624,23 @@ function endBridges(won){
     setBroadcastScores(bridgesState.score,0);
   }
   updateConnectionModeNotes();
+  updateBridgesObjectivePanel();
   const others=bridgesState.bridges.filter(b=>!bridgesState.found.includes(b.name)).slice(0,5)
     .map(b=>`<li style="margin:.3rem 0">${DB[b.name].flag} <strong>${uiPlayerName(b.name)}</strong> <span style="color:var(--muted);font-size:.78rem">· ${uiPlayerName(playerA)}: ${uiClubName(b.withA.club)} · ${uiPlayerName(playerB)}: ${uiClubName(b.withB.club)}</span></li>`).join('');
   const versusSummary=isBridgeVersusMode()
     ? (() => {
         const leftRound=bridgesState.playerScores[0]||0;
         const rightRound=bridgesState.playerScores[1]||0;
-        const leftTotal=bridgesState.sessionScores[0]||0;
-        const rightTotal=bridgesState.sessionScores[1]||0;
-        const leftName=broadcastState.players[0].name;
-        const rightName=broadcastState.players[1].name;
-        const roundWinner=leftRound===rightRound?'Empate':(leftRound>rightRound?leftName:rightName);
-        return `<p style="color:var(--muted);font-size:.85rem;margin:.5rem 0">Ronda: ${leftName} <strong style="color:var(--blue)">${formatPoints(leftRound)}</strong> · ${rightName} <strong style="color:var(--gold)">${formatPoints(rightRound)}</strong>. ${roundWinner==='Empate'?'La ronda terminó empatada.':`Ganador de la ronda: <strong style="color:var(--text)">${roundWinner}</strong>.`}<br>Marcador total: ${leftName} <strong style="color:var(--blue)">${formatPoints(leftTotal)}</strong> · ${rightName} <strong style="color:var(--gold)">${formatPoints(rightTotal)}</strong>.</p>`;
+      const leftTotal=bridgesState.sessionScores[0]||0;
+      const rightTotal=bridgesState.sessionScores[1]||0;
+      const leftName=broadcastState.players[0].name;
+      const rightName=broadcastState.players[1].name;
+      const roundWinner=leftRound===rightRound?'Empate':(leftRound>rightRound?leftName:rightName);
+      return `<p style="color:var(--muted);font-size:.85rem;margin:.5rem 0">Ronda: ${leftName} <strong style="color:var(--blue)">${formatPoints(leftRound)}</strong> · ${rightName} <strong style="color:var(--gold)">${formatPoints(rightRound)}</strong>. ${roundWinner==='Empate'?'La ronda terminó empatada.':`Ganador de la ronda: <strong style="color:var(--text)">${roundWinner}</strong>.`}<br>Marcador total: ${leftName} <strong style="color:var(--blue)">${formatPoints(leftTotal)}</strong> · ${rightName} <strong style="color:var(--gold)">${formatPoints(rightTotal)}</strong>.</p>`;
       })()
+    : '';
+  const soloSummary=!isBridgeVersusMode()
+    ? `<p style="color:var(--muted);font-size:.85rem;margin:.5rem 0">Tu puntaje total sigue en <strong style="color:var(--text)">${formatPoints(bridgesState.score)}</strong>. Puedes seguir con otra dupla sin perder este acumulado.</p>`
     : '';
   document.getElementById('bridges-end').innerHTML=`
     <div class="result-box" style="border:1px solid ${didComplete||isPartial?'rgba(57,211,83,.35)':'rgba(248,81,73,.35)'}">
@@ -46464,9 +46648,10 @@ function endBridges(won){
       <div class="pts">${isBridgeVersusMode()?`${formatPoints(bridgesState.sessionScores[0])} - ${formatPoints(bridgesState.sessionScores[1])}`:`${bridgesState.score} pts`}</div>
       <p style="color:var(--muted);font-size:.85rem;margin:.5rem 0">Había <strong style="color:var(--text)">${bridgesState.bridges.length} puentes</strong> entre <span style="color:var(--blue)">${uiPlayerName(playerA)}</span> y <span style="color:var(--gold)">${uiPlayerName(playerB)}</span>. ${isPartial?`Te quedaste con <strong style="color:var(--text)">${bridgesState.found.length}</strong> puente${bridgesState.found.length!==1?'s':''} acertado${bridgesState.found.length!==1?'s':''}, sin bonus por completar.`:isBridgeVersusMode()?'':(didComplete?`Racha actual: <strong style="color:var(--text)">${bridgesState.winStreak}</strong>. ${streakBonus?`Bonus de racha: <strong style="color:var(--glow)">+${streakBonus}</strong>.`:''}`:'La racha vuelve a 0.')}</p>
       ${versusSummary}
+      ${soloSummary}
       ${others?`<p style="font-size:.8rem;color:var(--muted);margin:.5rem 0">Otros puentes posibles:</p><ul style="list-style:none;padding:0;font-size:.88rem">${others}</ul>`:''}
       <div class="end-btns">
-        <button class="btn-primary" onclick="newBridgesRound()">🔄 Nueva ronda</button>
+        <button class="btn-primary" onclick="newBridgesRound()">➡️ Continuar</button>
         <button class="btn-secondary" onclick="goHome()">🏠 Inicio</button>
       </div>
     </div>`;
@@ -46506,7 +46691,7 @@ async function loadWikiImg(name,imgEl,flagEl,size=200){
 // ============================================================
 //  CHAIN MODE
 // ============================================================
-const chainState={chain:[],connData:[],timer:null,score:0,minPath:null,minIntermediates:0,complete:false,winStreak:0,lastAutoDiff:'any',currentTurn:0,sessionScores:[0,0]};
+const chainState={chain:[],connData:[],timer:null,score:0,roundScore:0,minPath:null,minIntermediates:0,complete:false,winStreak:0,lastAutoDiff:'any',currentTurn:0,sessionScores:[0,0]};
 
 function getMaxIntermediates(){
   return 3;
@@ -46549,16 +46734,17 @@ function newChainRound(){
   playerA=pair.a; playerB=pair.b;
   chainState.chain=[pair.a];
   chainState.connData=[];
-  chainState.score=0;
+  chainState.roundScore=0;
   chainState.minPath=pair.minPath;
   chainState.minIntermediates=pair.minIntermediates;
   chainState.complete=false;
   if(isDualStreamMode()){
-    document.getElementById('puente-score').textContent=`${formatPoints(chainState.sessionScores[0])} - ${formatPoints(chainState.sessionScores[1])}`;
+    chainState.sessionScores=getStreamRaceScores();
+    document.getElementById('puente-score').textContent=getStreamRaceLabel(broadcastState.players);
     setBroadcastScores(chainState.sessionScores[0],chainState.sessionScores[1]);
   }else{
-    document.getElementById('puente-score').textContent='0 pts';
-    setBroadcastScores(0,0);
+    document.getElementById('puente-score').textContent=isStreamModeOn()?`${formatPoints(chainState.score)} / ${STREAM_TARGET_SCORE} pts`:chainState.score+' pts';
+    setBroadcastScores(chainState.score,0);
   }
 
   setPlayerCards(pair.a,pair.b);
@@ -46577,6 +46763,7 @@ function newChainRound(){
   updateConnectionModeNotes();
   updateChainDisplay();
   updateChainVersusUI();
+  updateChainObjectivePanel();
 }
 
 function startChainTimer(){
@@ -46598,6 +46785,8 @@ function updateChainVersusUI(){
       const overlay=document.getElementById('puente-stream-overlay');
       if(overlay) overlay.innerHTML=renderStreamCameraOverlay(0,broadcastState.players);
     }
+    if(scoreEl) scoreEl.textContent=isStreamModeOn()?`${formatPoints(chainState.score)} / ${STREAM_TARGET_SCORE} pts`:chainState.score+' pts';
+    updateChainObjectivePanel();
     return;
   }
   const currentName=broadcastState.players[chainState.currentTurn]?.name||'Jugador';
@@ -46609,10 +46798,11 @@ function updateChainVersusUI(){
     passBtn.style.display=!document.getElementById('chainInput').disabled?'inline-block':'none';
   }
   if(scoreEl) scoreEl.classList.add('vs-score');
-  document.getElementById('puente-score').textContent=`${formatPoints(chainState.sessionScores[0])} - ${formatPoints(chainState.sessionScores[1])}`;
+  document.getElementById('puente-score').textContent=getStreamRaceLabel(broadcastState.players);
   const overlay=document.getElementById('puente-stream-overlay');
   if(overlay) overlay.innerHTML=renderStreamCameraOverlay(chainState.currentTurn,broadcastState.players);
   setBroadcastScores(chainState.sessionScores[0],chainState.sessionScores[1]);
+  updateChainObjectivePanel();
 }
 
 function passChainByChoice(){
@@ -46702,6 +46892,7 @@ function updateChainDisplay(){
   }
   pips+=`<span style="font-size:.8rem;color:${remaining<=1?'var(--gold)':'var(--muted)'};margin-left:.4rem">${remaining} disponible${remaining!==1?'s':''}</span>`;
   bar.innerHTML=pips;
+  updateChainObjectivePanel();
 }
 
 function submitChain(){
@@ -46788,29 +46979,34 @@ function endChain(won,reason){
   const minSteps=chainState.minIntermediates;
   const isOptimal=won&&stepsUsed===minSteps;
 
-  let score=0;
+  let roundScore=0;
   let streakBonus=0;
   if(won){
-    score=3;
-    score+=bonusByFastFinish;
+    roundScore=3;
+    roundScore+=bonusByFastFinish;
     if(!isDualStreamMode()){
       chainState.winStreak+=1;
       streakBonus=chainState.winStreak%5===0?1:0;
-      score+=streakBonus;
+      roundScore+=streakBonus;
     }
   }else{
     if(!isDualStreamMode()) chainState.winStreak=0;
   }
-  chainState.score=score;
+  chainState.roundScore=roundScore;
   if(isDualStreamMode()){
-    if(won) chainState.sessionScores[chainState.currentTurn]+=score;
-    document.getElementById('puente-score').textContent=`${formatPoints(chainState.sessionScores[0])} - ${formatPoints(chainState.sessionScores[1])}`;
+    if(won){
+      addStreamRaceScore(chainState.currentTurn,roundScore);
+      chainState.sessionScores=getStreamRaceScores();
+    }
+    document.getElementById('puente-score').textContent=getStreamRaceLabel(broadcastState.players);
     setBroadcastScores(chainState.sessionScores[0],chainState.sessionScores[1]);
   }else{
-    document.getElementById('puente-score').textContent=score+' pts';
+    if(won) chainState.score+=roundScore;
+    document.getElementById('puente-score').textContent=isStreamModeOn()?`${formatPoints(chainState.score)} / ${STREAM_TARGET_SCORE} pts`:chainState.score+' pts';
     setBroadcastScores(chainState.score,0);
   }
   updateConnectionModeNotes();
+  updateChainObjectivePanel();
 
   // Show min path
   document.getElementById('chain-min-tag').style.display='inline-block';
@@ -46822,14 +47018,14 @@ function endChain(won,reason){
     ${isOptimal?'<div class="optimal-banner">⭐ ¡Camino óptimo! Encontraste la cadena más corta posible.</div>':''}
     <div class="result-box" style="border:1px solid ${won?'rgba(57,211,83,.35)':'rgba(248,81,73,.35)'}">
       <h3>${won?'🏆 ¡Cadena completada!':reason==='sin_pasos'?'❌ Sin pasos disponibles':'⏰ Se acabó el tiempo'}</h3>
-      <div class="pts">${isDualStreamMode()?`${formatPoints(chainState.sessionScores[0])} - ${formatPoints(chainState.sessionScores[1])}`:`${score} pts`}</div>
+      <div class="pts">${isDualStreamMode()?`${formatPoints(chainState.sessionScores[0])} - ${formatPoints(chainState.sessionScores[1])}`:`${chainState.score} pts`}</div>
       ${isDualStreamMode()
-        ? `<p style="color:var(--muted);font-size:.85rem;margin:.5rem 0">Ronda de <strong style="color:${chainState.currentTurn===0?'var(--blue)':'var(--gold)'}">${broadcastState.players[chainState.currentTurn].name}</strong>: <strong style="color:var(--text)">+${score}</strong>${won?` por cerrar la cadena con <strong style="color:var(--text)">${stepsUsed}</strong> intermedio${stepsUsed!==1?'s':''}.`:'.'} Marcador total de la sesión: <strong style="color:var(--blue)">${formatPoints(chainState.sessionScores[0])}</strong> - <strong style="color:var(--gold)">${formatPoints(chainState.sessionScores[1])}</strong>.</p>`
-        : won?`<p style="color:var(--muted);font-size:.85rem;margin:.5rem 0">Usaste <strong style="color:var(--text)">${stepsUsed} intermedio${stepsUsed!==1?'s':''}</strong>. ${bonusByFastFinish?`Bonus por cerrar rapido: <strong style="color:var(--glow)">+${bonusByFastFinish}</strong>. `:''}${streakBonus?`Bonus de racha: <strong style="color:var(--glow)">+${streakBonus}</strong>. `:''}Racha actual: <strong style="color:var(--text)">${chainState.winStreak}</strong>. El minimo posible era <strong style="color:var(--text)">${minSteps}</strong>.</p>`:`<p style="color:var(--muted);font-size:.85rem;margin:.5rem 0">La racha vuelve a <strong style="color:var(--text)">0</strong>.</p>`}
+        ? `<p style="color:var(--muted);font-size:.85rem;margin:.5rem 0">Ronda de <strong style="color:${chainState.currentTurn===0?'var(--blue)':'var(--gold)'}">${broadcastState.players[chainState.currentTurn].name}</strong>: <strong style="color:var(--text)">+${roundScore}</strong>${won?` por cerrar la cadena con <strong style="color:var(--text)">${stepsUsed}</strong> intermedio${stepsUsed!==1?'s':''}.`:'.'} Marcador total de la sesión: <strong style="color:var(--blue)">${formatPoints(chainState.sessionScores[0])}</strong> - <strong style="color:var(--gold)">${formatPoints(chainState.sessionScores[1])}</strong>.</p>`
+        : won?`<p style="color:var(--muted);font-size:.85rem;margin:.5rem 0">Usaste <strong style="color:var(--text)">${stepsUsed} intermedio${stepsUsed!==1?'s':''}</strong>. ${bonusByFastFinish?`Bonus por cerrar rapido: <strong style="color:var(--glow)">+${bonusByFastFinish}</strong>. `:''}${streakBonus?`Bonus de racha: <strong style="color:var(--glow)">+${streakBonus}</strong>. `:''}Ganaste <strong style="color:var(--text)">+${roundScore}</strong> en esta ronda y tu total queda en <strong style="color:var(--text)">${chainState.score}</strong>. Racha actual: <strong style="color:var(--text)">${chainState.winStreak}</strong>. El minimo posible era <strong style="color:var(--text)">${minSteps}</strong>.</p>`:`<p style="color:var(--muted);font-size:.85rem;margin:.5rem 0">No sumaste en esta ronda, pero conservas tu acumulado de <strong style="color:var(--text)">${chainState.score}</strong>. La racha vuelve a <strong style="color:var(--text)">0</strong>.</p>`}
       <p style="font-size:.82rem;color:var(--muted);margin:.5rem 0">Un camino mínimo entre <span style="color:var(--blue)">${uiPlayerName(playerA)}</span> y <span style="color:var(--gold)">${uiPlayerName(playerB)}</span>:</p>
       <p style="font-size:.85rem;background:var(--card2);padding:.6rem .8rem;border-radius:8px;line-height:1.8">${minPathStr}</p>
       <div class="end-btns">
-        <button class="btn-primary" onclick="newChainRound()">🔄 Nueva cadena</button>
+        <button class="btn-primary" onclick="newChainRound()">➡️ Continuar</button>
         <button class="btn-secondary" onclick="goHome()">🏠 Inicio</button>
       </div>
     </div>`;
@@ -46870,7 +47066,7 @@ function surrenderBridges(){
       </p>
       <ul class="solution-list">${exHtml}</ul>
       <div class="end-btns">
-        <button class="btn-primary" onclick="newBridgesRound()">🔄 Nueva ronda</button>
+        <button class="btn-primary" onclick="newBridgesRound()">➡️ Continuar</button>
         <button class="btn-secondary" onclick="goHome()">🏠 Inicio</button>
       </div>
     </div>`;
@@ -46916,7 +47112,7 @@ function surrenderChain(){
       <div class="solution-chain">${pathHtml}</div>
       <ul class="solution-list" style="margin-top:.4rem">${stepsHtml}</ul>
       <div class="end-btns">
-        <button class="btn-primary" onclick="newChainRound()">🔄 Nueva cadena</button>
+        <button class="btn-primary" onclick="newChainRound()">➡️ Continuar</button>
         <button class="btn-secondary" onclick="goHome()">🏠 Inicio</button>
       </div>
     </div>`;
@@ -47011,22 +47207,22 @@ function renderScoreRuleNote(mode){
     streamMenu:{
       title:'Puntaje de Zona Mixta',
       body:'Cada respuesta correcta suma <strong>+1</strong>.',
-      mini:'No hay descuento por fallar. En 1 jugador el maximo es <strong>25 pts</strong>. En 2 jugadores juegan alternados: una pregunta Player 1 y luego una pregunta Player 2.'
+      mini:'Si fallas, sumas <strong>0</strong>. En 2 jugadores responden alternados: primero <strong>Player 1</strong> y despues <strong>Player 2</strong>.'
     },
     stream1p:{
       title:'Puntaje de Zona Mixta',
       body:'Cada respuesta correcta suma <strong>+1</strong>.',
-      mini:'Respuesta incorrecta o tiempo agotado: <strong>+0</strong>. Maximo del modo individual: <strong>25 pts</strong>.'
+      mini:'Si fallas o se acaba el tiempo, sumas <strong>0</strong>. Meta del stream: <strong>25 pts</strong>.'
     },
     stream2p:{
       title:'Puntaje de Zona Mixta 2P',
       body:'Cada respuesta correcta suma <strong>+1</strong>.',
-      mini:'No hay descuento por fallar. El orden siempre es <strong>Player 1 primero</strong> y luego <strong>Player 2</strong>.'
+      mini:'Si fallas, sumas <strong>0</strong>. El orden siempre es <strong>Player 1</strong> y luego <strong>Player 2</strong>.'
     },
     messinario:{
       title:'Puntaje de Messinario',
       body:'Si aciertas, ganas <strong>la apuesta completa</strong>.',
-      mini:'Si fallas, pierdes <strong>esa misma apuesta</strong>. A mayor riesgo, mayor dificultad.'
+      mini:'Si fallas, pierdes <strong>esa misma apuesta</strong>. A mayor apuesta, mas dificultad.'
     }
   };
   const note=notes[mode];
@@ -47036,12 +47232,212 @@ function renderScoreRuleNote(mode){
     <span class="mini">${note.mini}</span>
   </div>`;
 }
+function renderStreamCategoryPreview(limit=5){
+  return STREAM_CATS.slice(0,limit).map(cat=>
+    `<span class="stream-entry-cat">${cat.emoji} ${cat.label.replace(/^[^\s]+\s/,'')}</span>`
+  ).join('');
+}
+function renderStreamIntroHighlights(){
+  return `
+    <div class="stream-entry-highlights">
+      <div class="stream-entry-highlight">
+        <strong>Sale rapido en pantalla</strong>
+        <span>Primero aparece la categoria, despues la pregunta y el marcador siempre queda claro arriba.</span>
+      </div>
+      <div class="stream-entry-highlight">
+        <strong>Varia bien el ritmo</strong>
+        <span>Las categorias mezclan memoria, actualidad y futbol global para que cada ronda se sienta distinta.</span>
+      </div>
+      <div class="stream-entry-highlight">
+        <strong>Marcador facil de seguir</strong>
+        <span>El puntaje se acumula ronda a ronda y permite ver enseguida quien va arriba.</span>
+      </div>
+    </div>`;
+}
 function renderStreamHeaderScore(content){
   return `<span class="stream-header-score">${content}</span>`;
+}
+function resetStreamRaceScores(){
+  streamRaceState.scores=[0,0];
+}
+function getStreamRaceScores(){
+  return [streamRaceState.scores[0]||0,streamRaceState.scores[1]||0];
+}
+function setStreamRaceScores(left,right){
+  streamRaceState.scores=[left,right];
+}
+function addStreamRaceScore(playerIdx,amount){
+  streamRaceState.scores[playerIdx]=(streamRaceState.scores[playerIdx]||0)+amount;
+}
+function getStreamRaceLabel(playersOverride=null){
+  const players=playersOverride||broadcastState.players;
+  const [left,right]=getStreamRaceScores();
+  return players[1]
+    ? `${formatPoints(left)} - ${formatPoints(right)} · Meta ${STREAM_TARGET_SCORE}`
+    : `${formatPoints(left)} / ${STREAM_TARGET_SCORE} pts`;
+}
+function renderStreamRaceNote(playersOverride=null,soloScore=null){
+  const players=playersOverride||broadcastState.players;
+  if(players.length<2){
+    const current=soloScore??players[0]?.score??0;
+    const left=Math.max(0,STREAM_TARGET_SCORE-current);
+    return `<div class="optimal-banner" style="margin:.2rem 0 .75rem">🎯 Meta del stream: <strong>${STREAM_TARGET_SCORE} pts</strong>. Llevas <strong>${formatPoints(current)}</strong> y te faltan <strong>${formatPoints(left)}</strong>.</div>`;
+  }
+  const [left,right]=getStreamRaceScores();
+  const leftNeed=Math.max(0,STREAM_TARGET_SCORE-left);
+  const rightNeed=Math.max(0,STREAM_TARGET_SCORE-right);
+  const leftName=players[0]?.name||'Player 1';
+  const rightName=players[1]?.name||'Player 2';
+  const winner=left>=STREAM_TARGET_SCORE?leftName:right>=STREAM_TARGET_SCORE?rightName:'';
+  return `<div class="optimal-banner" style="margin:.2rem 0 .75rem">${winner?`🏆 <strong>${winner}</strong> ya alcanzó la meta del stream.`:`🎯 Meta del stream: <strong>${STREAM_TARGET_SCORE} pts</strong>.`} <span style="color:var(--blue)">${leftName}</span> <strong>${formatPoints(left)}</strong> (faltan ${formatPoints(leftNeed)}) · <span style="color:var(--gold)">${rightName}</span> <strong>${formatPoints(right)}</strong> (faltan ${formatPoints(rightNeed)}).</div>`;
+}
+function renderObjectivePanel(config){
+  if(!config) return '';
+  const target=Math.max(1,config.target||1);
+  if(config.mode==='duo'){
+    const leftScore=config.leftScore||0;
+    const rightScore=config.rightScore||0;
+    const leftName=uiText(config.leftName||'Player 1');
+    const rightName=uiText(config.rightName||'Player 2');
+    const leaderText=leftScore===rightScore
+      ? `Van empatados en <strong>${formatPoints(leftScore)}</strong>.`
+      : leftScore>rightScore
+        ? `Va ganando <strong class="blue">${leftName}</strong> por <strong>${formatPoints(leftScore-rightScore)}</strong>.`
+        : `Va ganando <strong class="gold">${rightName}</strong> por <strong>${formatPoints(rightScore-leftScore)}</strong>.`;
+    const leftNeed=Math.max(0,target-leftScore);
+    const rightNeed=Math.max(0,target-rightScore);
+    const leftPct=Math.min(100,leftScore/target*100);
+    const rightPct=Math.min(100,rightScore/target*100);
+    return `<div class="objective-panel">
+      <div class="objective-head">
+        <span class="objective-title">${uiText(config.title||'Carrera del stream')}</span>
+        <span class="objective-target">Meta ${formatPoints(target)} pts</span>
+      </div>
+      <div class="objective-line">${leaderText}</div>
+      <div class="objective-bars">
+        <div class="objective-row">
+          <div class="objective-name" style="color:var(--blue)">${leftName}</div>
+          <div class="objective-track"><div class="objective-fill" style="width:${leftPct}%"></div></div>
+          <div class="objective-points">${formatPoints(leftScore)} / ${formatPoints(target)}</div>
+        </div>
+        <div class="objective-row">
+          <div class="objective-name" style="color:var(--gold)">${rightName}</div>
+          <div class="objective-track"><div class="objective-fill gold" style="width:${rightPct}%"></div></div>
+          <div class="objective-points">${formatPoints(rightScore)} / ${formatPoints(target)}</div>
+        </div>
+      </div>
+      <div class="objective-mini">
+        A <strong>${leftName}</strong> le faltan <strong>${formatPoints(leftNeed)}</strong> pts.
+        A <strong>${rightName}</strong> le faltan <strong>${formatPoints(rightNeed)}</strong> pts.
+      </div>
+    </div>`;
+  }
+  const current=config.current||0;
+  const pct=Math.min(100,current/target*100);
+  const remain=Math.max(0,target-current);
+  return `<div class="objective-panel">
+    <div class="objective-head">
+      <span class="objective-title">${uiText(config.title||'Objetivo')}</span>
+      <span class="objective-target">${uiText(config.targetLabel||`Meta ${formatPoints(target)}`)}</span>
+    </div>
+    <div class="objective-line">${config.line||`Llevas <strong>${formatPoints(current)}</strong> y te faltan <strong>${formatPoints(remain)}</strong> para cumplir el objetivo.`}</div>
+    <div class="objective-row">
+      <div class="objective-name">${uiText(config.name||'Progreso')}</div>
+      <div class="objective-track"><div class="objective-fill solo" style="width:${pct}%"></div></div>
+      <div class="objective-points">${formatPoints(current)} / ${formatPoints(target)}</div>
+    </div>
+    <div class="objective-mini">${config.mini||''}</div>
+  </div>`;
+}
+function updateBridgesObjectivePanel(){
+  const panel=document.getElementById('bridges-race-panel');
+  if(!panel) return;
+  if(isBridgeVersusMode()){
+    const [left,right]=getStreamRaceScores();
+    panel.innerHTML=renderObjectivePanel({
+      mode:'duo',
+      title:'Carrera del puente',
+      target:STREAM_TARGET_SCORE,
+      leftName:broadcastState.players[0]?.name||'Player 1',
+      rightName:broadcastState.players[1]?.name||'Player 2',
+      leftScore:left,
+      rightScore:right
+    });
+    return;
+  }
+  const found=bridgesState.found.length;
+  const line=isStreamModeOn()
+    ? `En esta ronda encontraste <strong>${found}</strong> de <strong>3 puentes</strong>. En la sesión llevas <strong>${formatPoints(bridgesState.score)}</strong> y te faltan <strong>${formatPoints(Math.max(0,STREAM_TARGET_SCORE-bridgesState.score))}</strong> para la meta del stream.`
+    : `En esta ronda encontraste <strong>${found}</strong> de <strong>3 puentes</strong>. Tu total acumulado de la sesión es <strong>${formatPoints(bridgesState.score)}</strong>.`;
+  panel.innerHTML=renderObjectivePanel({
+    title:isStreamModeOn()?'Objetivo de ronda + stream':'Objetivo de la ronda',
+    target:isStreamModeOn()?STREAM_TARGET_SCORE:3,
+    targetLabel:isStreamModeOn()?`Meta stream ${STREAM_TARGET_SCORE} pts`:'3 puentes',
+    current:isStreamModeOn()?bridgesState.score:found,
+    line,
+    name:isStreamModeOn()?'Marcador':'Puentes encontrados',
+    mini:isStreamModeOn()
+      ? `Cada acierto suma <strong>+1</strong>. Si terminas la ronda, ya sabes exactamente cuánto te falta para ganar la sesión.`
+      : `Cada puente correcto suma <strong>+1</strong>. Si completas los 3, ganas <strong>+2 extra</strong> y puedes seguir jugando con tu acumulado.`
+  });
+}
+function updateChainObjectivePanel(){
+  const panel=document.getElementById('chain-race-panel');
+  if(!panel) return;
+  if(isDualStreamMode()){
+    const [left,right]=getStreamRaceScores();
+    panel.innerHTML=renderObjectivePanel({
+      mode:'duo',
+      title:'Carrera de la cadena',
+      target:STREAM_TARGET_SCORE,
+      leftName:broadcastState.players[0]?.name||'Player 1',
+      rightName:broadcastState.players[1]?.name||'Player 2',
+      leftScore:left,
+      rightScore:right
+    });
+    return;
+  }
+  const used=Math.max(0,chainState.chain.length-1);
+  const currentScore=chainState.score;
+  const line=isStreamModeOn()
+    ? `Vas armando la cadena con <strong>${used}</strong> intermedio(s). En la sesión llevas <strong>${formatPoints(chainState.score)}</strong> y te faltan <strong>${formatPoints(Math.max(0,STREAM_TARGET_SCORE-chainState.score))}</strong> para la meta del stream.`
+    : `La ronda permite hasta <strong>3 intermedios</strong>. Tu total acumulado es <strong>${formatPoints(chainState.score)}</strong> y mientras antes cierres, más puntos ganas.`;
+  panel.innerHTML=renderObjectivePanel({
+    title:isStreamModeOn()?'Objetivo de ronda + stream':'Objetivo de la ronda',
+    target:isStreamModeOn()?STREAM_TARGET_SCORE:Math.max(5,chainState.score+5),
+    targetLabel:isStreamModeOn()?`Meta stream ${STREAM_TARGET_SCORE} pts`:'Sesión en curso',
+    current:currentScore,
+    line,
+    name:'Marcador',
+    mini:isStreamModeOn()
+      ? `Cerrar la cadena suma <strong>+3</strong>, con bonus si llegas en <strong>1</strong> o <strong>2 intermedios</strong>.`
+      : `Si la cierras con <strong>1 intermedio</strong> ganas <strong>+5</strong>. Con <strong>2 intermedios</strong>, ganas <strong>+4</strong>. Puedes seguir jugando sin perder el acumulado.`
+  });
+}
+function updateTriviaObjectivePanel(){
+  const panel=document.getElementById('trivia-race-panel');
+  if(!panel) return;
+  const asked=triviaState.current+(triviaState.answered?1:0);
+  const remainQ=Math.max(0,10-asked);
+  const line=isStreamModeOn()
+    ? `Llevas <strong>${formatPoints(triviaState.score)}</strong> pts en la sesión. Te faltan <strong>${formatPoints(Math.max(0,STREAM_TARGET_SCORE-triviaState.score))}</strong> para alcanzar la meta del stream.`
+    : `Has respondido <strong>${asked}</strong> de <strong>10</strong> preguntas. Te quedan <strong>${remainQ}</strong> para mejorar el marcador.`;
+  panel.innerHTML=renderObjectivePanel({
+    title:isStreamModeOn()?'Objetivo del stream':'Objetivo de la trivia',
+    target:isStreamModeOn()?STREAM_TARGET_SCORE:10,
+    targetLabel:isStreamModeOn()?`Meta stream ${STREAM_TARGET_SCORE} pts`:'10 preguntas',
+    current:isStreamModeOn()?triviaState.score:asked,
+    line,
+    name:isStreamModeOn()?'Marcador':'Preguntas jugadas',
+    mini:isStreamModeOn()
+      ? `Cada correcta suma <strong>+1</strong>; desde la tercera seguida, cada acierto vale <strong>+2</strong>.`
+      : `Desde la tercera correcta seguida, cada acierto vale <strong>+2</strong>. Maximo del modo: <strong>18 pts</strong>.`
+  });
 }
 function resetStream2PSession(){
   clearInterval(stream2pState.timer);
   clearTimeout(stream2pState.rouletteTimer);
+  resetStreamRaceScores();
   stream2pState.players=[];
   stream2pState.currentPlayer=0;
   stream2pState.currentCat='';
@@ -47057,8 +47453,9 @@ function updateStream2PScoreDisplays(){
   const p0=stream2pState.players[0];
   const p1=stream2pState.players[1];
   if(!p0||!p1) return;
+  setStreamRaceScores(p0.score,p1.score);
   const header=document.getElementById('stream-score-2p');
-  if(header) header.textContent=`${formatPoints(p0.score)} - ${formatPoints(p1.score)}`;
+  if(header) header.textContent=getStreamRaceLabel(stream2pState.players);
   const p0Line=document.getElementById('stream-score-p0');
   if(p0Line) p0Line.textContent=`${p0.name}: ${formatPoints(p0.score)} pts`;
   const p1Line=document.getElementById('stream-score-p1');
@@ -47095,18 +47492,34 @@ function startStream(){
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Inicio</button>
       <span class="game-title">📺 Zona Mixta</span>
+      ${renderGameModeControl('stream')}
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled()}
-      <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
-        <div class="stream-title-kicker">Formato pensado para directo</div>
-        <div style="font-size:4rem;margin-bottom:.8rem">📺</div>
-        <h2 style="font-size:1.9rem;font-weight:900;margin-bottom:.35rem">Zona Mixta</h2><p style="color:#dbe7ff;font-size:1rem;margin-bottom:.35rem">El bloque de preguntas para cerrar un stream con ritmo.</p>
-        <p style="color:var(--muted);margin-bottom:1rem">5 categorías, mezcla aleatoria y desempate estilo Messinario. Si activas arriba <strong>1P</strong> o <strong>2P</strong>, este modo entra directo con ese formato.</p>
-        ${renderScoreRuleNote('streamMenu')}
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%">
-          <button class="btn-primary" style="flex:1;min-width:200px;padding:1.2rem;font-size:1.05rem" onclick="showStream1PModeSelect()">🎮 1 Jugador</button>
-          <button class="btn-primary" style="flex:1;min-width:200px;padding:1.2rem;font-size:1.05rem;background:var(--purple);border-color:var(--purple)" onclick="setupStream2P()">👥 2 Jugadores</button>
+      <div class="stream-center wide" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+        <div class="stream-entry-shell">
+          <div class="stream-entry-hero">
+            <div class="stream-title-kicker">Formato pensado para directo</div>
+            <div class="stream-entry-icon">📺</div>
+            <h2 class="stream-entry-title">Zona Mixta</h2>
+            <p class="stream-entry-copy">Preguntas cortas, marcador claro y cambios de ritmo para que el stream nunca se planche.</p>
+            <p class="stream-entry-subcopy">Elige si juegas solo o de a dos. Si son dos, responden alternados: una pregunta cada uno y el marcador deja claro el avance del duelo.</p>
+            <div class="stream-entry-cats">${renderStreamCategoryPreview()}</div>
+          </div>
+          ${renderStreamIntroHighlights()}
+          ${renderScoreRuleNote('streamMenu')}
+          <div class="stream-entry-actions">
+            <button class="stream-entry-btn" onclick="showStream1PModeSelect()">
+              <small>Modo individual</small>
+              <strong>🎮 1 Jugador</strong>
+              <span>Ideal para recorrer categorias, probar ritmo y jugar bloques cortos.</span>
+            </button>
+            <button class="stream-entry-btn alt" onclick="setupStream2P()">
+              <small>Modo duelo</small>
+              <strong>👥 2 Jugadores</strong>
+              <span>Un turno cada uno, marcador acumulado y mas tension en cada bloque.</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>`;
@@ -47120,41 +47533,69 @@ function showStream1PModeSelect(){
     <div class="game-header">
       <button class="back-btn" onclick="startStream()">← Volver</button>
       <span class="game-title">🎮 Zona Mixta 1 Jugador</span>
+      ${renderGameModeControl('stream')}
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(0,broadcastState.players)}
-      <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
-        <div class="stream-title-kicker">Elige el formato</div>
-        ${renderScoreRuleNote('stream1p')}
-        <h2 style="font-size:1.7rem;font-weight:900;margin-bottom:.45rem">1 Jugador</h2>
-        <p style="color:var(--muted);margin-bottom:1.7rem">Puedes jugar por categorías o en una mezcla aleatoria de preguntas.</p>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;width:100%">
-          <button class="btn-primary" style="flex:1;min-width:220px;padding:1.15rem;font-size:1rem" onclick="startStream1P('normal')">🏆 Modo normal</button>
-          <button class="btn-primary" style="flex:1;min-width:220px;padding:1.15rem;font-size:1rem;background:var(--orange);border-color:var(--orange)" onclick="startStream1P('random')">🎲 Aleatorio Mix</button>
+      <div class="stream-center wide" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+        <div class="stream-entry-shell">
+          <div class="stream-entry-hero">
+            <div class="stream-title-kicker">Elige el formato</div>
+            <div class="stream-entry-icon">🎯</div>
+            <h2 class="stream-entry-title">1 Jugador</h2>
+            <p class="stream-entry-copy">Puedes ir categoria por categoria o dejar que el juego mezcle todo para que cada ronda se sienta distinta.</p>
+            <p class="stream-entry-subcopy">En ambos casos cada acierto suma +1. La diferencia es el ritmo: control total o ruleta mezclada.</p>
+            <div class="stream-entry-cats">${renderStreamCategoryPreview()}</div>
+          </div>
+          ${renderScoreRuleNote('stream1p')}
+          <div class="stream-entry-actions">
+            <button class="stream-entry-btn" onclick="startStream1P('normal')">
+              <small>Ruta ordenada</small>
+              <strong>🏆 Modo normal</strong>
+              <span>Vas eligiendo categoria por categoria y construyes la partida a tu manera.</span>
+            </button>
+            <button class="stream-entry-btn alt" onclick="startStream1P('random')">
+              <small>Ruido de show</small>
+              <strong>🎲 Aleatorio Mix</strong>
+              <span>La ruleta mezcla todo y te obliga a cambiar de tema en cada vuelta.</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>`;
 }
 
-function startStream1P(mode='normal'){
+function seedStream1PQuestions(mode='normal'){
+  streamState.questions=[];
+  streamState.byCat={};
+  STREAM_CATS.forEach(({key})=>{
+    const picked=pickStreamSetPerCategory(key,5);
+    streamState.byCat[key]=mode==='random'?shuffle([...picked]):picked;
+    picked.forEach(q=>streamState.questions.push(q));
+  });
+}
+
+function startStream1P(mode='normal',keepScore=false){
   clearInterval(streamState.timer);
   clearTimeout(streamState.rouletteTimer);
-  resetBroadcastScores();
+  if(!keepScore) resetBroadcastScores();
   applyGlobalStreamLayout('game-stream');
   const scr=document.getElementById('game-stream');
   scr.innerHTML=`
     <div class="game-header stream-score-header">
       <button class="back-btn" onclick="startStream()">← Volver</button>
       <span class="game-title">📺 Zona Mixta</span>
+      ${renderGameModeControl('stream')}
       <span class="header-spacer"></span>
       <button class="timer-toggle${timerEnabled?'':' off'}" id="stream-timer-toggle" onclick="toggleTimer()">${timerEnabled?'⏱ Con Tiempo':'⏱ Sin Tiempo'}</button>
-      <span class="stream-header-score" id="stream-score">0 pts</span>
+      <span class="stream-header-score" id="stream-score">0 / ${STREAM_TARGET_SCORE} pts</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(0,broadcastState.players)}
       <div class="stream-center wide">
         <div class="stream-game-shell">
           ${renderScoreRuleNote('stream1p')}
+          <div id="stream-race-note">${renderStreamRaceNote([broadcastState.players[0]],streamState.score)}</div>
           <div class="stream-cats" id="stream-cats"></div>
           <div class="stream-cat-banner" id="stream-cat-banner">Categoría</div>
           <div style="text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:.15rem" id="stream-q-num">Pregunta 1 de 25</div>
@@ -47167,21 +47608,19 @@ function startStream1P(mode='normal'){
         </div>
       </div>
     </div>`;
-  streamState.questions=[];
-  streamState.byCat={};
-  STREAM_CATS.forEach(({key})=>{
-    const picked=pickStreamSetPerCategory(key,5);
-    streamState.byCat[key]=mode==='random'?shuffle([...picked]):picked;
-    picked.forEach(q=>streamState.questions.push(q));
-  });
+  seedStream1PQuestions(mode);
   streamState.current=0;
-  streamState.score=0;
+  if(!keepScore) streamState.score=0;
   streamState.mode=mode;
   streamState.currentQuestion=null;
   streamState.roulettePreviewKey='';
   streamState.rouletteSpinning=false;
-  setBroadcastScores(0,0);
+  setBroadcastScores(streamState.score,0);
   showStreamRoulette1P();
+}
+
+function continueStream1PSession(){
+  startStream1P(streamState.mode||'normal',true);
 }
 
 // â”€â”€ 2P SETUP â”€â”€
@@ -47192,11 +47631,12 @@ function setupStream2P(){
     <div class="game-header">
       <button class="back-btn" onclick="startStream()">← Volver</button>
       <span class="game-title">👥 Zona Mixta 2 Jugadores</span>
+      ${renderGameModeControl('stream')}
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled()}
       <div class="stream-center compact">
-        <h3 style="text-align:center;margin-bottom:1.5rem;font-size:1.3rem">¿Cómo se llaman?</h3>
+        <h3 style="text-align:center;margin-bottom:1.5rem;font-size:1.3rem">Escribe los nombres y empieza</h3>
         <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.5rem">
           <div>
             <label style="color:var(--blue);font-weight:700;display:block;margin-bottom:.4rem">🔵 Jugador 1</label>
@@ -47216,24 +47656,58 @@ function setupStream2P(){
 function initStream2P(){
   const p1=document.getElementById('p1-name').value.trim()||'DavoXeneize';
   const p2=document.getElementById('p2-name').value.trim()||'LaCobra';
-  // Asignar preguntas únicas: shuffle por categoría, P1 primeras 5, P2 siguientes 5
+  const [raceLeft,raceRight]=getStreamRaceScores();
+  buildStream2PQuestions();
   stream2pState.players=[
-    {name:p1,score:0,catsDone:[],catQuestions:{},catProgress:{}},
-    {name:p2,score:0,catsDone:[],catQuestions:{},catProgress:{}}
+    {name:p1,score:raceLeft,catsDone:[],catQuestions:{...stream2pState._questionSeedP1},catProgress:{}},
+    {name:p2,score:raceRight,catsDone:[],catQuestions:{...stream2pState._questionSeedP2},catProgress:{}}
   ];
+  STREAM_CATS.forEach(({key})=>{
+    stream2pState.players[0].catProgress[key]=0;
+    stream2pState.players[1].catProgress[key]=0;
+  });
   stream2pState.currentPlayer=0;
   stream2pState.initialized=true;
   stream2pState.roulettePreviewKey='';
   stream2pState.rouletteSpinning=false;
   clearTimeout(stream2pState.rouletteTimer);
+  showCatSelect2P();
+}
+
+function buildStream2PQuestions(){
+  // Asignar preguntas únicas: shuffle por categoría, P1 primeras 5, P2 siguientes 5
+  stream2pState._questionSeedP1={};
+  stream2pState._questionSeedP2={};
   STREAM_CATS.forEach(({key})=>{
-    const qs=STREAM_TRIVIA.filter(q=>q.catKey===key);
     const picked=pickStreamSetPerCategory(key,10);
-    stream2pState.players[0].catQuestions[key]=picked.slice(0,5);
-    stream2pState.players[1].catQuestions[key]=picked.slice(5,10);
+    stream2pState._questionSeedP1[key]=picked.slice(0,5);
+    stream2pState._questionSeedP2[key]=picked.slice(5,10);
+  });
+}
+
+function continueStream2PSession(){
+  const p1=stream2pState.players[0];
+  const p2=stream2pState.players[1];
+  if(!p1||!p2) return startStream();
+  buildStream2PQuestions();
+  stream2pState.players=[
+    {name:p1.name,score:p1.score,catsDone:[],catQuestions:{...stream2pState._questionSeedP1},catProgress:{}},
+    {name:p2.name,score:p2.score,catsDone:[],catQuestions:{...stream2pState._questionSeedP2},catProgress:{}}
+  ];
+  STREAM_CATS.forEach(({key})=>{
     stream2pState.players[0].catProgress[key]=0;
     stream2pState.players[1].catProgress[key]=0;
   });
+  stream2pState.currentPlayer=0;
+  stream2pState.currentCat='';
+  stream2pState.currentQIdx=0;
+  stream2pState.answered=false;
+  stream2pState.shuffled=[];
+  stream2pState.timeLeft=20;
+  stream2pState.roulettePreviewKey='';
+  stream2pState.rouletteSpinning=false;
+  stream2pState.initialized=true;
+  clearTimeout(stream2pState.rouletteTimer);
   showCatSelect2P();
 }
 
@@ -47266,17 +47740,19 @@ function showCatSelect2P(){
     <div class="game-header stream-score-header">
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title">👥 Zona Mixta 2P</span>
+      ${renderGameModeControl('stream')}
       <span class="header-spacer"></span>
-      <span class="stream-header-score" id="stream-score-2p">${formatPoints(stream2pState.players[0].score)} - ${formatPoints(stream2pState.players[1].score)}</span>
+      <span class="stream-header-score" id="stream-score-2p">${getStreamRaceLabel(stream2pState.players)}</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(pi)}
       <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;text-align:center">
         <div class="stream-turn-note">${stream2pState.currentPlayer===0?'🔵 Player 1':'🟡 Player 2'} · Turno de ${p.name}</div>
         ${renderScoreRuleNote('stream2p')}
+        ${renderStreamRaceNote(stream2pState.players)}
         <div style="font-size:2.5rem;margin-bottom:.3rem">${emoji}</div>
         <h2 style="font-size:1.6rem;font-weight:900;color:${color};margin-bottom:.3rem">${p.name}</h2>
-        <p style="color:var(--muted);margin-bottom:.8rem">La ruleta decide la categoría para mantener ritmo y sorpresa en directo.</p>
+        <p style="color:var(--muted);margin-bottom:.8rem">Gira la ruleta y responde la categoría que salga.</p>
         <div class="stream-roulette-shell">
           <div class="stream-roulette-stage">
             <div class="stream-roulette-top">
@@ -47361,14 +47837,16 @@ function showStream2PQuestion(){
     <div class="game-header stream-score-header">
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title" style="color:${color}">${p.name}</span>
+      ${renderGameModeControl('stream')}
       <span class="header-spacer"></span>
-      <span class="stream-header-score" id="stream-score-2p">${formatPoints(stream2pState.players[0].score)} - ${formatPoints(stream2pState.players[1].score)}</span>
+      <span class="stream-header-score" id="stream-score-2p">${getStreamRaceLabel(stream2pState.players)}</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(pi)}
       <div class="stream-center wide">
         <div class="stream-game-shell">
           ${renderScoreRuleNote('stream2p')}
+          ${renderStreamRaceNote(stream2pState.players)}
           <div class="stream-turn-note">${stream2pState.currentPlayer===0?'🔵 Player 1':'🟡 Player 2'} · Turno de ${p.name}</div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;gap:1rem;flex-wrap:wrap">
             <span style="font-size:.82rem;color:var(--muted)">${catInfo.label} · Pregunta ${(p.catProgress[stream2pState.currentCat]||0)+1}/5 · ${stream2pState.currentPlayer===0?'Player 1':'Player 2'}</span>
@@ -47465,13 +47943,15 @@ function nextStream2PQ(){
     <div class="game-header stream-score-header">
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title">👥 Zona Mixta 2P</span>
+      ${renderGameModeControl('stream')}
       <span class="header-spacer"></span>
-      <span class="stream-header-score" id="stream-score-2p">${formatPoints(stream2pState.players[0].score)} - ${formatPoints(stream2pState.players[1].score)}</span>
+      <span class="stream-header-score" id="stream-score-2p">${getStreamRaceLabel(stream2pState.players)}</span>
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(stream2pState.currentPlayer)}
       <div class="stream-center compact" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
         <div class="stream-turn-note">${stream2pState.currentPlayer===0?'🔵 Player 1':'🟡 Player 2'} · Turno de ${p.name}</div>
+        ${renderStreamRaceNote(stream2pState.players)}
         <div style="font-size:3rem;margin-bottom:.5rem">✅</div>
         <h3 style="color:${prev===stream2pState.players[0]?'var(--blue)':'var(--gold)'};font-size:1.3rem;margin-bottom:.3rem">${prev.name} terminó</h3>
         <div style="font-size:1.8rem;font-weight:900;color:${prev===stream2pState.players[0]?'var(--blue)':'var(--gold)'};margin:.3rem 0">${prev.score} pts</div>
@@ -47495,6 +47975,7 @@ function showStream2PEnd(){
     <div class="game-header">
       <button class="back-btn" onclick="goHome()">← Inicio</button>
       <span class="game-title">📺 Zona Mixta Finalizada</span>
+      ${renderGameModeControl('stream')}
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled()}
@@ -47518,8 +47999,9 @@ function showStream2PEnd(){
         <p style="font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;color:${winner?'var(--gold)':'var(--muted)'}">
           ${winner?`🎉 ¡${winner.name} gana el stream!`:'🤝 ¡Empate perfecto!'}
         </p>
+        <p style="color:var(--muted);margin-bottom:1rem">Pueden seguir con otro bloque de preguntas sin perder este marcador.</p>
         <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
-          <button class="btn-primary" onclick="resetStream2PSession();startStream()">🔄 Nuevo Stream</button>
+          <button class="btn-primary" onclick="continueStream2PSession()">➡️ Continuar</button>
           <button class="btn-secondary" onclick="goHome()">🏠 Inicio</button>
         </div>
       </div>
@@ -47546,6 +48028,9 @@ function showStreamRoulette1P(){
     ? `<span class="scat-pill active">🎲 Aleatorio Mix</span><span class="scat-pill">${available.length} categorias vivas</span>`
     : `<span class="scat-pill active">🎡 Ruleta por categoría</span><span class="scat-pill">${available.length} categorias disponibles</span>`;
   document.getElementById('stream-cat-banner').textContent=streamState.mode==='random'?'🎲 Ruleta Mix':'🎡 Ruleta de categoría';
+  document.getElementById('stream-score').textContent=`${formatPoints(streamState.score)} / ${STREAM_TARGET_SCORE} pts`;
+  const raceNote=document.getElementById('stream-race-note');
+  if(raceNote) raceNote.innerHTML=renderStreamRaceNote([broadcastState.players[0]],streamState.score);
   document.getElementById('stream-q-num').textContent=`Pregunta ${streamState.current+1} de ${streamState.questions.length}`;
   document.getElementById('stream-q-text').innerHTML=`
     <div class="stream-roulette-shell">
@@ -47624,6 +48109,9 @@ function showStreamQuestion(){
   }).join('');
 
   document.getElementById('stream-cat-banner').textContent=streamState.mode==='random' ? `🎲 ${q.cat}` : q.cat;
+  document.getElementById('stream-score').textContent=`${formatPoints(streamState.score)} / ${STREAM_TARGET_SCORE} pts`;
+  const raceNote=document.getElementById('stream-race-note');
+  if(raceNote) raceNote.innerHTML=renderStreamRaceNote([broadcastState.players[0]],streamState.score);
   document.getElementById('stream-q-num').textContent=`Pregunta ${streamState.current+1} de ${streamState.questions.length}`;
   document.getElementById('stream-q-text').textContent=q.q;
   document.getElementById('stream-ex').className='stream-ex';
@@ -47690,7 +48178,9 @@ function answerStream(idx,btn){
     btn.classList.add('correct');
     const pts=1;
     streamState.score+=pts;
-    document.getElementById('stream-score').textContent=streamState.score+' pts';
+    document.getElementById('stream-score').textContent=`${formatPoints(streamState.score)} / ${STREAM_TARGET_SCORE} pts`;
+    const raceNote=document.getElementById('stream-race-note');
+    if(raceNote) raceNote.innerHTML=renderStreamRaceNote([broadcastState.players[0]],streamState.score);
     setBroadcastScores(streamState.score,0);
   } else {
     btn.classList.add('wrong');
@@ -47711,7 +48201,7 @@ function showStreamEnd(){
   applyGlobalStreamLayout('game-stream');
   clearInterval(streamState.timer);
   const s=streamState.score;
-  let emoji='🥉',msg='¡Buen intento! El chat aprendió mucho.';
+  let emoji='🥉',msg='¡Buen intento! Quedo una buena base para la siguiente ronda.';
   if(s>=22){emoji='🥇';msg='¡Increíble! Dominaste Zona Mixta.';}
   else if(s>=15){emoji='🥈';msg='¡Muy buen stream! Sacaste una gran puntuación.';}
   document.getElementById('game-stream').innerHTML=`
@@ -47728,8 +48218,9 @@ function showStreamEnd(){
           <div style="font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--gold),#ff9f43);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:1rem 0">${s} pts</div>
           <p style="color:var(--muted);margin-bottom:.5rem">25 preguntas · 5 categorías</p>
           <p style="color:var(--muted);margin-bottom:1.5rem">${msg}</p>
+          <p style="color:var(--muted);margin-bottom:1rem">Puedes seguir con otro bloque y mantener este acumulado.</p>
           <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
-            <button class="btn-primary" onclick="startStream()">🔄 Repetir Stream</button>
+            <button class="btn-primary" onclick="continueStream1PSession()">➡️ Continuar</button>
             <button class="btn-secondary" onclick="goHome()">🏠 Inicio</button>
           </div>
         </div>
@@ -48300,11 +48791,13 @@ function startTrivia(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('game-trivia').classList.add('active');
   setScreenStreamLayout('game-trivia',isStreamModeOn());
+  updateGlobalStreamModeUI();
   triviaState.questions=pickTriviaSet();
   triviaState.current=0; triviaState.score=0; triviaState.streak=0;
-  document.getElementById('trivia-score').textContent='0 pts';
+  document.getElementById('trivia-score').textContent=isStreamModeOn()?`0 / ${STREAM_TARGET_SCORE} pts`:'0 pts';
   setupSoloBroadcast('trivia-stream-overlay',0,0,0);
   showQuestion();
+  updateTriviaObjectivePanel();
 }
 
 function showQuestion(){
@@ -48318,6 +48811,8 @@ function showQuestion(){
   const nb=document.getElementById('next-btn');
   nb.className='next-btn'; nb.textContent='Siguiente →';
   document.getElementById('streak-display').textContent=triviaState.streak>=2?`🔥 Racha: ${triviaState.streak}`:'';
+  document.getElementById('trivia-score').textContent=isStreamModeOn()?`${formatPoints(triviaState.score)} / ${STREAM_TARGET_SCORE} pts`:triviaState.score+' pts';
+  updateTriviaObjectivePanel();
 
   const grid=document.getElementById('options-grid');
   grid.innerHTML='';
@@ -48363,7 +48858,7 @@ function answerTrivia(idx,btn,shuffled){
     triviaState.streak++;
     const pts=triviaState.streak>=3?2:1;
     triviaState.score+=pts;
-    document.getElementById('trivia-score').textContent=triviaState.score+' pts';
+    document.getElementById('trivia-score').textContent=isStreamModeOn()?`${formatPoints(triviaState.score)} / ${STREAM_TARGET_SCORE} pts`:triviaState.score+' pts';
     setBroadcastScores(triviaState.score,0);
     document.getElementById('streak-display').textContent=triviaState.streak>=2?`🔥 Racha: ${triviaState.streak}`:'';
   } else {
@@ -48376,6 +48871,7 @@ function answerTrivia(idx,btn,shuffled){
   const nb=document.getElementById('next-btn');
   nb.textContent='💡 Revelar dato';
   nb.className='next-btn show';
+  updateTriviaObjectivePanel();
 }
 
 function timeoutTrivia(){
@@ -48388,6 +48884,7 @@ function timeoutTrivia(){
   const nb=document.getElementById('next-btn');
   nb.textContent='💡 Revelar dato';
   nb.className='next-btn show';
+  updateTriviaObjectivePanel();
 }
 
 function nextQuestion(){
@@ -48549,6 +49046,7 @@ function returnMessinarioToStream2P(){
   const p1=messinarioState.players[1];
   if(p0&&stream2pState.players[0]) stream2pState.players[0].score=p0.score;
   if(p1&&stream2pState.players[1]) stream2pState.players[1].score=p1.score;
+  setStreamRaceScores(stream2pState.players[0].score,stream2pState.players[1].score);
   const winner=messiWinner();
   if(winner===p0) stream2pState.currentPlayer=0;
   else if(winner===p1) stream2pState.currentPlayer=1;
@@ -48598,6 +49096,7 @@ function setupMessinario2P(){
     <div class="game-header">
       <button class="back-btn" onclick="showMessinarioModeSelect()">← Volver</button>
       <span class="game-title">🐐 Messinario 2P</span>
+      ${renderGameModeControl('stream')}
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled()}
@@ -48658,8 +49157,9 @@ function showMessinarioBetSelect(message=''){
     <div class="game-header stream-score-header">
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title">🐐 Messinario Desempate</span>
+      ${renderGameModeControl('stream')}
       <span class="header-spacer"></span>
-      ${renderStreamHeaderScore(messinarioState.players[1]?`${formatPoints(messinarioState.players[0].score)} - ${formatPoints(messinarioState.players[1].score)}`:`${formatPoints(messinarioState.players[0].score)} pts`)}
+      ${renderStreamHeaderScore(messinarioState.players[1]?`${formatPoints(messinarioState.players[0].score)} - ${formatPoints(messinarioState.players[1].score)} · Meta ${STREAM_TARGET_SCORE}`:`${formatPoints(messinarioState.players[0].score)} / ${STREAM_TARGET_SCORE} pts`)}
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(pi,messinarioState.players)}
@@ -48668,6 +49168,7 @@ function showMessinarioBetSelect(message=''){
           <div class="stream-turn-note">${messinarioState.mode==='2p'?(pi===0?'🔵 Player 1':'🟡 Player 2')+' · Turno de '+p.name:'🐐 Modo individual'} · ${messiRoundText()}</div>
           ${messiCards()}
           ${renderScoreRuleNote('messinario')}
+          ${messinarioState.mode==='2p'?renderStreamRaceNote(messinarioState.players):renderStreamRaceNote([messinarioState.players[0]],messinarioState.players[0].score)}
           <div style="padding:1rem 1.1rem;border-radius:16px;border:1px solid color-mix(in srgb, ${accent} 35%, white 10%);background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.03));margin-bottom:.9rem">
             <div style="font-size:.8rem;color:${accent};font-weight:900;letter-spacing:.08em;text-transform:uppercase">Bank actual</div>
             <div style="font-size:2.35rem;font-weight:900">${p.score} pts</div>
@@ -48700,8 +49201,9 @@ function showMessinarioQuestion(){
     <div class="game-header stream-score-header">
       <button class="back-btn" onclick="goHome()">← Salir</button>
       <span class="game-title">🐐 Messinario</span>
+      ${renderGameModeControl('stream')}
       <span class="header-spacer"></span>
-      ${renderStreamHeaderScore(messinarioState.players[1]?`${formatPoints(messinarioState.players[0].score)} - ${formatPoints(messinarioState.players[1].score)}`:`${formatPoints(messinarioState.players[0].score)} pts`)}
+      ${renderStreamHeaderScore(messinarioState.players[1]?`${formatPoints(messinarioState.players[0].score)} - ${formatPoints(messinarioState.players[1].score)} · Meta ${STREAM_TARGET_SCORE}`:`${formatPoints(messinarioState.players[0].score)} / ${STREAM_TARGET_SCORE} pts`)}
     </div>
     <div class="game-body stream-broadcast">
       ${renderStreamOverlayIfEnabled(pi,messinarioState.players)}
@@ -48709,6 +49211,7 @@ function showMessinarioQuestion(){
         <div class="stream-game-shell">
           <div class="stream-turn-note">${messinarioState.mode==='2p'?(pi===0?'🔵 Player 1':'🟡 Player 2')+' · Turno de '+p.name:'🐐 Modo individual'} · ${messiRoundText()}</div>
           ${renderScoreRuleNote('messinario')}
+          ${messinarioState.mode==='2p'?renderStreamRaceNote(messinarioState.players):renderStreamRaceNote([messinarioState.players[0]],messinarioState.players[0].score)}
           <div style="display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:1rem;align-items:start">
             <div>
               <div class="stream-cat-banner" style="margin-bottom:.65rem">${wager.label} · ${messinarioState.currentBet} pts</div>
